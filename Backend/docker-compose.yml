@@ -1,4 +1,4 @@
-version: '2'
+version: '3.7'
 
 services:
     web:
@@ -16,6 +16,16 @@ services:
             - ./php:/code
         networks:
             - code-network
+
+    db:
+        image: mariadb:latest
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+        ports:
+            - 3306:3306
+        volumes:
+            - ./db:/db
 
 networks:
     code-network:
