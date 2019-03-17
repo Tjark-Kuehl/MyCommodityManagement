@@ -10,6 +10,7 @@ services:
             - ./site.conf:/etc/nginx/conf.d/default.conf
         networks:
             - code-network
+
     php:
         image: php:fpm
         volumes:
@@ -21,11 +22,12 @@ services:
         image: mariadb:latest
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_ROOT_PASSWORD: toor
         ports:
             - 3306:3306
         volumes:
-            - ./db:/db
+            - ./db-init:/docker-entrypoint-initdb.d/
+            - ./data:/var/lib/mysql
 
 networks:
     code-network:
