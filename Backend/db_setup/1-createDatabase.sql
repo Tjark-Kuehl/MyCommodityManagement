@@ -1,4 +1,4 @@
-CREATE DATABASE wawi; 
+CREATE DATABASE IF NOT EXISTS wawi;
 
 USE wawi; 
 

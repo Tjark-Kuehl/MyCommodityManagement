@@ -1,5 +1,5 @@
 {
-    "name": "tjarkkuehl/php",
+    "name": "mycommoditymanagement",
     "require": {
         "tecnickcom/tcpdf": "^6.2"
     },

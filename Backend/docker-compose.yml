@@ -1,6 +1,19 @@
 version: '3.7'
 
 services:
+    db:
+        image: mariadb:latest
+        restart: always
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - '3306:3306'
+        volumes:
+            - ./db_setup:/docker-entrypoint-initdb.d/
+            - ./db:/var/lib/mysql
+
     web:
         image: nginx:latest
         ports:
@@ -12,24 +25,14 @@ services:
             - code-network
 
     php:
-        image: php:fpm
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        # image: php:fpm-alpine
         volumes:
             - ./php:/code
         networks:
             - code-network
-
-    db:
-        image: mariadb:latest
-        restart: always
-        environment:
-            MYSQL_USER: root
-            MYSQL_PASSWORD: root
-            MYSQL_ROOT_PASSWORD: root
-        ports:
-            - 3306:3306
-        volumes:
-            - ./db-init:/docker-entrypoint-initdb.d/
-            - ./data:/var/lib/mysql
 
 networks:
     code-network:

@@ -90,7 +90,7 @@ Temporary Items
 .apdisk
 
 # SQL
-/Backend/data
+/Backend/db
 
 # Composer
 vendor
