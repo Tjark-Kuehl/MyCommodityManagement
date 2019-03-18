@@ -1,7 +1,7 @@
 <?php
 
 // Connect options
-$host = "127.0.0.1";
+$host = "db";
 $database = "wawi";
 $username = "root";
 $password = "root";
