@@ -1,8 +1,16 @@
 header {
-    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // height: 75px;
     width: 100%;
     background-color: #39a2ff;
-    svg {
-        width: 20px;
+    a {
+        padding: 1rem;
+        cursor: pointer;
+        svg {
+            width: 95px;
+            height: 40px;
+        }
     }
 }

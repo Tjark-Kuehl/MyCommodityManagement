@@ -1,6 +1,8 @@
 <template>
     <header>
-        <Logo></Logo>
+        <RouterLink :to="{ name: 'home' }" tag="a">
+            <Logo></Logo>
+        </RouterLink>
     </header>
 </template>
 

@@ -1,7 +1,6 @@
 {
-    "name": "frontend",
+    "name": "my_commodity_management",
     "version": "0.1.0",
-    "private": true,
     "scripts": {
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",

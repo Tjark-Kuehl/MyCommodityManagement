@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import createRouter from './router'
 import createStore from './store'
-
+//
 import 'normalize.css'
 
 Vue.config.productionTip = false
