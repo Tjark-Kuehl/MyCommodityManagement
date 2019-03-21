@@ -9,6 +9,8 @@ export default {
             }
         ],
         '@uvue/core/plugins/middlewares',
-        '@uvue/core/plugins/errorHandler'
+        '@uvue/core/plugins/errorHandler',
+        /* Custom plugins */
+        '@/plugins/http'
     ]
 }

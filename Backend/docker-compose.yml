@@ -19,7 +19,7 @@ services:
     web:
         image: nginx:latest
         ports:
-            - '8080:80'
+            - '8081:80'
         expose:
             - '80'
         volumes:

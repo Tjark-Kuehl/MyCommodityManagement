@@ -13,9 +13,6 @@ header_remove("X-Powered-By");
 include_once "./includes/inc.database.php";
 include_once "./classes/class.germanDate.php";
 
-var_dump($db);
-die();
-
 /* Early catch api requests */
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $response = new stdClass();
