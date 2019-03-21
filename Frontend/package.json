@@ -17,6 +17,7 @@
     "dependencies": {
         "@uvue/core": "^0.1.0-alpha",
         "@uvue/server": "^0.1.0-alpha",
+        "axios": "^0.18.0",
         "compression": "^1.7.3",
         "connect": "^3.6.6",
         "cookie-parser": "^1.4.3",
@@ -25,6 +26,7 @@
         "serve-static": "^1.13.2",
         "vue": "^2.6.6",
         "vue-router": "^3.0.1",
+        "vue-svg-loader": "^0.12.0",
         "vuex": "^3.0.1"
     },
     "devDependencies": {

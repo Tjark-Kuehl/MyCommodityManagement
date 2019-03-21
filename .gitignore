@@ -91,6 +91,7 @@ Temporary Items
 
 # SQL
 /Backend/db
+/Backend/data
 
 # Composer
 vendor
