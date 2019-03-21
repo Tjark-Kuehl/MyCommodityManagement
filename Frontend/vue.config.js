@@ -1,0 +1,90 @@
+/* Includes */
+const ImageminPlugin = require('imagemin-webpack')
+const imageminGifsicle = require('imagemin-gifsicle')
+const imageminMozjpeg = require('imagemin-mozjpeg')
+const imageminOptipng = require('imagemin-optipng')
+//
+const CompressionPlugin = require('compression-webpack-plugin')
+//
+const svgoConfig = require('./config/svgo.json')
+
+module.exports = {
+    /* Disabled linting in production to prevent devDeps. error */
+    lintOnSave: process.env.NODE_ENV !== 'production',
+
+    /* Chaining webpack options */
+    chainWebpack: config => {
+        if (process.env.NODE_ENV === 'production') {
+            /* Image Compression */
+            const imageRule = config.module.rule('images')
+            imageRule.uses.clear()
+
+            config.module
+                .rule('images')
+                .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
+                .use('file-loader')
+                .loader('file-loader')
+                .options({
+                    rules: {
+                        emitFile: true // Don't forget emit images
+                        // name: 'img/[name].[hash:8].[ext]'
+                    }
+                })
+                .end()
+
+            config
+                .plugin('imagemin-webpack')
+                .use(ImageminPlugin)
+                .tap(() => [
+                    {
+                        // name: '/img/[name].[hash:8].[ext]',
+                        imageminOptions: {
+                            loader: false,
+                            cache: true,
+                            bail: false, // Ignore errors on corrupted images
+                            plugins: [
+                                imageminGifsicle({
+                                    interlaced: true
+                                }),
+                                imageminMozjpeg({
+                                    quality: '75',
+                                    dcScanOpt: 2
+                                }),
+                                imageminOptipng({
+                                    optimizationLevel: 5
+                                })
+                            ]
+                        }
+                    }
+                ])
+
+            /* GZIP Compression */
+            config
+                .plugin('gzip')
+                .use(CompressionPlugin)
+                .tap(() => [
+                    {
+                        filename: '[path].gz[query]',
+                        algorithm: 'gzip',
+                        test: /\.(txt|js|css|html|png|jpe?g|gif|webp|tff|woff|woff2|otf)$/,
+                        threshold: 0,
+                        minRatio: 0.8
+                    }
+                ])
+        }
+
+        /* Inline svg */
+        const svgRule = config.module.rule('svg')
+        svgRule.uses.clear()
+        svgRule
+            .use('vue-svg-loader')
+            .loader('vue-svg-loader')
+            .options({
+                limit: 10 * 1024,
+                noquotes: true,
+                svgo: {
+                    plugins: svgoConfig
+                }
+            })
+    }
+}
