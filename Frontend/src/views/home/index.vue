@@ -1,15 +1,18 @@
 <template>
-    <div>
+    <main>
         <TheHeader></TheHeader>
-    </div>
+        <TheSidebar></TheSidebar>
+    </main>
 </template>
 
 <script>
 import TheHeader from '@/components/TheHeader.vue'
+import TheSidebar from '@/components/TheSidebar.vue'
 
 export default {
     components: {
-        TheHeader
+        TheHeader,
+        TheSidebar
     },
     data() {
         return {}

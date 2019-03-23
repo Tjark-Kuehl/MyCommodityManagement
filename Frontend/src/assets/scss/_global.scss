@@ -12,6 +12,13 @@ body {
     font-size: 100%;
 }
 
+html,
+body,
+#app,
+main {
+    height: 100%;
+}
+
 /* Fonts */
 @font-face {
     font-family: 'Roboto Condensed';
