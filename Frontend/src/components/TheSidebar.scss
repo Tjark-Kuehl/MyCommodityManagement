@@ -1,8 +1,9 @@
+@import '~@/assets/scss/_variables.scss';
+
 nav {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 75px);
-    width: 350px;
-    background-color: #f2f2f2;
-    border-right: 1px solid #8d8d8d;
+    width: $sidebar-width;
+    background-color: $background-color-1;
+    border-right: 1px solid $border-color;
 }

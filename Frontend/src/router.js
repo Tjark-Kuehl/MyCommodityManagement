@@ -3,6 +3,10 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+/* Components */
+import TheHeader from '@/components/TheHeader.vue'
+import TheSidebar from '@/components/TheSidebar.vue'
+
 export default () => {
     return new Router({
         mode: 'history',
@@ -11,7 +15,11 @@ export default () => {
             {
                 path: '/',
                 name: 'home',
-                component: () => import(/* webpackChunkName: "home" */ '@/views/home/')
+                components: {
+                    default: () => import(/* webpackChunkName: "home" */ '@/views/home/'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
             }
         ]
     })

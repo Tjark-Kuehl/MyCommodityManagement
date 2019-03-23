@@ -1,18 +1,15 @@
 <template>
     <main>
-        <TheHeader></TheHeader>
-        <TheSidebar></TheSidebar>
+        <span>Page Content</span>
     </main>
 </template>
 
 <script>
-import TheHeader from '@/components/TheHeader.vue'
-import TheSidebar from '@/components/TheSidebar.vue'
-
 export default {
-    components: {
-        TheHeader,
-        TheSidebar
+    metaInfo() {
+        return {
+            title: 'Startseite'
+        }
     },
     data() {
         return {}

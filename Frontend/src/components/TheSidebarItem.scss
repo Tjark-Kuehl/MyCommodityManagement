@@ -1,12 +1,67 @@
+@import '~@/assets/scss/_variables.scss';
+
 div.sidebar-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
-    height: 52px;
-    padding: 0 2rem;
-    svg {
-        width: 20px;
-        height: 20px;
+    div.wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 52px;
+        padding: 0 2rem;
+        cursor: pointer;
+        border-bottom: 1px solid $border-color;
+        div {
+            display: flex;
+            align-items: center;
+            span {
+                margin-left: 1rem;
+                font-size: 16pt;
+                user-select: none;
+            }
+            svg {
+                width: 24px;
+                height: 24px;
+                user-select: none;
+            }
+        }
+        svg.dropdown {
+            width: 18px;
+            height: 18px;
+            user-select: none;
+        }
+    }
+    div.dropdown {
+        transition: 1s;
+    }
+}
+
+div.sidebar-item[class*='level-'] {
+    background-color: $background-color-1;
+    &:hover {
+        background-color: $background-hover-color-1;
+    }
+}
+
+div.sidebar-item.level-1.toggled {
+    background-color: $background-color-2;
+}
+
+div.sidebar-item:not(.level-1):not(:last-of-type) {
+    div.wrapper {
+        border-bottom: none !important;
+    }
+}
+
+div.sidebar-item.level-2 {
+    background-color: $background-color-2;
+    div.wrapper {
+        div {
+            margin-left: 1rem;
+        }
+    }
+    &:hover {
+        background-color: $background-hover-color-2;
     }
 }
