@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS wawi;
+CREATE DATABASE IF NOT EXISTS wawi; 
 
 USE wawi; 
 
@@ -13,7 +13,7 @@ CREATE TABLE artikel
      inaktiv         TINYINT(1) DEFAULT 0 NOT NULL, 
      erstellt_zeit   TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL, 
      bearbeitet_zeit TIMESTAMP NULL, 
-     gelöscht_zeit   TIMESTAMP NULL, 
+     geloescht_zeit  TIMESTAMP NULL, 
      CONSTRAINT artikel_bezeichnung_uindex UNIQUE (bezeichnung), 
      CONSTRAINT artikel_ean_uindex UNIQUE (ean) 
   ); 
@@ -23,8 +23,8 @@ CREATE TABLE kunden
      id              INT auto_increment PRIMARY KEY, 
      name            VARCHAR(128) NOT NULL, 
      vorname         VARCHAR(128) NULL, 
-     straße          VARCHAR(256) NOT NULL, 
-     straßennummer   INT NOT NULL, 
+     strasse         VARCHAR(256) NOT NULL, 
+     strassennummer  INT NOT NULL, 
      plz             INT NOT NULL, 
      ort             VARCHAR(128) NOT NULL, 
      telefon         VARCHAR(64) NOT NULL, 
@@ -32,7 +32,7 @@ CREATE TABLE kunden
      inaktiv         TINYINT(1) DEFAULT 0 NOT NULL, 
      erstellt_zeit   TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL, 
      bearbeitet_zeit TIMESTAMP NULL, 
-     gelöscht_zeit   TIMESTAMP NULL 
+     geloescht_zeit  TIMESTAMP NULL 
   ); 
 
 CREATE TABLE lager 
@@ -40,14 +40,14 @@ CREATE TABLE lager
      id              INT auto_increment PRIMARY KEY, 
      bezeichnung     VARCHAR(256) NOT NULL, 
      inhouse         TINYINT(1) DEFAULT 0 NOT NULL, 
-     straße          VARCHAR(256) NULL, 
-     straßennummer   INT NULL, 
+     strasse         VARCHAR(256) NULL, 
+     strassennummer  INT NULL, 
      plz             INT NULL, 
      ort             VARCHAR(128) NULL, 
      inaktiv         TINYINT(1) DEFAULT 0 NOT NULL, 
      erstellt_zeit   TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL, 
      bearbeitet_zeit TIMESTAMP NULL, 
-     gelöscht_zeit   TIMESTAMP NULL, 
+     geloescht_zeit  TIMESTAMP NULL, 
      CONSTRAINT lager_bezeichnung_uindex UNIQUE (bezeichnung) 
   ); 
 
@@ -85,4 +85,4 @@ CREATE TABLE rechnung_artikel
      REFERENCES artikel (id) ON UPDATE CASCADE ON DELETE CASCADE, 
      CONSTRAINT rechnung_artikel_rechnung_id_fk FOREIGN KEY (rechnung_id) 
      REFERENCES rechnung (id) ON UPDATE CASCADE ON DELETE CASCADE 
-  );
+  ); 
