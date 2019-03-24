@@ -1,0 +1,12 @@
+{
+    "name": "mycommoditymanagement",
+    "require": {
+        "tecnickcom/tcpdf": "^6.2"
+    },
+    "authors": [
+        {
+            "name": "Tjark Kühl",
+            "email": "tjark-kuehl@hotmail.com"
+        }
+    ]
+}

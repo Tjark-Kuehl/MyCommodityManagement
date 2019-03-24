@@ -1,0 +1,18 @@
+@import '~@/assets/scss/_variables.scss';
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $header-height;
+    width: 100%;
+    background-color: $main-color;
+    a {
+        padding: 1rem;
+        cursor: pointer;
+        svg {
+            width: 95px;
+            height: 40px;
+        }
+    }
+}
