@@ -1,26 +1,22 @@
 FROM node:10 as builder
 
-ENV NODE_ENV production
+#TODO
+#ENV NODE_ENV production
 
 RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
 
-COPY package*.json yarn*.lock /home/node/app/
-RUN chown -R node:node /home/node/
+RUN chown -R node:node /home/node/app
 
 USER node
 
-RUN yarn --production=false --pure-lock
+COPY package.json package-lock.json /home/node/app/
+RUN npm install
 
-COPY --chown=node:node . /home/node/app
-
-RUN yarn ssr:build && \
-  yarn --production --pure-lock && \
-  yarn add core-js && \
-  yarn cache clean
+COPY . /home/node/app/
+RUN npm run ssr:build
 
 ###
-
 FROM node:10-alpine
 
 ENV NODE_ENV production
@@ -33,4 +29,4 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node --from=builder /home/node/app /home/node/app
 
-CMD ["./node_modules/@uvue/server/start.js"]
+CMD ["npm", "run", "ssr:start"]
