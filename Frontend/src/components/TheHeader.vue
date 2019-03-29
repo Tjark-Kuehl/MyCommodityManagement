@@ -1,6 +1,6 @@
 <template>
     <header>
-        <a class="menu">
+        <a class="menu" @click="navShown = !navShown">
             <MenuIcon></MenuIcon>
         </a>
         <RouterLink :to="{ name: 'home' }" tag="a">
@@ -23,6 +23,21 @@ export default {
     },
     data() {
         return {}
+    },
+    computed: {
+        navShown: {
+            get: function() {
+                return this.$store.getters.isNavShown
+            },
+            set: function(val) {
+                this.$store.commit('setNavShown', val)
+            }
+        }
+    },
+    methods: {
+        toggleNav: function() {
+            this.toggleNav2 = !this.toggleNav2
+        }
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav :class="navShown ? 'opened' : ''">
         <TheSidebarItem
             v-for="(item, i) of items"
             :key="'sidebarItem' + i"
@@ -72,6 +72,11 @@ export default {
                     ]
                 }
             ]
+        }
+    },
+    computed: {
+        navShown: function() {
+            return this.$store.getters.isNavShown
         }
     },
     methods: {
