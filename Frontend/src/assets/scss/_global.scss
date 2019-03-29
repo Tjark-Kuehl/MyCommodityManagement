@@ -31,6 +31,12 @@ section.middle {
     height: calc(100% - #{$header-height});
 }
 
+main {
+    @media screen and (max-width: $break-medium) {
+        width: 100%;
+    }
+}
+
 /* Fonts */
 @font-face {
     font-family: 'Roboto Condensed';

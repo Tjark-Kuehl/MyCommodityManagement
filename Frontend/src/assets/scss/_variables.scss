@@ -11,3 +11,8 @@ $background-hover-color-2: darken($background-color-2, 4%);
 /* Sizes */
 $header-height: 75px;
 $sidebar-width: 350px;
+
+/* Responsive */
+$break-small: 480px;
+$break-medium: 800px;
+$break-large: 1200px;
