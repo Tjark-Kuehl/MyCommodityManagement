@@ -1,22 +1,24 @@
 FROM node:10 as builder
 
-#TODO
-#ENV NODE_ENV production
+ENV NODE_ENV production
 
 RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
 
-RUN chown -R node:node /home/node/app
+COPY package*.json /home/node/app/
+RUN chown -R node:node /home/node/
 
 USER node
 
-COPY package.json package-lock.json /home/node/app/
-RUN npm install
+RUN npm run install:prod
 
-COPY . /home/node/app/
-RUN npm run ssr:build
+COPY --chown=node:node . /home/node/app
+
+RUN npm run build \
+    npm cache clean
 
 ###
+
 FROM node:10-alpine
 
 ENV NODE_ENV production
@@ -29,4 +31,4 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node --from=builder /home/node/app /home/node/app
 
-CMD ["npm", "run", "ssr:start"]
+CMD ["./node_modules/@uvue/server/start.js"]
