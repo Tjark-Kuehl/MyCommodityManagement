@@ -25,8 +25,6 @@
 
 <script>
 import TheSidebarItem from '@/components/TheSidebarItem.vue'
-//
-import { replaceSpecialGermanChars } from '@/lib/utils'
 
 export default {
     components: {
@@ -133,9 +131,6 @@ export default {
         }
     },
     methods: {
-        // getRoute: function(parentRoute, route = '') {
-        //     return replaceSpecialGermanChars(`/`)
-        // },
         toggleDropdown: function(idx) {
             if (this.items[idx] && typeof this.items[idx].showDropdown !== 'undefined') {
                 /* Hide old */

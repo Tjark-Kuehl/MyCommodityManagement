@@ -39,8 +39,6 @@ import HomeIcon from '@/assets/icons/home.svg'
 import CrossIcon from '@/assets/icons/cross.svg'
 //
 import DropdownIcon from '@/assets/icons/dropdown.svg'
-//
-import { replaceSpecialGermanChars } from '@/lib/utils'
 
 export default {
     components: {
