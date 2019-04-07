@@ -32,6 +32,7 @@ section.middle {
 }
 
 main {
+    width: calc(100vw - #{$sidebar-width});
     @media screen and (max-width: $break-medium) {
         width: 100%;
     }

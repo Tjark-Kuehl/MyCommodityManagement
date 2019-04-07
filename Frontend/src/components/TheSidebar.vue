@@ -86,51 +86,62 @@ export default {
             return this.$store.getters.isNavShown
         }
     },
-    mounted() {
-        let self = this
-
+    watch: {
         /***
-         * Nehme die route wie z.B. /kunden/anzeigen und
-         * teile bei jedem / danach filtere alle leeren werte raus
+         * Update das menü wenn sich die Ansicht ändert
          */
-        const routes = this.$route.path.split('/').filter(el => !!el)
-
-        /**
-         * Gehe durch alle hauptelemente des menüs
+        $route() {
+            this.updateMenus()
+        }
+    },
+    mounted() {
+        /***
+         * Update das menü wenn
          */
-        for (let i = 0; i < this.items.length; i++) {
-            let item = this.items[i]
+        this.updateMenus()
+    },
+    methods: {
+        updateMenus: function() {
+            let self = this
 
             /***
-             * Überprüfe ob die erste route mit der route x
-             * auf level 1 übereinstimmt
+             * Nehme die route wie z.B. /kunden/anzeigen und
+             * teile bei jedem / danach filtere alle leeren werte raus
              */
-            if (item.route === routes[0]) {
-                self.toggleDropdown(i)
+            const routes = this.$route.path.split('/').filter(el => !!el)
+
+            /**
+             * Gehe durch alle hauptelemente des menüs
+             */
+            for (let i = 0; i < this.items.length; i++) {
+                let item = this.items[i]
 
                 /***
-                 * Wenn der Menüpunkt ein Dropdown hat
+                 * Überprüfe ob die erste route mit der route x
+                 * auf level 1 übereinstimmt
                  */
-                if (typeof item.dropdown !== 'undefined') {
-                    /**
-                     * Wenn menüpunkt mit route auf level 2 übereinstimmt
-                     * dann im Menü highlighten
+                if (item.route === routes[0]) {
+                    self.toggleDropdown(i)
+
+                    /***
+                     * Wenn der Menüpunkt ein Dropdown hat
                      */
-                    for (let i2 in item.dropdown) {
-                        console.log(item.dropdown[i2].route, routes[1])
-                        if (item.dropdown[i2].route === routes[1]) {
-                            self.$set(
-                                item.dropdown[i2],
-                                'highlighted',
-                                !item.dropdown[i2].highlighted
-                            )
+                    if (typeof item.dropdown !== 'undefined') {
+                        /**
+                         * Wenn menüpunkt mit route auf level 2 übereinstimmt
+                         * dann im Menü highlighten
+                         */
+                        for (let i2 in item.dropdown) {
+                            if (item.dropdown[i2].route === routes[1]) {
+                                self.$set(item.dropdown[i2], 'highlighted', true)
+                            } else {
+                                self.$set(item.dropdown[i2], 'highlighted', false)
+                            }
                         }
                     }
                 }
             }
-        }
-    },
-    methods: {
+        },
         toggleDropdown: function(idx) {
             if (this.items[idx] && typeof this.items[idx].showDropdown !== 'undefined') {
                 /* Hide old */
