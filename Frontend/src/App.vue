@@ -14,7 +14,7 @@ export default {
         return {
             titleTemplate: 'Wawi - %s',
             htmlAttrs: {
-                lang: 'en'
+                lang: 'de'
             },
             noscript: [{ innerHTML: 'Please enable JavaScript' }],
             meta: [
