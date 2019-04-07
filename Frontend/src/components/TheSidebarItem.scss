@@ -48,6 +48,10 @@ div.sidebar-item.level-1.toggled {
     background-color: $background-color-2;
 }
 
+div.sidebar-item.level-2.toggled {
+    background-color: $background-hover-color-2;
+}
+
 div.sidebar-item:not(.level-1):not(:last-of-type) {
     div.wrapper {
         border-bottom: none !important;
