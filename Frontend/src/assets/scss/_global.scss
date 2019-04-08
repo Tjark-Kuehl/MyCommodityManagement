@@ -12,11 +12,6 @@ html * {
 body {
     font-weight: 400;
     font-size: 100%;
-    // background-image: url('~@/assets/layout.png');
-}
-
-#app {
-    // opacity: 0.75;
 }
 
 html,
@@ -32,7 +27,7 @@ section.middle {
 }
 
 main {
-    width: calc(100vw - #{$sidebar-width});
+    width: calc(100% - #{$sidebar-width});
     @media screen and (max-width: $break-medium) {
         width: 100%;
     }
