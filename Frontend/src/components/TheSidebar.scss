@@ -6,6 +6,9 @@ nav {
     width: $sidebar-width;
     background-color: $background-color-1;
     border-right: 1px solid $border-color;
+    @media screen and (max-width: $break-large) {
+        width: $sidebar-width-2;
+    }
     @media screen and (max-width: $break-medium) {
         &.opened {
             position: absolute;
@@ -13,6 +16,7 @@ nav {
             width: 100%;
             height: 100%;
             border-right: none;
+            z-index: 10;
         }
         display: none;
     }

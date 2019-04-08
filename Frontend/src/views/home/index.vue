@@ -6,18 +6,22 @@
                 <b>Wawi</b>
             </h2>
             <div class="buttonbar">
-                <RouterLink :to="{ name: 'kunden' }" tag="button">
-                    <UserIcon></UserIcon>
-                </RouterLink>
-                <RouterLink :to="{ name: 'artikel' }" tag="button">
-                    <ItemIcon></ItemIcon>
-                </RouterLink>
-                <RouterLink :to="{ name: 'lager' }" tag="button">
-                    <WarehouseIcon></WarehouseIcon>
-                </RouterLink>
-                <RouterLink :to="{ name: 'auftraege' }" tag="button">
-                    <ListIcon></ListIcon>
-                </RouterLink>
+                <div>
+                    <RouterLink :to="{ name: 'kunden' }" tag="button">
+                        <UserIcon></UserIcon>
+                    </RouterLink>
+                    <RouterLink :to="{ name: 'artikel' }" tag="button">
+                        <ItemIcon></ItemIcon>
+                    </RouterLink>
+                </div>
+                <div>
+                    <RouterLink :to="{ name: 'lager' }" tag="button">
+                        <WarehouseIcon></WarehouseIcon>
+                    </RouterLink>
+                    <RouterLink :to="{ name: 'auftraege' }" tag="button">
+                        <ListIcon></ListIcon>
+                    </RouterLink>
+                </div>
             </div>
         </section>
     </main>

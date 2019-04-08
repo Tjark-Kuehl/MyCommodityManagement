@@ -12,6 +12,7 @@ html * {
 body {
     font-weight: 400;
     font-size: 100%;
+    overflow-x: hidden;
 }
 
 html,
@@ -28,6 +29,9 @@ section.middle {
 
 main {
     width: calc(100% - #{$sidebar-width});
+    @media screen and (max-width: $break-large) {
+        width: calc(100% - #{$sidebar-width-2});
+    }
     @media screen and (max-width: $break-medium) {
         width: 100%;
     }

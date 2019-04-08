@@ -4,7 +4,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-
     @media screen and (max-width: $break-medium) {
         justify-content: space-between;
     }
@@ -16,7 +15,6 @@ header {
 
         &.menu {
             display: none;
-
             @media screen and (max-width: $break-medium) {
                 display: block;
             }
