@@ -7,12 +7,12 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root
         ports:
-            - '3306:3306'
+            - '3308:3308'
         expose:
-            - '3306'
+            - '3308'
         volumes:
-            - ./db_setup:/docker-entrypoint-initdb.d
-            - ./db:/var/lib/mysql
+            # - ./db_setup:/docker-entrypoint-initdb.d
+            - ./db:/var/lib/mysql0
 
     nginx:
         image: nginx:latest
