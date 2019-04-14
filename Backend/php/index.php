@@ -10,8 +10,8 @@ header("Content-Type: application/json");
 header("Cache-Control: no-cache");
 header_remove("X-Powered-By");
 
-include_once "./includes/inc.database.php";
-include_once "./classes/class.germanDate.php";
+include_once "./includes/database.inc.php";
+include_once "./classes/germanDate.class.php";
 
 /* Early catch api requests */
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
