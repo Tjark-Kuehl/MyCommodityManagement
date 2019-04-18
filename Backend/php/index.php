@@ -1,46 +1,29 @@
 <?php
 
-ob_start('ob_gzhandler');
-//session_start();
+require_once './classes/Request.class.php';
+require_once './classes/Router.class.php';
 
-// no-cors fix
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-header("Content-Type: application/json");
-header("Cache-Control: no-cache");
-header_remove("X-Powered-By");
+$request = new Request();
+$router = new Router($request);
 
-include_once "./includes/database.inc.php";
-include_once "./classes/germanDate.class.php";
+// echo "<pre>";
+var_dump($request);
+// echo "<pre>";
 
-/* Early catch api requests */
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $response = new stdClass();
-    $error = null;
-    $data = json_decode(file_get_contents("php://input"));
+$router->get('/', function () {
+    return <<<HTML
+  <h1>Hello world</h1>
+HTML;
+});
 
-    switch ($data->action) {
-        case '':
-            if (!$data->xyz) {
-                $error = "Error xyz is not set!";
-                break;
-            }
-            break;
-        default:
-            $error = "Action is not set!";
-            break;
-    }
 
-    /* Check error response */
-    if (is_null($error)) {
-        $response->success = true;
-    } else {
-        $response->msg = $error;
-        $response->success = false;
-    }
+$router->get('/profile', function ($request) {
+    return <<<HTML
+  <h1>Profile</h1>
+HTML;
+});
 
-    echo json_encode($response);
-}
+$router->post('/data', function ($request) {
 
-ob_end_flush();
-exit;
+    return json_encode($request->getBody());
+});

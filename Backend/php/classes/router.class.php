@@ -5,22 +5,12 @@ class Router
     private $request;
     private $supportedHttpMethods = array(
         "GET",
-        "POST",
-        "HEAD",
-        "PUT",
-        "DELETE",
-        "PATCH",
-        "OPTIONS"
+        "POST"
     );
 
     function __construct(IRequest $request)
     {
         $this->request = $request;
-    }
-
-    function __destruct()
-    {
-        $this->resolve();
     }
 
     function __call($name, $args)
@@ -34,11 +24,16 @@ class Router
         $this->{strtolower($name)}[$this->formatRoute($route)] = $method;
     }
 
+    /**
+     * Removes trailing forward slashes from the right of the route.
+     * @param route (string)
+     */
     private function formatRoute($route)
     {
         $result = rtrim($route, '/');
-        if ($result === '')
+        if ($result === '') {
             return '/';
+        }
         return $result;
     }
 
@@ -52,6 +47,9 @@ class Router
         header("{$this->request->serverProtocol} 404 Not Found");
     }
 
+    /**
+     * Resolves a route
+     */
     function resolve()
     {
         $methodDictionary = $this->{strtolower($this->request->requestMethod)};
@@ -64,5 +62,10 @@ class Router
         }
 
         echo call_user_func_array($method, array($this->request));
+    }
+
+    function __destruct()
+    {
+        $this->resolve();
     }
 }

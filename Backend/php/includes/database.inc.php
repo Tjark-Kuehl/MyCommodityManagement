@@ -5,7 +5,7 @@ $host = "db";
 $database = "wawi";
 $username = "root";
 $password = "root";
-$port = "3308";
+$port = "3306";
 $charset = "utf8mb4";
 
 // Options
@@ -16,10 +16,10 @@ $options = [
 ];
 
 // Create instance
-$db = null;
+$GLOBALS["db"] = null;
 try {
-    $dsn = "mysql:host=$host;dbname=$database;charset=$charset;port=$port";
-    $db = new PDO($dsn, $username, $password, $options);
+    $dsn = "mysql:host={$host};dbname={$database};charset={$charset};port={$port}";
+    $GLOBALS["db"] = new PDO($dsn, $username, $password, $options);
 } catch (Exception $e) {
     throw new Exception($e);
 }
