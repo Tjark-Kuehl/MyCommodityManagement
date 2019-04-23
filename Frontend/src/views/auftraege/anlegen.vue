@@ -1,15 +1,19 @@
 <template>
-    <main>
-        <span>Aufträge anlegen</span>
-    </main>
+  <main>
+    <ModalViewOrder/>
+  </main>
 </template>
 
 <script>
+import ModalViewOrder from '@/components/ModalViewOrder.vue'
 export default {
     metaInfo() {
         return {
-            title: 'Aufträge anlegen'
+            title: 'Kunden anlegen'
         }
+    },
+    components: {
+        ModalViewOrder
     },
     data() {
         return {}

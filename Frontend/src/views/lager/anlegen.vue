@@ -1,15 +1,19 @@
 <template>
-    <main>
-        <span>Lager anlegen</span>
-    </main>
+  <main>
+    <ModalViewWarehouse/>
+  </main>
 </template>
 
 <script>
+import ModalViewWarehouse from '@/components/ModalViewWarehouse.vue'
 export default {
     metaInfo() {
         return {
-            title: 'Lager anlegen'
+            title: 'Kunden anlegen'
         }
+    },
+    components: {
+        ModalViewWarehouse
     },
     data() {
         return {}
