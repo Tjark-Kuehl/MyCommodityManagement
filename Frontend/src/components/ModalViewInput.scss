@@ -1,1 +1,13 @@
 @import '~@/assets/scss/_variables.scss';
+
+.modal-view-input {
+    display: block;
+    border: 1px solid $border-color;
+    padding: 6px;
+    margin: 3px;
+    border-radius: 4px;
+}
+.modal-view-input-text {
+    display: block;
+    margin: 3px;
+}

@@ -1,0 +1,11 @@
+@import '~@/assets/scss/_variables.scss';
+
+div.modal-view-header {
+    background-color: $main-color;
+    border-top: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 15px;
+}
+.modal-view-text {
+    color: #ffffff;
+}

@@ -17,6 +17,7 @@
                     <TheButton
                         v-for="(button, i) of buttons"
                         :key="'Button' + i"
+                        :button-style="button.buttonStyle"
                         :tag="button.tag"
                     ></TheButton>
                 </div>
@@ -40,9 +41,9 @@ export default {
         return {
             items: [{ name: 'ArtikelNr' }, { name: 'Anzahl' }, { name: 'Bemerkungen' }],
             buttons: [
-                { tag: 'Speichern' },
-                { tag: 'Speichern & Schließen' },
-                { tag: 'Schließen & Verwerfen' }
+                { tag: 'Speichern', buttonStyle: 'button-global' },
+                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
+                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
             ],
             header: { section: 'Auftrag', action: 'Anlegen' }
         }

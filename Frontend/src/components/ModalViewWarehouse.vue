@@ -2,7 +2,7 @@
     <section>
         <div class="modal-view-background">
             <div class="modal-view">
-                 <ModalViewHeader
+                <ModalViewHeader
                     :section="header.section"
                     :action="header.action"
                 ></ModalViewHeader>
@@ -17,6 +17,7 @@
                     <TheButton
                         v-for="(button, i) of buttons"
                         :key="'Button' + i"
+                        :button-style="button.buttonStyle"
                         :tag="button.tag"
                     ></TheButton>
                 </div>
@@ -46,11 +47,11 @@ export default {
                 { name: 'Plz' }
             ],
             buttons: [
-                { tag: 'Speichern' },
-                { tag: 'Speichern & Schließen' },
-                { tag: 'Schließen & Verwerfen' }
+                { tag: 'Speichern', buttonStyle: 'button-global' },
+                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
+                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
             ],
-             header: { section: 'Lager', action: 'Anlegen' }
+            header: { section: 'Lager', action: 'Anlegen' }
         }
     }
 }
