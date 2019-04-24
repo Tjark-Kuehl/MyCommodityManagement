@@ -1,9 +1,9 @@
 <template>
-  <div class="modal-view-header">
-    <span class="modal-view-text">{{section}}</span>
-    -
-    <span class="modal-view-text">{{action}}</span>
-  </div>
+    <div class="modal-view-header">
+        <span class="modal-view-text">{{ section }}</span>
+        -
+        <span class="modal-view-text">{{ action }}</span>
+    </div>
 </template>
 
 <script>

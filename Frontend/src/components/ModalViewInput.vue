@@ -1,8 +1,8 @@
 <template>
-  <div class="modal-view-input-wrapper">
-    <input class="modal-view-input" type="text">
-    <span class="modal-view-input-text">{{ name }}</span>
-  </div>
+    <div class="modal-view-input-wrapper">
+        <input class="modal-view-input" type="text" />
+        <span class="modal-view-input-text">{{ name }}</span>
+    </div>
 </template>
 
 <script>

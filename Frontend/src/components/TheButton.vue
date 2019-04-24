@@ -1,5 +1,5 @@
 <template>
-  <button class="button-global">{{tag}}</button>
+    <button class="button-global">{{ tag }}</button>
 </template>
 
 <script>
