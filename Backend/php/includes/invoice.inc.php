@@ -2,7 +2,7 @@
 
 function generatePDF($grouped_eintraege)
 {
-    require_once('../vendor/autoload.php');
+    require_once '../vendor/autoload.php';
 
     // create new PDF document
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT);
@@ -54,8 +54,10 @@ function generatePDF($grouped_eintraege)
         // Fill width array with even sizes if null
         if (is_null($widths)) {
             $widths = array();
-            for ($i = 0; $i < sizeof($array); $i++)
+            for ($i = 0; $i < sizeof($array); $i++) {
                 $widths[$i] = $pageWidth / sizeof($array);
+            }
+
         }
 
         // Iterate values
@@ -64,21 +66,26 @@ function generatePDF($grouped_eintraege)
         $highestY = $y;
         $x = PDF_MARGIN_LEFT;
         foreach ($array as $key => $val) {
-            if ($firstColumn === false)
+            if ($firstColumn === false) {
                 $x += (($widths[$key - 1] / 100) * $pageWidth) + $columnMargin;
+            }
 
             if ($pdf->getPage() != $currentPage) {
                 $pdf->SetXY($x, PDF_MARGIN_TOP);
                 // Bei Seitenumbruch wird sonst der letzte wert mit dem die Seite umgebrochen wurde irgnoriert
-                if ($highestY > 200)
+                if ($highestY > 200) {
                     $highestY = $pdf->GetY();
-            } else
-                $pdf->SetXY($x, $y);
+                }
 
-            if ($alignCell !== false)
+            } else {
+                $pdf->SetXY($x, $y);
+            }
+
+            if ($alignCell !== false) {
                 $pdf->MultiCell(($widths[$key] / 100) * $pageWidth, 5, trim($val), 0, $alignCell[$key]);
-            else
+            } else {
                 $pdf->MultiCell(($widths[$key] / 100) * $pageWidth, 5, trim($val), 0, 'L');
+            }
 
             $highestY = max($highestY, $pdf->GetY());
             $firstColumn = false;
@@ -138,7 +145,7 @@ function generatePDF($grouped_eintraege)
                             $pdf,
                             array(
                                 (new GermanDate($item->DatumBegin))->getGermanDate(), $item->Description, ($item->KeineVerrechnung == 'False' ? '*' : '') . formattedNumber($item->duration) . " h",
-                                formattedNumber($price) . " €"
+                                formattedNumber($price) . " €",
                             ),
                             $tableWidths,
                             false,
