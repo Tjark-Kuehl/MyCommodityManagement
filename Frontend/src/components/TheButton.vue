@@ -1,5 +1,5 @@
 <template>
-  <button class="button-global">{{tag}}</button>
+    <button :class="buttonStyle">{{ tag }}</button>
 </template>
 
 <script>
@@ -8,6 +8,10 @@ export default {
         tag: {
             type: String,
             required: true
+        },
+        buttonStyle: {
+            type: String,
+            required: false
         }
     },
     data() {

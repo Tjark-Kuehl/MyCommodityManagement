@@ -1,0 +1,14 @@
+@import '~@/assets/scss/_variables.scss';
+
+.button-global {
+    background-color: $main-color;
+    color: #ffffff;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.button-close {
+    background-color: $background-color-2;
+}

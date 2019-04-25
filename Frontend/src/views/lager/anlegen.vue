@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <ModalViewWarehouse/>
-  </main>
+    <main>
+        <ModalViewWarehouse />
+    </main>
 </template>
 
 <script>

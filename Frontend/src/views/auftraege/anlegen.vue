@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <ModalViewOrder/>
-  </main>
+    <main>
+        <ModalViewOrder />
+    </main>
 </template>
 
 <script>

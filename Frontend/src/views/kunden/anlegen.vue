@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <ModalView/>
-  </main>
+    <main>
+        <ModalView />
+    </main>
 </template>
 
 <script>
