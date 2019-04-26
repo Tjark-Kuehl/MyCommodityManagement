@@ -5,10 +5,13 @@
     color: #ffffff;
     border: none;
     padding: 8px;
-    margin: 5px;
     cursor: pointer;
     border-radius: 4px;
+    &:not(:last-of-type) {
+        margin-right: 1rem;
+    }
 }
+
 .button-close {
     background-color: $background-color-2;
 }
