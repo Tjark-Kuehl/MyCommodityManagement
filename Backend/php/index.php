@@ -21,7 +21,7 @@ require_once "./classes/GermanDate.class.php";
 require_once "./index.functions.php";
 
 /**
- * Globale db Variable zu Lokaler Variable 
+ * Globale db Variable zu Lokaler Variable
  */
 $db = $GLOBALS["db"];
 
@@ -32,11 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $response = new stdClass();
     $error = null;
     $data = json_decode(file_get_contents("php://input"));
+    $action = $data->action;
 
-    switch ($data->action) {
+    switch ($action) {
         case 'addKunde':
             /**
-             * Gibt die field data wieder in der entweder ein Fehler oder ein true 
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
              * enthalten ist
              */
             $fd = checkFieldData($data, ["name", "strasse", "strassennummer", "plz", "ort", "telefon", "email"]);
@@ -59,9 +60,105 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * query aus
              */
             try {
-                $stmt->execute((array)$data);
+                $stmt->execute(formatQueryInput((array) $data));
             } catch (Exception $e) {
-                $error = "Fehler bei der Ausführung des querys in addKunde!";
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+
+            break;
+        case 'addArtikel':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["ean", "bezeichnung", "preis"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("INSERT INTO artikel (ean, bezeichnung, kurztext, preis, bild, inaktiv) VALUES (:ean, :bezeichnung, :kurztext, :preis, :bild, :inaktiv)");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array) $data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+
+            break;
+        case 'addLager':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["bezeichnung"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("INSERT INTO lager (bezeichnung, inhouse, strasse, strassennummer, plz, ort, inaktiv) VALUES (:bezeichnung, :inhouse, :strasse, :strassennummer, :plz, :ort, :inaktiv)");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array) $data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+
+            break;
+        case 'addRechnung':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["kunde_id", "artikel"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("INSERT INTO rechnung (kunde_id, bezeichnung, lieferdatum, lieferdatum) VALUES (:kunde_id, :bezeichnung, :lieferdatum, :lieferdatum)");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array) $data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
 

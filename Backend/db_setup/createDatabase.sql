@@ -5,7 +5,7 @@ USE wawi;
 CREATE TABLE artikel 
   ( 
      id              INT auto_increment PRIMARY KEY, 
-     ean             VARCHAR(128) NULL, 
+     ean             VARCHAR(128) NOT NULL, 
      bezeichnung     VARCHAR(256) NOT NULL, 
      kurztext        TEXT NULL, 
      preis           DECIMAL NOT NULL, 
