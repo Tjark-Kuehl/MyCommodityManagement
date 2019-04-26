@@ -12,7 +12,7 @@ services:
             - '3306'
         volumes:
             # - ./db_setup:/docker-entrypoint-initdb.d
-            - ./db:/var/lib/mysql0
+            - ./db:/var/lib/mysql
 
     nginx:
         image: nginx:latest
