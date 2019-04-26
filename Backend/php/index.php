@@ -1,9 +1,12 @@
 <?php
-
+/**
+ * Nutzt das GZIP Kompressionsverfahren für versendete Pakete
+ */
 ob_start('ob_gzhandler');
-//session_start();
 
-/* no-cors fix */
+/**
+ * no-cors fix
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header("Content-Type: application/json");
@@ -13,53 +16,14 @@ header_remove("X-Powered-By");
 /**
  * Includes
  */
-include_once "./includes/database.inc.php";
-include_once "./classes/GermanDate.class.php";
+require_once "./includes/database.inc.php";
+require_once "./classes/GermanDate.class.php";
+require_once "./index.functions.php";
 
 /**
  * Globale db Variable zu Lokaler Variable 
  */
 $db = $GLOBALS["db"];
-
-/**
- * Überprüft den POST payload ob die Daten mit der Angefragten Funktion überinstimmt
- *
- * @param stdClass $data
- * @param array $requiredFields
- * @return string|bool
- */
-function checkFieldData(stdClass $data, array $requiredFields)
-{
-    // Alle Pflichtfelder durchgehen und gucken ob sie gesetzt wurden
-    foreach ($requiredFields as $idx => $rf) {
-        if (isset($data->{$rf}) && !empty($data->{$rf})) {
-            unset($requiredFields[$idx]);
-        }
-    }
-
-    // Wenn Pflichtfelder noch nicht gesetzt wurden dann return error
-    if (sizeof($requiredFields) !== 0) {
-        return "Fehler folgende Variablen wurden nicht gesetzt: " . implode(", ", $requiredFields);
-    }
-
-    return true;
-}
-
-/**
- * Formatiert das gegebene Array in ein Array welches für Prepared Querys verwendet werden kann
- *
- * @param array $arr
- * @return array
- */
-function formatQueryInput(array $arr)
-{
-    $formattedArray = array();
-    foreach ((array)$arr as $key => $val) {
-        $formattedArray[":{$key}"] = $val;
-    }
-    unset($formattedArray[":action"]);
-    return $formattedArray;
-}
 
 /**
  * Fängt alle POST requests ab und geht die möglichen Aktionen durch

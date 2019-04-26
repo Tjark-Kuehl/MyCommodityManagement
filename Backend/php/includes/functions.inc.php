@@ -1,17 +1,36 @@
 <?php
 
-function toSQLDate($date)
+/**
+ * Verwandelt jedes valide Datum in ein Datum welches von SQL benutzt werden kann
+ *
+ * @param date $date
+ * @return date
+ */
+function toSQLDate(date $date)
 {
     return date('Y-m-d H:i:s', strtotime($date));
 }
 
-function startsWith($haystack, $needle)
+/**
+ * Überprüft ob ein String mit einer bestimmten Zeichenabfolge beginnt
+ *
+ * @param string $haystack
+ * @param string $needle
+ * @return bool
+ */
+function startsWith(string $haystack, string $needle)
 {
     $length = strlen($needle);
     return (substr($haystack, 0, $length) === $needle);
 }
 
-function getFirstElement($array)
+/**
+ * Gibt das erste Element eines Arrays wieder
+ *
+ * @param array $array
+ * @return mixed
+ */
+function getFirstElement(array $array)
 {
     return array_pop(array_reverse($array));
 }
