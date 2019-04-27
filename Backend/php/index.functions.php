@@ -25,7 +25,8 @@ function checkFieldData(stdClass $data, array $requiredFields)
 }
 
 /**
- * Formatiert das gegebene Array in ein Array welches für Prepared Querys verwendet werden kann
+ * Formatiert das gegebene Array in ein Array welches für Prepared Querys
+ * verwendet werden kann
  *
  * @param array $arr
  * @return array
@@ -33,9 +34,29 @@ function checkFieldData(stdClass $data, array $requiredFields)
 function formatQueryInput(array $arr)
 {
     $formattedArray = array();
-    foreach ((array)$arr as $key => $val) {
+    foreach ((array) $arr as $key => $val) {
         $formattedArray[":{$key}"] = $val;
     }
     unset($formattedArray[":action"]);
     return $formattedArray;
+}
+
+/**
+ * Überprüft ob ein Datensatz von Artikeln für das einfügen in die
+ * Datenbank korrekt sind
+ *
+ * @param array $articles
+ * @return bool
+ */
+function checkIfArticlesAreValid(array $articles)
+{
+    $requiredValues = ["id", "rechnungsposition", "menge"];
+    foreach ($articles as $val) {
+        foreach ($requiredValues as $rv) {
+            if (!isset($val->{$rv}) || empty($val->{$rv})) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
