@@ -17,6 +17,7 @@ header_remove("X-Powered-By");
  * Includes
  */
 require_once "./includes/database.inc.php";
+require_once "./includes/functions.inc.php";
 require_once "./classes/GermanDate.class.php";
 require_once "./index.functions.php";
 
@@ -147,16 +148,63 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
 
             /**
-             * Bereitet den SQL query vor
+             * Zieht die Artikel aus dem payload
              */
-            $stmt = $db->prepare("INSERT INTO rechnung (kunde_id, bezeichnung, lieferdatum, lieferdatum) VALUES (:kunde_id, :bezeichnung, :lieferdatum, :lieferdatum)");
+            $artikel = $data->artikel;
+            unset($data->artikel);
 
             /**
-             * Formatiert die POST Daten um im query verwendet zu werden und führt den
-             * query aus
+             * Formatiert das lieferdatum zu einem von SQL erkennbarem Datum
              */
+            if (isset($data->lieferdatum) && !empty($data->lieferdatum)) {
+                $data->lieferdatum = toSQLDate($data->lieferdatum);
+            }
+
+            /**
+             * Überprüft ob die Artikel korrekt vorliegen
+             */
+            if (checkIfArticlesAreValid($artikel) !== true) {
+                $error = "Fehler in {$action} die gesendeten Artikel sind nicht korrekt!";
+                break;
+            }
+
+            $rechnungsId = null;
             try {
+                /**
+                 * Bereitet den SQL query vor
+                 */
+                $stmt = $db->prepare("INSERT INTO rechnung (kunde_id, bezeichnung, lieferdatum) VALUES (:kunde_id, :bezeichnung, :lieferdatum)");
+
+                /**
+                 * Formatiert die POST Daten um im query verwendet zu werden und führt den
+                 * query aus
+                 */
                 $stmt->execute(formatQueryInput((array) $data));
+                $rechnungsId = $db->lastInsertId();
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+
+            try {
+                /**
+                 * Wenn die rechnungsId nicht gesetzt wurde dann abbrechen
+                 */
+                if (is_null($rechnungsId)) {
+                    throw new Exception();
+                }
+
+                /**
+                 * Bereitet den SQL query vor
+                 */
+                $stmt = $db->prepare("INSERT INTO rechnung_artikel (rechnung_id, artikel_id, rechnungsposition, menge) VALUES (:rechnung_id, :artikel_id, :rechnungsposition, :menge)");
+
+                /**
+                 * Wenn die erste Anfrage erfolgreich war die Rechnungs Artikel einfügen
+                 */
+                foreach ($artikel as $a) {
+                    $stmt->execute(formatQueryInput(["rechnung_id" => $rechnungsId, "artikel_id" => $a->id, "rechnungsposition" => $a->rechnungsposition, "menge" => $a->menge]));
+                }
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;

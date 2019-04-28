@@ -3,10 +3,10 @@
 /**
  * Verwandelt jedes valide Datum in ein Datum welches von SQL benutzt werden kann
  *
- * @param date $date
+ * @param string $date
  * @return date
  */
-function toSQLDate(date $date)
+function toSQLDate(string $date)
 {
     return date('Y-m-d H:i:s', strtotime($date));
 }
