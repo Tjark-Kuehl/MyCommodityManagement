@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ModalView from '@/components/ModalView.vue'
 export default {
     metaInfo() {
@@ -15,18 +16,13 @@ export default {
     components: {
         ModalView
     },
+    computed: {
+        ...mapState({
+            items: state => state.kunde.items
+        })
+    },
     data() {
         return {
-            items: [
-                { name: 'Name' },
-                { name: 'Vorname' },
-                { name: 'Strasse' },
-                { name: 'Hausnummer' },
-                { name: 'Plz' },
-                { name: 'Ort' },
-                { name: 'Telefon' },
-                { name: 'Email' }
-            ],
             buttons: [
                 { tag: 'Speichern', buttonStyle: 'button-global' },
                 { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },

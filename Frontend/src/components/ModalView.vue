@@ -12,6 +12,7 @@
             :key="'Button' + i"
             :button-style="button.buttonStyle"
             :tag="button.tag"
+            @click="$emit(button.action)"
           ></TheButton>
         </div>
       </div>

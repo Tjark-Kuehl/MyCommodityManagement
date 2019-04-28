@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ModalView from '@/components/ModalView.vue'
 //
 export default {
@@ -16,15 +17,16 @@ export default {
     components: {
         ModalView
     },
+    computed: {
+        ...mapState({
+            items: state => {
+                console.log(state)
+                return state.lager.items
+            }
+        })
+    },
     data() {
         return {
-            items: [
-                { name: 'Bezeichung' },
-                { name: 'Strasse' },
-                { name: 'Hausnummer' },
-                { name: 'Plz' },
-                { name: 'Ort' }
-            ],
             buttons: [
                 { tag: 'Speichern', buttonStyle: 'button-global' },
                 { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },

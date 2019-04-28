@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ModalView from '@/components/ModalView.vue'
 //
 export default {
@@ -16,13 +17,25 @@ export default {
     components: {
         ModalView
     },
+    computed: {
+        ...mapState({
+            items: state => state.artikel.items
+        })
+    },
     data() {
         return {
-            items: [{ name: 'Bezeichung' }, { name: 'Eigenschaften' }, { name: 'Preis' }],
             buttons: [
-                { tag: 'Speichern', buttonStyle: 'button-global' },
-                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
-                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
+                { tag: 'Speichern', buttonStyle: 'button-global', action: 'save' },
+                {
+                    tag: 'Speichern & Schließen',
+                    buttonStyle: 'button-global',
+                    action: 'saveandclose'
+                },
+                {
+                    tag: 'Schließen & Verwerfen',
+                    buttonStyle: 'button-global button-close',
+                    action: 'closeanddiscard'
+                }
             ],
             header: { section: 'Artikel', action: 'Anlegen' }
         }
