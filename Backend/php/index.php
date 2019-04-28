@@ -183,6 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $stmt->execute(formatQueryInput((array) $data));
                 $rechnungsId = $db->lastInsertId();
             } catch (Exception $e) {
+                removeRechnung($rechnungsId);
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
@@ -207,9 +208,20 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     $stmt->execute(formatQueryInput(["rechnung_id" => $rechnungsId, "artikel_id" => $a->id, "rechnungsposition" => $a->rechnungsposition, "menge" => $a->menge]));
                 }
             } catch (Exception $e) {
+                removeRechnung($rechnungsId);
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
+
+            /**
+             * Holt die für das PDF benötigten Daten aus der Datenbank
+             */
+            $rechnungsData = prepareRechnungData($rechnungsId);
+
+            /**
+             * Erstellt die PDF Datei für die Rechnung
+             */
+            // ...
 
             break;
         default:

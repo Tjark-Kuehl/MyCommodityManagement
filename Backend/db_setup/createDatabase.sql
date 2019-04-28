@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS wawi; 
+-- CREATE DATABASE IF NOT EXISTS wawi; 
 
-USE wawi; 
+-- USE wawi; 
 
 CREATE TABLE artikel 
   ( 
