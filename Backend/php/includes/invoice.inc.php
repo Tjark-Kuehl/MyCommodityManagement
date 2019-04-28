@@ -1,6 +1,6 @@
 <?php
 
-function generatePDF($grouped_eintraege)
+function generatePDF()
 {
     require_once '../vendor/autoload.php';
 
@@ -104,116 +104,113 @@ function generatePDF($grouped_eintraege)
         return str_replace('.', ',', sprintf("%.2f", $nbr));
     }
 
-    foreach ($grouped_eintraege as $rechnungssteller) {
-        foreach ($rechnungssteller as $kunde) {
-            foreach ($kunde as $sorter) {
-                $firstEl = getFirstElement(getFirstElement($sorter));
+    // foreach ($grouped_eintraege as $rechnungssteller) {
+    //     foreach ($rechnungssteller as $kunde) {
+    //         foreach ($kunde as $sorter) {
+    //             $firstEl = getFirstElement(getFirstElement($sorter));
 
-                $durationSumTotal = 0;
-                $durationSumKeineVerrechnung = 0;
-                $priceSumTotal = 0;
-                $priceSumKeineVerrechnung = 0;
+    //             $durationSumTotal = 0;
+    //             $durationSumKeineVerrechnung = 0;
+    //             $priceSumTotal = 0;
+    //             $priceSumKeineVerrechnung = 0;
 
-                $tableWidths = array(12, 58, 15, 15);
-                $alignCells = array("L", "L", "R", "R");
+    //             $tableWidths = array(12, 58, 15, 15);
+    //             $alignCells = array("L", "L", "R", "R");
 
-                // add a page
-                $pdf->AddPage();
+    //             // add a page
+    //             $pdf->AddPage();
 
-                insertTableHeader($pdf, $firstEl->Registrationsnummer, $firstEl->Name, $firstEl->abrechnung_datum, $lineHeight);
+    //             insertTableHeader($pdf, $firstEl->Registrationsnummer, $firstEl->Name, $firstEl->abrechnung_datum, $lineHeight);
 
-                foreach ($sorter as $project) {
+    //             foreach ($sorter as $project) {
 
-                    $pdf->SetFont('helvetica', 'B', 10);
+    //                 $pdf->SetFont('helvetica', 'B', 10);
 
-                    $pdf->Ln($lineHeight);
-                    insertTableRow($pdf, array("Projekt:", getFirstElement($project)->Projektname, "", ""), $tableWidths);
-                    insertTableRow(
-                        $pdf,
-                        array("Datum", "Beschreibung", "Zeit", "Preis"),
-                        $tableWidths,
-                        true,
-                        $alignCells
-                    );
+    //                 $pdf->Ln($lineHeight);
+    //                 insertTableRow($pdf, array("Projekt:", getFirstElement($project)->Projektname, "", ""), $tableWidths);
+    //                 insertTableRow(
+    //                     $pdf,
+    //                     array("Datum", "Beschreibung", "Zeit", "Preis"),
+    //                     $tableWidths,
+    //                     true,
+    //                     $alignCells
+    //                 );
 
-                    $durationSum = 0;
-                    $priceSum = 0;
-                    $pdf->SetFont('helvetica', 'R', 10);
-                    foreach ($project as $item) {
-                        $price = $item->duration * str_replace(',', '.', $item->StündlicheRate);
-                        insertTableRow(
-                            $pdf,
-                            array(
-                                (new GermanDate($item->DatumBegin))->getGermanDate(), $item->Description, ($item->KeineVerrechnung == 'False' ? '*' : '') . formattedNumber($item->duration) . " h",
-                                formattedNumber($price) . " €",
-                            ),
-                            $tableWidths,
-                            false,
-                            $alignCells
-                        );
-                        $pdf->Ln(1);
+    //                 $durationSum = 0;
+    //                 $priceSum = 0;
+    //                 $pdf->SetFont('helvetica', 'R', 10);
+    //                 foreach ($project as $item) {
+    //                     $price = $item->duration * str_replace(',', '.', $item->StündlicheRate);
+    //                     insertTableRow(
+    //                         $pdf,
+    //                         array(
+    //                             (new GermanDate($item->DatumBegin))->getGermanDate(), $item->Description, ($item->KeineVerrechnung == 'False' ? '*' : '') . formattedNumber($item->duration) . " h",
+    //                             formattedNumber($price) . " €",
+    //                         ),
+    //                         $tableWidths,
+    //                         false,
+    //                         $alignCells
+    //                     );
+    //                     $pdf->Ln(1);
 
-                        $durationSum += $item->duration;
-                        $priceSum += $price;
+    //                     $durationSum += $item->duration;
+    //                     $priceSum += $price;
 
-                        if ($item->KeineVerrechnung == 'False') {
-                            $durationSumKeineVerrechnung += $item->duration;
-                            $priceSumKeineVerrechnung += $price;
-                        }
-                    }
-                    $durationSumTotal += $durationSum;
-                    $priceSumTotal += $priceSum;
+    //                     if ($item->KeineVerrechnung == 'False') {
+    //                         $durationSumKeineVerrechnung += $item->duration;
+    //                         $priceSumKeineVerrechnung += $price;
+    //                     }
+    //                 }
+    //                 $durationSumTotal += $durationSum;
+    //                 $priceSumTotal += $priceSum;
 
-                    // Sum
-                    $pdf->SetFont('helvetica', 'B', 10);
-                    insertTableRow(
-                        $pdf,
-                        array("", "Summe:", formattedNumber($durationSum) . " h", formattedNumber($priceSum) . " €"),
-                        $tableWidths,
-                        false,
-                        $alignCells
-                    );
-                }
+    //                 // Sum
+    //                 $pdf->SetFont('helvetica', 'B', 10);
+    //                 insertTableRow(
+    //                     $pdf,
+    //                     array("", "Summe:", formattedNumber($durationSum) . " h", formattedNumber($priceSum) . " €"),
+    //                     $tableWidths,
+    //                     false,
+    //                     $alignCells
+    //                 );
+    //             }
 
-                // Gesamt
-                $pdf->SetFont('helvetica', 'B', 10);
-                $pdf->SetY($pdf->GetY() + 10);
+    //             // Gesamt
+    //             $pdf->SetFont('helvetica', 'B', 10);
+    //             $pdf->SetY($pdf->GetY() + 10);
 
-                if ($durationSumKeineVerrechnung !== 0 && $priceSumKeineVerrechnung !== 0) {
-                    // Zeit gesamt
-                    insertTableRow(
-                        $pdf,
-                        array("", "Arbeitszeit gesamt:", formattedNumber($durationSumTotal) . " h", formattedNumber($priceSumTotal) . " €"),
-                        $tableWidths,
-                        false,
-                        $alignCells
-                    );
+    //             if ($durationSumKeineVerrechnung !== 0 && $priceSumKeineVerrechnung !== 0) {
+    //                 // Zeit gesamt
+    //                 insertTableRow(
+    //                     $pdf,
+    //                     array("", "Arbeitszeit gesamt:", formattedNumber($durationSumTotal) . " h", formattedNumber($priceSumTotal) . " €"),
+    //                     $tableWidths,
+    //                     false,
+    //                     $alignCells
+    //                 );
 
-                    // davon nicht berechnet
-                    insertTableRow(
-                        $pdf,
-                        array("", "davon nicht berechnet(*):", formattedNumber($durationSumKeineVerrechnung) . " h", formattedNumber($priceSumKeineVerrechnung) . " €"),
-                        $tableWidths,
-                        false,
-                        $alignCells
-                    );
-                }
+    //                 // davon nicht berechnet
+    //                 insertTableRow(
+    //                     $pdf,
+    //                     array("", "davon nicht berechnet(*):", formattedNumber($durationSumKeineVerrechnung) . " h", formattedNumber($priceSumKeineVerrechnung) . " €"),
+    //                     $tableWidths,
+    //                     false,
+    //                     $alignCells
+    //                 );
+    //             }
 
-                // zu berechnen sind
-                insertTableRow(
-                    $pdf,
-                    array("", "Gesamtsumme (Nettobetrag, zzgl. MwSt.):", formattedNumber($durationSumTotal - $durationSumKeineVerrechnung) . " h", formattedNumber($priceSumTotal - $priceSumKeineVerrechnung) . " €"),
-                    $tableWidths,
-                    false,
-                    $alignCells
-                );
-            }
-        }
-    }
+    //             // zu berechnen sind
+    //             insertTableRow(
+    //                 $pdf,
+    //                 array("", "Gesamtsumme (Nettobetrag, zzgl. MwSt.):", formattedNumber($durationSumTotal - $durationSumKeineVerrechnung) . " h", formattedNumber($priceSumTotal - $priceSumKeineVerrechnung) . " €"),
+    //                 $tableWidths,
+    //                 false,
+    //                 $alignCells
+    //             );
+    //         }
+    //     }
+    // }
 
-    ob_start();
-    echo $pdf->Output('', 'S');
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+    $pdf->Output('test.pdf', 'F');
+    // exit;
 }

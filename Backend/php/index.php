@@ -18,6 +18,7 @@ header_remove("X-Powered-By");
  */
 require_once "./includes/database.inc.php";
 require_once "./includes/functions.inc.php";
+require_once "./includes/invoice.inc.php";
 require_once "./classes/GermanDate.class.php";
 require_once "./index.functions.php";
 
@@ -41,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * Gibt die field data wieder in der entweder ein Fehler oder ein true
              * enthalten ist
              */
-            $fd = checkFieldData($data, ["name", "strasse", "strassennummer", "plz", "ort", "telefon", "email"]);
+            $fd = checkFieldData($data, ["name", "strasse", "hausnummer", "plz", "ort", "telefon", "email"]);
 
             /**
              * Wenn die field data nicht true ist dann abbrechen und error ausgeben
@@ -54,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             /**
              * Bereitet den SQL query vor
              */
-            $stmt = $db->prepare("INSERT INTO kunden (`name`, vorname, strasse, strassennummer, plz, ort, telefon, email) VALUES (:name, :vorname, :strasse, :strassennummer, :plz, :ort, :telefon, :email)");
+            $stmt = $db->prepare("INSERT INTO kunden (`name`, vorname, strasse, hausnummer, plz, ort, telefon, email) VALUES (:name, :vorname, :strasse, :hausnummer, :plz, :ort, :telefon, :email)");
 
             /**
              * Formatiert die POST Daten um im query verwendet zu werden und führt den
@@ -118,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             /**
              * Bereitet den SQL query vor
              */
-            $stmt = $db->prepare("INSERT INTO lager (bezeichnung, inhouse, strasse, strassennummer, plz, ort, inaktiv) VALUES (:bezeichnung, :inhouse, :strasse, :strassennummer, :plz, :ort, :inaktiv)");
+            $stmt = $db->prepare("INSERT INTO lager (bezeichnung, inhouse, strasse, hausnummer, plz, ort, inaktiv) VALUES (:bezeichnung, :inhouse, :strasse, :hausnummer, :plz, :ort, :inaktiv)");
 
             /**
              * Formatiert die POST Daten um im query verwendet zu werden und führt den
