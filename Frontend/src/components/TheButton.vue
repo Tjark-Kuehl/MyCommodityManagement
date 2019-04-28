@@ -11,7 +11,8 @@ export default {
         },
         buttonStyle: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         }
     },
     data() {
