@@ -1,22 +1,31 @@
 <template>
-    <main>
-        <ModalViewOrder />
-    </main>
+  <main>
+    <ModalView :items="items" :buttons="buttons" :header="header"/>
+  </main>
 </template>
 
 <script>
-import ModalViewOrder from '@/components/ModalViewOrder.vue'
+import ModalView from '@/components/ModalView.vue'
+//
 export default {
     metaInfo() {
         return {
-            title: 'Kunden anlegen'
+            title: 'Auftrag anlegen'
         }
     },
     components: {
-        ModalViewOrder
+        ModalView
     },
     data() {
-        return {}
+        return {
+            items: [{ name: 'Bezeichung' }, { name: 'Kunde' }, { name: 'Lieferdatum' }],
+            buttons: [
+                { tag: 'Speichern', buttonStyle: 'button-global' },
+                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
+                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
+            ],
+            header: { section: 'Auftrag', action: 'Anlegen' }
+        }
     }
 }
 </script>

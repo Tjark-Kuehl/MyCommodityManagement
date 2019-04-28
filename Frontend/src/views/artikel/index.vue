@@ -1,7 +1,7 @@
 <template>
-    <main>
-        <span>Artikel</span>
-    </main>
+  <main>
+    <span>Artikel</span>
+  </main>
 </template>
 
 <script>

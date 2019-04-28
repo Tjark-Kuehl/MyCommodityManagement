@@ -1,7 +1,7 @@
 <template>
-    <main>
-        <ModalView />
-    </main>
+  <main>
+    <ModalView :items="items" :buttons="buttons" :header="header"/>
+  </main>
 </template>
 
 <script>
@@ -16,7 +16,24 @@ export default {
         ModalView
     },
     data() {
-        return {}
+        return {
+            items: [
+                { name: 'Name' },
+                { name: 'Vorname' },
+                { name: 'Strasse' },
+                { name: 'Hausnummer' },
+                { name: 'Plz' },
+                { name: 'Ort' },
+                { name: 'Telefon' },
+                { name: 'Email' }
+            ],
+            buttons: [
+                { tag: 'Speichern', buttonStyle: 'button-global' },
+                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
+                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
+            ],
+            header: { section: 'Kunde', action: 'Anlegen' }
+        }
     }
 }
 </script>

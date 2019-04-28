@@ -1,22 +1,37 @@
 <template>
-    <main>
-        <ModalViewWarehouse />
-    </main>
+  <main>
+    <ModalView :items="items" :buttons="buttons" :header="header"/>
+  </main>
 </template>
 
 <script>
-import ModalViewWarehouse from '@/components/ModalViewWarehouse.vue'
+import ModalView from '@/components/ModalView.vue'
+//
 export default {
     metaInfo() {
         return {
-            title: 'Kunden anlegen'
+            title: 'Lager anlegen'
         }
     },
     components: {
-        ModalViewWarehouse
+        ModalView
     },
     data() {
-        return {}
+        return {
+            items: [
+                { name: 'Bezeichung' },
+                { name: 'Strasse' },
+                { name: 'Hausnummer' },
+                { name: 'Plz' },
+                { name: 'Ort' }
+            ],
+            buttons: [
+                { tag: 'Speichern', buttonStyle: 'button-global' },
+                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
+                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
+            ],
+            header: { section: 'Lager', action: 'Anlegen' }
+        }
     }
 }
 </script>

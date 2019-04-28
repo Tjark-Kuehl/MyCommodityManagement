@@ -1,29 +1,22 @@
 <template>
-    <section>
-        <div class="modal-view-background">
-            <div class="modal-view">
-                <ModalViewHeader
-                    :section="header.section"
-                    :action="header.action"
-                ></ModalViewHeader>
-                <div class="modal-view-content">
-                    <ModalViewInput
-                        v-for="(item, i) of items"
-                        :key="'ModalViewItem' + i"
-                        :name="item.name"
-                    ></ModalViewInput>
-                </div>
-                <div class="modal-view-footer">
-                    <TheButton
-                        v-for="(button, i) of buttons"
-                        :key="'Button' + i"
-                        :button-style="button.buttonStyle"
-                        :tag="button.tag"
-                    ></TheButton>
-                </div>
-            </div>
+  <section>
+    <div class="modal-view-background">
+      <div class="modal-view">
+        <ModalViewHeader :section="header.section" :action="header.action"></ModalViewHeader>
+        <div class="modal-view-content">
+          <ModalViewInput v-for="(item, i) of items" :key="'ModalViewItem' + i" :name="item.name"></ModalViewInput>
         </div>
-    </section>
+        <div class="modal-view-footer">
+          <TheButton
+            v-for="(button, i) of buttons"
+            :key="'Button' + i"
+            :button-style="button.buttonStyle"
+            :tag="button.tag"
+          ></TheButton>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -37,24 +30,18 @@ export default {
         ModalViewHeader,
         TheButton
     },
-    data() {
-        return {
-            items: [
-                { name: 'Vorname' },
-                { name: 'Nachname' },
-                { name: 'Strasse' },
-                { name: 'Hausnummer' },
-                { name: 'Ort' },
-                { name: 'Plz' },
-                { name: 'Telefonnummer' },
-                { name: 'E-Mail' }
-            ],
-            buttons: [
-                { tag: 'Speichern', buttonStyle: 'button-global' },
-                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
-                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
-            ],
-            header: { section: 'Kunden', action: 'Anlegen' }
+    props: {
+        items: {
+            type: Array,
+            required: true
+        },
+        buttons: {
+            type: Array,
+            required: true
+        },
+        header: {
+            type: Object,
+            required: true
         }
     }
 }
