@@ -1,12 +1,14 @@
 <template>
-  <div class="modal-view-input-wrapper">
+  <div class="modal-view-input">
+    <title>{{ name }}</title>
     <input
-      class="modal-view-input"
+      :name="name"
       type="text"
       v-bind="$attrs"
       @input="$emit('input', $event.target.value)"
+      v-validate="validation"
     >
-    <span class="modal-view-input-text">{{ name }}</span>
+    <span class="error">{{ errors.first(name) }}</span>
   </div>
 </template>
 
@@ -16,10 +18,11 @@ export default {
         name: {
             type: String,
             required: true
+        },
+        validation: {
+            type: String,
+            default: ''
         }
-    },
-    data() {
-        return {}
     }
 }
 </script>

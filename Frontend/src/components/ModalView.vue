@@ -8,6 +8,7 @@
             v-for="(item, i) of items"
             :key="'ModalViewItem' + i"
             :name="item.name"
+            :validation="item.validation"
             v-model="item.value"
           ></ModalViewInput>
         </div>

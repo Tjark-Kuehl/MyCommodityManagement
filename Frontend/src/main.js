@@ -4,13 +4,18 @@ import createRouter from './router'
 import createStore from './store/'
 import VueMeta from 'vue-meta'
 import VueSweetalert2 from 'vue-sweetalert2'
-import Vuelidate from 'vuelidate'
+import VeeValidate, { Validator } from 'vee-validate'
+import de from 'vee-validate/dist/locale/de'
 //
 import 'normalize.css'
-
+//
 Vue.use(VueMeta)
 Vue.use(VueSweetalert2)
-Vue.use(Vuelidate)
+
+Validator.localize({ de })
+Vue.use(VeeValidate, {
+    locale: 'de'
+})
 
 Vue.config.productionTip = false
 

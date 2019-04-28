@@ -1,13 +1,24 @@
 @import '~@/assets/scss/_variables.scss';
 
-.modal-view-input {
-    display: block;
-    border: 1px solid $border-color;
-    padding: 6px;
-    margin: 3px;
-    border-radius: 4px;
-}
-.modal-view-input-text {
-    display: block;
-    margin: 3px;
+div.modal-view-input {
+    width: 195px;
+    title {
+        display: block;
+        width: 100%;
+    }
+    input {
+        display: block;
+        border: 1px solid $border-color;
+        padding: 6px;
+        margin: 3px 0;
+        border-radius: 4px;
+        width: 100%;
+    }
+    span.error {
+        color: #f22435;
+        font-size: 11px;
+        display: block;
+        line-height: 1.25;
+        width: 100%;
+    }
 }

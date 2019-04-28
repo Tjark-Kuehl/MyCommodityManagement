@@ -1,8 +1,8 @@
 export const state = () => ({
     items: [
-        { name: 'Bezeichung', value: '' },
-        { name: 'Eigenschaften', value: '' },
-        { name: 'Preis', value: '' }
+        { name: 'Bezeichung', validation: 'required', value: '' },
+        { name: 'Eigenschaften', validation: 'required', value: '' },
+        { name: 'Preis', validation: 'required', value: '' }
     ]
 })
 
