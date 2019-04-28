@@ -14,7 +14,7 @@ export const state = () => ({
 export const getters = {}
 
 export const mutations = {
-    setItems: function(state, payload) {
+    setKunde: function(state, payload) {
         state.items = payload
     }
 }

@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ModalView from '@/components/ModalView.vue'
 //
 export default {
@@ -18,9 +17,14 @@ export default {
         ModalView
     },
     computed: {
-        ...mapState({
-            items: state => state.artikel.items
-        })
+        items: {
+            get() {
+                return this.$store.state.artikel.items
+            },
+            set(value) {
+                this.setArtikel(value)
+            }
+        }
     },
     data() {
         return {

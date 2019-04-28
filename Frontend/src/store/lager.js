@@ -11,7 +11,7 @@ export const state = () => ({
 export const getters = {}
 
 export const mutations = {
-    setItems: function(state, payload) {
+    setLager: function(state, payload) {
         state.items = payload
     }
 }

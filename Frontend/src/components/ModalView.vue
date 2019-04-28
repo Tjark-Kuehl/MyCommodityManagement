@@ -4,7 +4,12 @@
       <div class="modal-view">
         <ModalViewHeader :section="header.section" :action="header.action"></ModalViewHeader>
         <div class="modal-view-content">
-          <ModalViewInput v-for="(item, i) of items" :key="'ModalViewItem' + i" :name="item.name"></ModalViewInput>
+          <ModalViewInput
+            v-for="(item, i) of items"
+            :key="'ModalViewItem' + i"
+            :name="item.name"
+            v-model="item.value"
+          ></ModalViewInput>
         </div>
         <div class="modal-view-footer">
           <TheButton

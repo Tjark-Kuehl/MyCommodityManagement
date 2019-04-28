@@ -18,12 +18,14 @@ export default {
         ModalView
     },
     computed: {
-        ...mapState({
-            items: state => {
-                console.log(state)
-                return state.lager.items
+        items: {
+            get() {
+                return this.$store.state.lager.items
+            },
+            set(value) {
+                this.setLager(value)
             }
-        })
+        }
     },
     data() {
         return {

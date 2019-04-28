@@ -9,7 +9,7 @@ export const state = () => ({
 export const getters = {}
 
 export const mutations = {
-    setItems: function(state, payload) {
+    setAuftrag: function(state, payload) {
         state.items = payload
     }
 }
