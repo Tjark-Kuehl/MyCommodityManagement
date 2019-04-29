@@ -16,6 +16,7 @@ header_remove("X-Powered-By");
 /**
  * Includes
  */
+require_once './vendor/autoload.php';
 require_once "./includes/database.inc.php";
 require_once "./includes/functions.inc.php";
 require_once "./includes/invoice.inc.php";
@@ -183,7 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $stmt->execute(formatQueryInput((array) $data));
                 $rechnungsId = $db->lastInsertId();
             } catch (Exception $e) {
-                removeRechnung($rechnungsId);
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             /**
              * Erstellt die PDF Datei für die Rechnung
              */
-            // ...
+            generatePDF($rechnungsData);
 
             break;
         default:

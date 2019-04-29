@@ -1,6 +1,6 @@
--- CREATE DATABASE IF NOT EXISTS wawi; 
+CREATE DATABASE `wawi` /*!40100 COLLATE 'latin1_swedish_ci' */;
 
--- USE wawi; 
+USE `wawi`;
 
 CREATE TABLE artikel 
   ( 

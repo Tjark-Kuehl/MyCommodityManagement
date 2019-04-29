@@ -91,3 +91,6 @@ db/
 
 # Composer
 vendor
+
+# PDF
+pdf/

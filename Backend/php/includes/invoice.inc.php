@@ -1,9 +1,7 @@
 <?php
 
-function generatePDF()
+function generatePDF(array $rows)
 {
-    require_once '../vendor/autoload.php';
-
     // create new PDF document
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT);
 
@@ -22,18 +20,16 @@ function generatePDF()
     // set auto page breaks
     $pdf->SetAutoPageBreak(true, $pdf->GetFooterMargin());
 
-    // ---------------------------------------------------------
-
     // set font
     $pdf->SetFont('helvetica', 'R', 10);
 
     function insertTableHeader(&$pdf, $kundenNr, $kundenName, $erstelldatum, $lineHeight)
     {
         $pdf->SetFont('helvetica', 'R', 14);
-        $pdf->MultiCell(0, $lineHeight, "Dienstleistungsübersicht", 0, 'L');
+        $pdf->MultiCell(0, $lineHeight, "Auftrag", 0, 'L');
 
         $pdf->SetFont('helvetica', 'R', 10);
-        // $pdf->MultiCell(0, $lineHeight, "Erstellt am: " . (new GermanDate($erstelldatum))->getGermanDate(), 0, 'L');
+        $pdf->MultiCell(0, $lineHeight, "Erstellt am: " . (new GermanDate($erstelldatum))->getGermanDate(), 0, 'L');
 
         $pdf->Ln($lineHeight);
 
@@ -104,113 +100,74 @@ function generatePDF()
         return str_replace('.', ',', sprintf("%.2f", $nbr));
     }
 
-    // foreach ($grouped_eintraege as $rechnungssteller) {
-    //     foreach ($rechnungssteller as $kunde) {
-    //         foreach ($kunde as $sorter) {
-    //             $firstEl = getFirstElement(getFirstElement($sorter));
+    /**
+     * Holt sich das erste Element für die Headerdaten
+     */
+    $firstEl = getFirstElement(getFirstElement($rows));
 
-    //             $durationSumTotal = 0;
-    //             $durationSumKeineVerrechnung = 0;
-    //             $priceSumTotal = 0;
-    //             $priceSumKeineVerrechnung = 0;
+    foreach ($rows as $rechnungsposition) {
+        /**
+         * Variabeln
+         */
+        $tableWidths = array(70, 15, 15);
+        $alignCells = array("L", "R", "R");
 
-    //             $tableWidths = array(12, 58, 15, 15);
-    //             $alignCells = array("L", "L", "R", "R");
+        /**
+         * Seite hinzufügen
+         */
+        $pdf->AddPage();
 
-    //             // add a page
-    //             $pdf->AddPage();
+        /**
+         * Fügt den Table Header hinzu
+         */
+        insertTableHeader($pdf, $firstEl->kundennr, $firstEl->kundenname, $firstEl->erstellt_zeit, $lineHeight);
 
-    //             insertTableHeader($pdf, $firstEl->Registrationsnummer, $firstEl->Name, $firstEl->abrechnung_datum, $lineHeight);
+        $pdf->SetFont('helvetica', 'B', 10);
 
-    //             foreach ($sorter as $project) {
+        $pdf->Ln($lineHeight);
+        insertTableRow(
+            $pdf,
+            array("Beschreibung", "Menge", "Preis"),
+            $tableWidths,
+            true,
+            $alignCells
+        );
 
-    //                 $pdf->SetFont('helvetica', 'B', 10);
+        $priceSum = 0;
+        $pdf->SetFont('helvetica', 'R', 10);
 
-    //                 $pdf->Ln($lineHeight);
-    //                 insertTableRow($pdf, array("Projekt:", getFirstElement($project)->Projektname, "", ""), $tableWidths);
-    //                 insertTableRow(
-    //                     $pdf,
-    //                     array("Datum", "Beschreibung", "Zeit", "Preis"),
-    //                     $tableWidths,
-    //                     true,
-    //                     $alignCells
-    //                 );
+        foreach ($rechnungsposition as $item) {
+            $price = $item->preis * $item->menge;
 
-    //                 $durationSum = 0;
-    //                 $priceSum = 0;
-    //                 $pdf->SetFont('helvetica', 'R', 10);
-    //                 foreach ($project as $item) {
-    //                     $price = $item->duration * str_replace(',', '.', $item->StündlicheRate);
-    //                     insertTableRow(
-    //                         $pdf,
-    //                         array(
-    //                             (new GermanDate($item->DatumBegin))->getGermanDate(), $item->Description, ($item->KeineVerrechnung == 'False' ? '*' : '') . formattedNumber($item->duration) . " h",
-    //                             formattedNumber($price) . " €",
-    //                         ),
-    //                         $tableWidths,
-    //                         false,
-    //                         $alignCells
-    //                     );
-    //                     $pdf->Ln(1);
+            insertTableRow(
+                $pdf,
+                array(
+                    $item->bezeichnung, $item->menge,
+                    formattedNumber($price) . " €",
+                ),
+                $tableWidths,
+                false,
+                $alignCells
+            );
 
-    //                     $durationSum += $item->duration;
-    //                     $priceSum += $price;
+            $pdf->Ln(1);
 
-    //                     if ($item->KeineVerrechnung == 'False') {
-    //                         $durationSumKeineVerrechnung += $item->duration;
-    //                         $priceSumKeineVerrechnung += $price;
-    //                     }
-    //                 }
-    //                 $durationSumTotal += $durationSum;
-    //                 $priceSumTotal += $priceSum;
+            $priceSum += $price;
+        }
 
-    //                 // Sum
-    //                 $pdf->SetFont('helvetica', 'B', 10);
-    //                 insertTableRow(
-    //                     $pdf,
-    //                     array("", "Summe:", formattedNumber($durationSum) . " h", formattedNumber($priceSum) . " €"),
-    //                     $tableWidths,
-    //                     false,
-    //                     $alignCells
-    //                 );
-    //             }
+        // Gesamt
+        $pdf->SetFont('helvetica', 'B', 10);
+        $pdf->SetY($pdf->GetY() + 10);
 
-    //             // Gesamt
-    //             $pdf->SetFont('helvetica', 'B', 10);
-    //             $pdf->SetY($pdf->GetY() + 10);
+        // zu berechnen sind
+        insertTableRow(
+            $pdf,
+            array("Summe:", "", formattedNumber($priceSum) . " €"),
+            $tableWidths,
+            false,
+            $alignCells
+        );
+    }
 
-    //             if ($durationSumKeineVerrechnung !== 0 && $priceSumKeineVerrechnung !== 0) {
-    //                 // Zeit gesamt
-    //                 insertTableRow(
-    //                     $pdf,
-    //                     array("", "Arbeitszeit gesamt:", formattedNumber($durationSumTotal) . " h", formattedNumber($priceSumTotal) . " €"),
-    //                     $tableWidths,
-    //                     false,
-    //                     $alignCells
-    //                 );
-
-    //                 // davon nicht berechnet
-    //                 insertTableRow(
-    //                     $pdf,
-    //                     array("", "davon nicht berechnet(*):", formattedNumber($durationSumKeineVerrechnung) . " h", formattedNumber($priceSumKeineVerrechnung) . " €"),
-    //                     $tableWidths,
-    //                     false,
-    //                     $alignCells
-    //                 );
-    //             }
-
-    //             // zu berechnen sind
-    //             insertTableRow(
-    //                 $pdf,
-    //                 array("", "Gesamtsumme (Nettobetrag, zzgl. MwSt.):", formattedNumber($durationSumTotal - $durationSumKeineVerrechnung) . " h", formattedNumber($priceSumTotal - $priceSumKeineVerrechnung) . " €"),
-    //                 $tableWidths,
-    //                 false,
-    //                 $alignCells
-    //             );
-    //         }
-    //     }
-    // }
-
-    $pdf->Output('test.pdf', 'F');
-    // exit;
+    $pdf->Output("/php/pdf/auftrag_" . time() . "_{$firstEl->kundennr}.pdf", 'F');
 }

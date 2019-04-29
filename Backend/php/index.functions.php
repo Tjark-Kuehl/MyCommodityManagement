@@ -93,6 +93,7 @@ function prepareRechnungData(int $rechnungsId)
         a.preis,
         ra.rechnungsposition,
         ra.menge,
+        k.id AS kundennr,
         CONCAT(k.vorname, ' ', k.`name`) AS kundenname,
         r.erstellt_zeit
     FROM rechnung r
@@ -108,7 +109,11 @@ function prepareRechnungData(int $rechnungsId)
      */
     $rows = [];
     while ($row = $stmt->fetch()) {
-        $rows[] = $row;
+        if (!isset($rows[$row->rechnungsposition])) {
+            $rows[$row->rechnungsposition] = [];
+        }
+
+        $rows[$row->rechnungsposition][] = $row;
     }
 
     return $rows;
