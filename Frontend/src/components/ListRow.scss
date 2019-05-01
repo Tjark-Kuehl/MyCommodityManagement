@@ -1,0 +1,21 @@
+@import '~@/assets/scss/_variables.scss';
+
+div.list-row {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    &.header {
+        background-color: black;
+        div.list-item {
+            span {
+                color: white;
+            }
+        }
+    }
+    div.list-item {
+        display: flex;
+        align-items: center;
+        height: $row-height;
+        padding: 0 2rem;
+        cursor: pointer;
+    }
+}
