@@ -1,17 +1,32 @@
 export const state = () => ({
-    items: [
+    inputs: [
         { name: 'Bezeichung', value: '' },
         { name: 'Strasse', value: '' },
         { name: 'Hausnummer', value: '' },
         { name: 'Plz', value: '' },
         { name: 'Ort', value: '' }
-    ]
+    ],
+    lager: []
 })
 
-export const getters = {}
+export const getters = {
+    getLager: state => state.lager
+}
+
+export const actions = {
+    async onHttpRequest({ commit }) {
+        const { data } = await this.$http.post('/index.php', {
+            action: 'getLager'
+        })
+        commit('setLager', data.data)
+    }
+}
 
 export const mutations = {
     setLager: function(state, payload) {
+        state.lager = payload
+    },
+    setLagerInputs: function(state, payload) {
         state.items = payload
     }
 }

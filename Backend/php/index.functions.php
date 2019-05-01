@@ -118,3 +118,22 @@ function prepareAuftragData(int $auftragsId)
 
     return $rows;
 }
+
+function getData($db, string $sql, array $data = []) {
+    /**
+     * Bereitet den SQL query vor und führt ihn aus
+     */
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute(formatQueryInput($data));
+
+    /**
+     * Speichert alle Zeilen in ein array und gibt es zurück
+     */
+    $rows = [];
+    while ($row = $stmt->fetch()) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+}

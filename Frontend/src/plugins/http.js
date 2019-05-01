@@ -7,7 +7,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 export default {
-    beforeCreate(context) {
+    beforeCreate(context, inject) {
         // Create axios client
         const http = axios.create({
             baseURL: process.env.VUE_APP_API_URL
@@ -22,5 +22,8 @@ export default {
                 Vue.http = Vue.prototype.$http = http
             }
         })
+
+        // Inject http eveywhere
+        inject('http', http)
     }
 }

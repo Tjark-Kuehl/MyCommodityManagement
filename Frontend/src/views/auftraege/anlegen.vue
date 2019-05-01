@@ -23,9 +23,9 @@ export default {
         ModalView
     },
     computed: {
-        items: {
+        inputs: {
             get() {
-                return this.$store.state.auftrag.items
+                return this.$store.state.auftrag.inputs
             },
             set(value) {
                 this.setAuftrag(value)

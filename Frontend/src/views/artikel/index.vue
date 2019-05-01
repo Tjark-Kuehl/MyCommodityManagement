@@ -11,8 +11,12 @@ export default {
             title: 'Artikel'
         }
     },
-    data() {
-        return {}
+    async fetch({ store, http }) {
+        const { data } = await http.post('/index.php', {
+            action: 'getArtikel'
+        })
+
+        store.commit('setArtikel', data.data)
     }
 }
 </script>

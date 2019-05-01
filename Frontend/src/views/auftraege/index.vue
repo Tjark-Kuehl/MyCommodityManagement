@@ -1,7 +1,7 @@
 <template>
-    <main>
-        <span>Aufträge</span>
-    </main>
+  <main>
+    <span>Aufträge</span>
+  </main>
 </template>
 
 <script>
@@ -11,8 +11,12 @@ export default {
             title: 'Aufträge'
         }
     },
-    data() {
-        return {}
+    async fetch({ store, http }) {
+        const { data } = await http.post('/index.php', {
+            action: 'getAuftraege'
+        })
+
+        store.commit('setAuftraege', data.data)
     }
 }
 </script>

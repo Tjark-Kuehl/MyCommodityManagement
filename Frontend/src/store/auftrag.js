@@ -1,15 +1,17 @@
 export const state = () => ({
-    items: [
+    inputs: [
         { name: 'Bezeichung', value: '' },
         { name: 'Kunde', value: '' },
         { name: 'Lieferdatum', value: '' }
-    ]
+    ],
+    auftraege: []
 })
 
-export const getters = {}
-
 export const mutations = {
-    setAuftrag: function(state, payload) {
+    setAuftraege: function(state, payload) {
+        state.auftraege = payload
+    },
+    setAuftragInputs: function(state, payload) {
         state.items = payload
     }
 }

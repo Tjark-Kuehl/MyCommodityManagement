@@ -28,7 +28,7 @@ export default {
                 return this.$store.state.artikel.inputs
             },
             set(value) {
-                this.setInputs(value)
+                this.setArtikelInputs(value)
             }
         }
     },
@@ -37,7 +37,13 @@ export default {
             /**
              * Setzt alle Werte der Input felder zurück
              */
-            this.inputs.forEach(el => (el.value = ''))
+            this.inputs.forEach(el => {
+                if (el.default) {
+                    el.value = el.default
+                } else {
+                    el.value = ''
+                }
+            })
         },
         save: async function() {
             /**
@@ -66,8 +72,13 @@ export default {
              */
             const { data } = res
             if (data && data.success) {
-                const closed = await this.$swal({ text: 'Artikel erfolgreich angelegt' })
-                if (closed && closed.value === true) {
+                const { value } = await this.$swal({ text: 'Artikel erfolgreich angelegt' })
+
+                /**
+                 * Wenn box bestätigt wurde, dann alle Daten zurücksetzen und
+                 * auf die Übersicht weiterleiten
+                 */
+                if (value) {
                     this.discard()
                     this.$router.push({ name: 'artikel-anzeigen' })
                 }

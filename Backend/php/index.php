@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * Gibt die field data wieder in der entweder ein Fehler oder ein true
              * enthalten ist
              */
-            $fd = checkFieldData($data, ["ean", "bezeichnung", "preis"]);
+            $fd = checkFieldData($data, ["ean", "bezeichnung", "preis", "lagerId"]);
 
             /**
              * Wenn die field data nicht true ist dann abbrechen und error ausgeben
@@ -100,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
-
             break;
         case 'addLager':
             /**
@@ -223,6 +222,22 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              */
             generatePDF($auftragsData);
 
+            break;
+        case 'getKunden': 
+            $SQL = "SELECT * FROM kunden";
+            $response->data = getData($db, $SQL);
+            break;
+        case 'getArtikel': 
+            $SQL = "SELECT * FROM artikel";
+            $response->data = getData($db, $SQL);
+            break;
+        case 'getLager': 
+            $SQL = "SELECT * FROM lager";
+            $response->data = getData($db, $SQL);
+            break;
+        case 'getAuftraege': 
+            $SQL = "SELECT * FROM auftrag";
+            $response->data = getData($db, $SQL);
             break;
         default:
             $error = "POST Aktion wurde nicht gesetzt.";

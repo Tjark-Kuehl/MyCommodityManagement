@@ -18,4 +18,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/components/TheButton.scss" scoped></style>
+<style lang="scss" src="@/components/Button.scss" scoped></style>

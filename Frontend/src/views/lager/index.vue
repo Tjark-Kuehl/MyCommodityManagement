@@ -1,7 +1,7 @@
 <template>
-    <main>
-        <span>Lager</span>
-    </main>
+  <main>
+    <span>Lager</span>
+  </main>
 </template>
 
 <script>
@@ -11,8 +11,12 @@ export default {
             title: 'Lager'
         }
     },
-    data() {
-        return {}
+    async fetch({ store, http }) {
+        const { data } = await http.post('/index.php', {
+            action: 'getLager'
+        })
+
+        store.commit('setLager', data.data)
     }
 }
 </script>

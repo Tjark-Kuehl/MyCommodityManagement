@@ -10,7 +10,10 @@ import de from 'vee-validate/dist/locale/de'
 import 'normalize.css'
 //
 Vue.use(VueMeta)
-Vue.use(VueSweetalert2)
+Vue.use(VueSweetalert2, {
+    confirmButtonColor: '#39a2ff'
+    // cancelButtonColor: '#ff7674'
+})
 
 Validator.localize({ de })
 Vue.use(VeeValidate, {

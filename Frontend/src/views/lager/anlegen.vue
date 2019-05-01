@@ -24,9 +24,9 @@ export default {
         ModalView
     },
     computed: {
-        items: {
+        inputs: {
             get() {
-                return this.$store.state.lager.items
+                return this.$store.state.lager.inputs
             },
             set(value) {
                 this.setLager(value)

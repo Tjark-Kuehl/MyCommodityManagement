@@ -4,22 +4,32 @@
       <div class="modal-view">
         <ModalViewHeader :section="header.section" :action="header.action"></ModalViewHeader>
         <div class="modal-view-content">
-          <ModalViewInput
-            v-for="(input, i) of inputs"
-            :key="'ModalViewItem' + i"
-            :name="input.name"
-            :validation="input.validation"
-            v-model="input.value"
-          ></ModalViewInput>
+          <template v-for="(input, i) of inputs">
+            <ModalViewInput
+              v-if="!input.dropdown"
+              :key="'ModalViewItem' + i"
+              :name="input.name"
+              :validation="input.validation"
+              v-model="input.value"
+            ></ModalViewInput>
+            <ModalViewDropdown
+              v-else
+              :key="'ModalViewItem' + i"
+              :name="input.name"
+              :validation="input.validation"
+              :getter="input.dropdown"
+              v-model="input.value"
+            ></ModalViewDropdown>
+          </template>
         </div>
         <div class="modal-view-footer">
-          <TheButton
+          <Button
             v-for="(button, i) of buttons"
             :key="'Button' + i"
             :button-style="button.buttonStyle"
             :tag="button.tag"
             @click="$emit(button.action)"
-          ></TheButton>
+          ></Button>
         </div>
       </div>
     </div>
@@ -28,14 +38,16 @@
 
 <script>
 import ModalViewInput from '@/components/ModalViewInput.vue'
+import ModalViewDropdown from '@/components/ModalViewDropdown.vue'
 import ModalViewHeader from '@/components/ModalViewHeader.vue'
-import TheButton from '@/components/TheButton.vue'
+import Button from '@/components/Button.vue'
 
 export default {
     components: {
         ModalViewInput,
+        ModalViewDropdown,
         ModalViewHeader,
-        TheButton
+        Button
     },
     props: {
         inputs: {

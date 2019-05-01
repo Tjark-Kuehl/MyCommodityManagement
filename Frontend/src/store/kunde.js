@@ -1,5 +1,5 @@
 export const state = () => ({
-    items: [
+    inputs: [
         { name: 'Name', value: '' },
         { name: 'Vorname', value: '' },
         { name: 'Strasse', value: '' },
@@ -8,13 +8,24 @@ export const state = () => ({
         { name: 'Ort', value: '' },
         { name: 'Telefon', value: '' },
         { name: 'Email', value: '' }
-    ]
+    ],
+    kunden: []
 })
 
-export const getters = {}
+export const actions = {
+    async onHttpRequest({ commit }) {
+        const { data } = await this.$http.post('/index.php', {
+            action: 'getKunden'
+        })
+        commit('setKunden', data.data)
+    }
+}
 
 export const mutations = {
-    setKunde: function(state, payload) {
+    setKunden: function(state, payload) {
+        state.kunden = payload
+    },
+    setKundeInputs: function(state, payload) {
         state.items = payload
     }
 }
