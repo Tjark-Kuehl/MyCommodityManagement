@@ -5,11 +5,11 @@
         <ModalViewHeader :section="header.section" :action="header.action"></ModalViewHeader>
         <div class="modal-view-content">
           <ModalViewInput
-            v-for="(item, i) of items"
+            v-for="(input, i) of inputs"
             :key="'ModalViewItem' + i"
-            :name="item.name"
-            :validation="item.validation"
-            v-model="item.value"
+            :name="input.name"
+            :validation="input.validation"
+            v-model="input.value"
           ></ModalViewInput>
         </div>
         <div class="modal-view-footer">
@@ -38,7 +38,7 @@ export default {
         TheButton
     },
     props: {
-        items: {
+        inputs: {
             type: Array,
             required: true
         },

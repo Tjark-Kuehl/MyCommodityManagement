@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonStyle" @click="$emit('click')">{{ tag }}</button>
+  <button :class="buttonStyle" @click="$emit('click')" v-bind="$attrs">{{ tag }}</button>
 </template>
 
 <script>
@@ -14,9 +14,6 @@ export default {
             required: false,
             default: ''
         }
-    },
-    data() {
-        return {}
     }
 }
 </script>

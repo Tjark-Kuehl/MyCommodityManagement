@@ -1,6 +1,12 @@
 <template>
   <main>
-    <ModalView :items="items" :buttons="buttons" :header="header"/>
+    <ModalView
+      :items="items"
+      :buttons="buttons"
+      :header="header"
+      @save="save()"
+      @discard="discard()"
+    />
   </main>
 </template>
 
@@ -29,9 +35,12 @@ export default {
     data() {
         return {
             buttons: [
-                { tag: 'Speichern', buttonStyle: 'button-global' },
-                { tag: 'Speichern & Schließen', buttonStyle: 'button-global' },
-                { tag: 'Schließen & Verwerfen', buttonStyle: 'button-global button-close' }
+                { tag: 'Speichern', buttonStyle: 'button-global', action: 'save' },
+                {
+                    tag: 'Verwerfen',
+                    buttonStyle: 'button-global button-close',
+                    action: 'discard'
+                }
             ],
             header: { section: 'Auftrag', action: 'Anlegen' }
         }

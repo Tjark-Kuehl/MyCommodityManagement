@@ -1,6 +1,12 @@
 <template>
   <main>
-    <ModalView :items="items" :buttons="buttons" :header="header"/>
+    <ModalView
+      :inputs="inputs"
+      :buttons="buttons"
+      :header="header"
+      @save="save()"
+      @discard="discard()"
+    />
   </main>
 </template>
 
@@ -17,12 +23,56 @@ export default {
         ModalView
     },
     computed: {
-        items: {
+        inputs: {
             get() {
-                return this.$store.state.artikel.items
+                return this.$store.state.artikel.inputs
             },
             set(value) {
-                this.setArtikel(value)
+                this.setInputs(value)
+            }
+        }
+    },
+    methods: {
+        discard: function() {
+            /**
+             * Setzt alle Werte der Input felder zurück
+             */
+            this.inputs.forEach(el => (el.value = ''))
+        },
+        save: async function() {
+            /**
+             * Daten neu Mappen für einen einfachen zugriff
+             */
+            let obj = {}
+            for (let ip of this.inputs) {
+                obj[ip.name] = ip.value
+            }
+
+            /**
+             * Artikel anlegen
+             */
+            const res = await this.$http.post('/index.php', {
+                action: 'addArtikel',
+                ean: obj.EAN,
+                bezeichnung: obj.Bezeichung,
+                kurztext: obj.Kurztext,
+                preis: obj.Preis,
+                bild: '',
+                inaktiv: 0
+            })
+
+            /**
+             * Wenn anlegen erfolgreich
+             */
+            const { data } = res
+            if (data && data.success) {
+                const closed = await this.$swal({ text: 'Artikel erfolgreich angelegt' })
+                if (closed && closed.value === true) {
+                    this.discard()
+                    this.$router.push({ name: 'artikel-anzeigen' })
+                }
+            } else {
+                console.error(res)
             }
         }
     },
@@ -31,14 +81,9 @@ export default {
             buttons: [
                 { tag: 'Speichern', buttonStyle: 'button-global', action: 'save' },
                 {
-                    tag: 'Speichern & Schließen',
-                    buttonStyle: 'button-global',
-                    action: 'saveandclose'
-                },
-                {
-                    tag: 'Schließen & Verwerfen',
+                    tag: 'Verwerfen',
                     buttonStyle: 'button-global button-close',
-                    action: 'closeanddiscard'
+                    action: 'discard'
                 }
             ],
             header: { section: 'Artikel', action: 'Anlegen' }
