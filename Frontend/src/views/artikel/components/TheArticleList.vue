@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <ListRow v-for="itm of items" :items="itm"></ListRow>
+        <ListRow v-for="(itm, idx) of items" :key="'list-article' + idx" :items="itm"></ListRow>
     </div>
 </template>
 
