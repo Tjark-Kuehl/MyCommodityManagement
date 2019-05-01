@@ -105,7 +105,7 @@ function generatePDF(array $rows)
      */
     $firstEl = getFirstElement(getFirstElement($rows));
 
-    foreach ($rows as $rechnungsposition) {
+    foreach ($rows as $auftragsposition) {
         /**
          * Variabeln
          */
@@ -136,7 +136,7 @@ function generatePDF(array $rows)
         $priceSum = 0;
         $pdf->SetFont('helvetica', 'R', 10);
 
-        foreach ($rechnungsposition as $item) {
+        foreach ($auftragsposition as $item) {
             $price = $item->preis * $item->menge;
 
             insertTableRow(

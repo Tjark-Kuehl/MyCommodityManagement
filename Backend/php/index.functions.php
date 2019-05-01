@@ -50,7 +50,7 @@ function formatQueryInput(array $arr)
  */
 function checkIfArticlesAreValid(array $articles)
 {
-    $requiredValues = ["id", "rechnungsposition", "menge"];
+    $requiredValues = ["id", "auftragsposition", "menge"];
     foreach ($articles as $val) {
         foreach ($requiredValues as $rv) {
             if (!isset($val->{$rv}) || empty($val->{$rv})) {
@@ -62,27 +62,27 @@ function checkIfArticlesAreValid(array $articles)
 }
 
 /**
- * Entfernt eine Rechnung
+ * Entfernt eine Auftrag
  *
- * @param integer $rechnungsId
+ * @param integer $auftragsId
  * @return void
  */
-function removeRechnung(int $rechnungsId)
+function removeAuftrag(int $auftragsId)
 {
     /**
      * Bereitet den SQL query vor und führt ihn aus
      */
-    $stmt = $GLOBALS["db"]->prepare("DELETE FROM rechnung WHERE id = :id");
-    $stmt->execute(formatQueryInput(["id" => $rechnungsId]));
+    $stmt = $GLOBALS["db"]->prepare("DELETE FROM auftrag WHERE id = :id");
+    $stmt->execute(formatQueryInput(["id" => $auftragsId]));
 }
 
 /**
- * Bereitet die für eine Rechnung benötigen Daten vor
+ * Bereitet die für eine Auftrag benötigen Daten vor
  *
- * @param integer $rechnungsId
+ * @param integer $auftragsId
  * @return array
  */
-function prepareRechnungData(int $rechnungsId)
+function prepareAuftragData(int $auftragsId)
 {
     /**
      * Bereitet den SQL query vor und führt ihn aus
@@ -91,29 +91,29 @@ function prepareRechnungData(int $rechnungsId)
         a.ean,
         a.bezeichnung,
         a.preis,
-        ra.rechnungsposition,
+        ra.auftragsposition,
         ra.menge,
         k.id AS kundennr,
         CONCAT(k.vorname, ' ', k.`name`) AS kundenname,
         r.erstellt_zeit
-    FROM rechnung r
+    FROM auftrag r
     JOIN kunden k ON k.id = r.kunde_id
-    JOIN rechnung_artikel ra ON ra.rechnung_id = r.id
+    JOIN auftrag_artikel ra ON ra.auftrag_id = r.id
     JOIN artikel a ON a.id = ra.artikel_id
     WHERE r.id = :id");
 
-    $stmt->execute(formatQueryInput(["id" => $rechnungsId]));
+    $stmt->execute(formatQueryInput(["id" => $auftragsId]));
 
     /**
      * Speichert alle Zeilen in ein array und gibt es zurück
      */
     $rows = [];
     while ($row = $stmt->fetch()) {
-        if (!isset($rows[$row->rechnungsposition])) {
-            $rows[$row->rechnungsposition] = [];
+        if (!isset($rows[$row->auftragsposition])) {
+            $rows[$row->auftragsposition] = [];
         }
 
-        $rows[$row->rechnungsposition][] = $row;
+        $rows[$row->auftragsposition][] = $row;
     }
 
     return $rows;

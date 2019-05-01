@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
 
             break;
-        case 'addRechnung':
+        case 'addAuftrag':
             /**
              * Gibt die field data wieder in der entweder ein Fehler oder ein true
              * enthalten ist
@@ -170,19 +170,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 break;
             }
 
-            $rechnungsId = null;
+            $auftragsId = null;
             try {
                 /**
                  * Bereitet den SQL query vor
                  */
-                $stmt = $db->prepare("INSERT INTO rechnung (kunde_id, bezeichnung, lieferdatum) VALUES (:kunde_id, :bezeichnung, :lieferdatum)");
+                $stmt = $db->prepare("INSERT INTO auftrag (kunde_id, bezeichnung, lieferdatum) VALUES (:kunde_id, :bezeichnung, :lieferdatum)");
 
                 /**
                  * Formatiert die POST Daten um im query verwendet zu werden und führt den
                  * query aus
                  */
                 $stmt->execute(formatQueryInput((array) $data));
-                $rechnungsId = $db->lastInsertId();
+                $auftragsId = $db->lastInsertId();
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
@@ -190,25 +190,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             try {
                 /**
-                 * Wenn die rechnungsId nicht gesetzt wurde dann abbrechen
+                 * Wenn die auftragsId nicht gesetzt wurde dann abbrechen
                  */
-                if (is_null($rechnungsId)) {
+                if (is_null($auftragsId)) {
                     throw new Exception();
                 }
 
                 /**
                  * Bereitet den SQL query vor
                  */
-                $stmt = $db->prepare("INSERT INTO rechnung_artikel (rechnung_id, artikel_id, rechnungsposition, menge) VALUES (:rechnung_id, :artikel_id, :rechnungsposition, :menge)");
+                $stmt = $db->prepare("INSERT INTO auftrag_artikel (auftrag_id, artikel_id, auftragsposition, menge) VALUES (:auftrag_id, :artikel_id, :auftragsposition, :menge)");
 
                 /**
-                 * Wenn die erste Anfrage erfolgreich war die Rechnungs Artikel einfügen
+                 * Wenn die erste Anfrage erfolgreich war die auftrags Artikel einfügen
                  */
                 foreach ($artikel as $a) {
-                    $stmt->execute(formatQueryInput(["rechnung_id" => $rechnungsId, "artikel_id" => $a->id, "rechnungsposition" => $a->rechnungsposition, "menge" => $a->menge]));
+                    $stmt->execute(formatQueryInput(["auftrag_id" => $auftragsId, "artikel_id" => $a->id, "auftragsposition" => $a->auftragsposition, "menge" => $a->menge]));
                 }
             } catch (Exception $e) {
-                removeRechnung($rechnungsId);
+                removeAuftrag($auftragsId);
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
@@ -216,12 +216,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             /**
              * Holt die für das PDF benötigten Daten aus der Datenbank
              */
-            $rechnungsData = prepareRechnungData($rechnungsId);
+            $auftragsData = prepareAuftragData($auftragsId);
 
             /**
-             * Erstellt die PDF Datei für die Rechnung
+             * Erstellt die PDF Datei für die auftrag
              */
-            generatePDF($rechnungsData);
+            generatePDF($auftragsData);
 
             break;
         default:
