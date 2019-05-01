@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * Gibt die field data wieder in der entweder ein Fehler oder ein true
              * enthalten ist
              */
-            $fd = checkFieldData($data, ["ean", "bezeichnung", "preis", "lagerId"]);
+            $fd = checkFieldData($data, ["ean", "bezeichnung", "preis"]);
 
             /**
              * Wenn die field data nicht true ist dann abbrechen und error ausgeben

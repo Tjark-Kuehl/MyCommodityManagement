@@ -22,6 +22,13 @@ Vue.use(VeeValidate, {
 
 Vue.config.productionTip = false
 
+/* Filters */
+Vue.filter('capitalize', function(value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
+})
+
 export default () => {
     const store = createStore()
     const router = createRouter()
