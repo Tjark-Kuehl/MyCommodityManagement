@@ -1,13 +1,13 @@
 <template>
-  <main>
-    <ModalView
-      :items="items"
-      :buttons="buttons"
-      :header="header"
-      @save="save()"
-      @discard="discard()"
-    />
-  </main>
+    <main>
+        <ModalView
+            :items="items"
+            :buttons="buttons"
+            :header="header"
+            @save="save()"
+            @discard="discard()"
+        />
+    </main>
 </template>
 
 <script>
@@ -22,16 +22,6 @@ export default {
     components: {
         ModalView
     },
-    computed: {
-        inputs: {
-            get() {
-                return this.$store.state.kunde.inputs
-            },
-            set(value) {
-                this.setKunde(value)
-            }
-        }
-    },
     data() {
         return {
             buttons: [
@@ -43,6 +33,16 @@ export default {
                 }
             ],
             header: { section: 'Kunde', action: 'Anlegen' }
+        }
+    },
+    computed: {
+        inputs: {
+            get() {
+                return this.$store.state.kunde.inputs
+            },
+            set(value) {
+                this.setKunde(value)
+            }
         }
     }
 }

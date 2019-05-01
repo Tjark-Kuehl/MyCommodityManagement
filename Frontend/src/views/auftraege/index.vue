@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <span>Aufträge</span>
-  </main>
+    <main>
+        <span>Aufträge</span>
+    </main>
 </template>
 
 <script>

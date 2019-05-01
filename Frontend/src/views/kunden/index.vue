@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <span>Kunden</span>
-  </main>
+    <main>
+        <span>Kunden</span>
+    </main>
 </template>
 
 <script>

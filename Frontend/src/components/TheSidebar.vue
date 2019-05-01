@@ -1,26 +1,26 @@
 <template>
-  <nav :class="navShown ? 'opened' : ''">
-    <SidebarItem
-      v-for="(item, i) of items"
-      :key="'sidebarItem' + i"
-      :name="item.name"
-      :icon="item.icon"
-      :dropdown="item.dropdown"
-      :route="item.route"
-      :showdropdown.sync="item.showDropdown"
-      @click.native="toggleDropdown(i)"
-    >
-      <SidebarItem
-        v-for="(item2, i2) of item.dropdown"
-        :key="'sidebarItemDropdown' + i2"
-        :name="item2.name"
-        :icon="item2.icon"
-        :route="item.route + '-' + item2.route"
-        :highlighted="item2.highlighted"
-        :level="2"
-      ></SidebarItem>
-    </SidebarItem>
-  </nav>
+    <nav :class="navShown ? 'opened' : ''">
+        <SidebarItem
+            v-for="(item, i) of items"
+            :key="'sidebarItem' + i"
+            :name="item.name"
+            :icon="item.icon"
+            :dropdown="item.dropdown"
+            :route="item.route"
+            :showdropdown.sync="item.showDropdown"
+            @click.native="toggleDropdown(i)"
+        >
+            <SidebarItem
+                v-for="(item2, i2) of item.dropdown"
+                :key="'sidebarItemDropdown' + i2"
+                :name="item2.name"
+                :icon="item2.icon"
+                :route="item.route + '-' + item2.route"
+                :highlighted="item2.highlighted"
+                :level="2"
+            ></SidebarItem>
+        </SidebarItem>
+    </nav>
 </template>
 
 <script>

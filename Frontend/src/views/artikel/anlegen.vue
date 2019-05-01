@@ -1,13 +1,13 @@
 <template>
-  <main>
-    <ModalView
-      :inputs="inputs"
-      :buttons="buttons"
-      :header="header"
-      @save="save()"
-      @discard="discard()"
-    />
-  </main>
+    <main>
+        <ModalView
+            :inputs="inputs"
+            :buttons="buttons"
+            :header="header"
+            @save="save()"
+            @discard="discard()"
+        />
+    </main>
 </template>
 
 <script>
@@ -21,6 +21,19 @@ export default {
     },
     components: {
         ModalView
+    },
+    data() {
+        return {
+            buttons: [
+                { tag: 'Speichern', buttonStyle: 'button-global', action: 'save' },
+                {
+                    tag: 'Verwerfen',
+                    buttonStyle: 'button-global button-close',
+                    action: 'discard'
+                }
+            ],
+            header: { section: 'Artikel', action: 'Anlegen' }
+        }
     },
     computed: {
         inputs: {
@@ -85,19 +98,6 @@ export default {
             } else {
                 console.error(res)
             }
-        }
-    },
-    data() {
-        return {
-            buttons: [
-                { tag: 'Speichern', buttonStyle: 'button-global', action: 'save' },
-                {
-                    tag: 'Verwerfen',
-                    buttonStyle: 'button-global button-close',
-                    action: 'discard'
-                }
-            ],
-            header: { section: 'Artikel', action: 'Anlegen' }
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonStyle" @click="$emit('click')" v-bind="$attrs">{{ tag }}</button>
+    <button :class="buttonStyle" v-bind="$attrs" @click="$emit('click')">{{ tag }}</button>
 </template>
 
 <script>

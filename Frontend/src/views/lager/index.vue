@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <span>Lager</span>
-  </main>
+    <main>
+        <span>Lager</span>
+    </main>
 </template>
 
 <script>

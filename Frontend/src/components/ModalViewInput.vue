@@ -1,15 +1,15 @@
 <template>
-  <div class="modal-view-input">
-    <title>{{ name }}</title>
-    <input
-      :name="name"
-      type="text"
-      v-bind="$attrs"
-      @input="$emit('input', $event.target.value)"
-      v-validate="validation"
-    >
-    <span class="error">{{ errors.first(name) }}</span>
-  </div>
+    <div class="modal-view-input">
+        <title>{{ name }}</title>
+        <input
+            v-validate="validation"
+            :name="name"
+            type="text"
+            v-bind="$attrs"
+            @input="$emit('input', $event.target.value)"
+        />
+        <span class="error">{{ errors.first(name) }}</span>
+    </div>
 </template>
 
 <script>
