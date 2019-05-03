@@ -23,10 +23,6 @@ export const actions = {
 }
 
 export const mutations = {
-    setLager: function(state, payload) {
-        state.lager = payload
-    },
-    setLagerInputs: function(state, payload) {
-        state.items = payload
-    }
+    setLager: (state, payload) => (state.lager = payload),
+    setLagerInputs: (state, payload) => (state.items = payload)
 }

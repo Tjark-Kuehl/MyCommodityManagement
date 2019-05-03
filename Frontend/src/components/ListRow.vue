@@ -9,12 +9,25 @@
         >
             <span v-if="header">{{ entry.key | capitalize }}</span>
             <span v-else>{{ entry.key }}</span>
+            <OrderButton
+                v-if="header"
+                :order-key="entry.key"
+                :order-direction="orderDirection"
+                :order-by="orderBy"
+                @clicked="updateOrder"
+            ></OrderButton>
         </div>
     </div>
 </template>
 
 <script>
+/* Components */
+import OrderButton from '@/components/OrderButton.vue'
+
 export default {
+    components: {
+        OrderButton
+    },
     props: {
         items: {
             type: Array,
@@ -23,6 +36,21 @@ export default {
         header: {
             type: Boolean,
             default: false
+        },
+        orderBy: {
+            type: String,
+            required: false,
+            default: 'id'
+        },
+        orderDirection: {
+            type: String,
+            required: false,
+            default: 'desc'
+        }
+    },
+    methods: {
+        updateOrder: function(orderKey) {
+            this.$emit('updateOrder', orderKey)
         }
     }
 }

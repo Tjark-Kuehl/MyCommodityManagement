@@ -8,10 +8,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-    setAuftraege: function(state, payload) {
-        state.auftraege = payload
-    },
-    setAuftragInputs: function(state, payload) {
-        state.items = payload
-    }
+    setAuftraege: (state, payload) => (state.auftraege = payload),
+    setAuftragInputs: (state, payload) => (state.items = payload)
 }

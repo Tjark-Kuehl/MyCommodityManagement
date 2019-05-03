@@ -22,10 +22,6 @@ export const actions = {
 }
 
 export const mutations = {
-    setKunden: function(state, payload) {
-        state.kunden = payload
-    },
-    setKundeInputs: function(state, payload) {
-        state.items = payload
-    }
+    setKunden: (state, payload) => (state.kunden = payload),
+    setKundeInputs: (state, payload) => (state.items = payload)
 }

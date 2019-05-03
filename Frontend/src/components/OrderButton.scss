@@ -1,0 +1,17 @@
+svg.dropdown {
+    height: 1rem;
+    width: 1rem;
+    margin: 0.5rem;
+    filter: invert(1);
+    cursor: pointer;
+    opacity: 0;
+    &.active {
+        opacity: 1;
+    }
+    &.ascending {
+        transform: rotate(180deg);
+    }
+    &:hover {
+        opacity: 0.65;
+    }
+}

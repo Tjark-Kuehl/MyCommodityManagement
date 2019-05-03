@@ -7,7 +7,5 @@ export const getters = {
 }
 
 export const mutations = {
-    setNavShown(state, payload) {
-        state.navShown = payload
-    }
+    setNavShown: (state, payload) => (state.navShown = payload)
 }
