@@ -1,7 +1,7 @@
 <template>
     <main>
         <ModalView
-            :items="items"
+            :inputs="inputs"
             :buttons="buttons"
             :header="header"
             @save="save()"
