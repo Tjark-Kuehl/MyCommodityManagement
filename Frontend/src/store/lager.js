@@ -9,7 +9,7 @@ export const state = () => ({
     headers: [
         { key: 'id', width: '10', mobileWidth: '10', classes: '' },
         { key: 'bezeichung', width: '20', mobileWidth: '90', classes: '' },
-        { key: 'strasse', width: '3 0', classes: 'mobile-hidden' },
+        { key: 'strasse', width: '30', classes: 'mobile-hidden' },
         { key: 'hausnummer', width: '10', classes: 'mobile-hidden' },
         { key: 'plz', width: '10', classes: 'mobile-hidden' },
         { key: 'ort', width: '20', classes: 'mobile-hidden' }
