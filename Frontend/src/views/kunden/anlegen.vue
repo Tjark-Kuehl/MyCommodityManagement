@@ -31,7 +31,8 @@ export default {
                     buttonStyle: 'button-global button-close',
                     action: 'discard'
                 }
-            ]
+            ],
+            header: { section: 'Kunde', action: 'Anlegen' }
         }
     },
     computed: {
@@ -40,7 +41,7 @@ export default {
                 return this.$store.state.kunde.inputs
             },
             set(value) {
-                this.setArtikelInputs(value)
+                this.setKundenInputs(value)
             }
         }
     },

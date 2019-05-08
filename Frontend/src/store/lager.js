@@ -26,7 +26,7 @@ export const getters = {
         /**
          * Baut die Artikel Liste anhand des Headers als Vorlage
          */
-        for (let a of state.kunde) {
+        for (let a of state.lager) {
             const templateCopy = JSON.parse(JSON.stringify(state.headers))
             for (let itm of templateCopy) {
                 itm.key = a[itm.key]
