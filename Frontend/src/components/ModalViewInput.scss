@@ -1,7 +1,8 @@
 @import '~@/assets/scss/_variables.scss';
 
 div.modal-view-input {
-    width: 195px;
+    flex: 45%;
+    margin-right: 10px;
     title {
         display: block;
         width: 100%;
@@ -21,5 +22,9 @@ div.modal-view-input {
         display: block;
         line-height: 1.25;
         width: 100%;
+    }
+    @media screen and (max-width: $break-medium) {
+        margin: 0;
+        flex: 100%;
     }
 }
