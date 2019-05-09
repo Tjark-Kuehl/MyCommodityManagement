@@ -9,10 +9,16 @@ export const state = () => ({
         { key: 'bezeichnung', width: '50', mobileWidth: '90', classes: '' },
         { key: 'kunde', width: '20', classes: 'mobile-hidden' },
         { key: 'lieferdatum', width: '20', classes: 'mobile-hidden' }
+        // {
+        //     key: 'artikel',
+        //     width: '20',
+        //     dropdown: 'artikelListe',
+        //     classes: 'mobile-hidden'
+        // }
     ],
     orderBy: 'id',
     orderDirection: 'desc',
-    auftrag: []
+    auftraege: []
 })
 
 export const getters = {
@@ -22,7 +28,7 @@ export const getters = {
         /**
          * Baut die Artikel Liste anhand des Headers als Vorlage
          */
-        for (let a of state.auftrag) {
+        for (let a of state.auftraege) {
             const templateCopy = JSON.parse(JSON.stringify(state.headers))
             for (let itm of templateCopy) {
                 itm.key = a[itm.key]
@@ -61,7 +67,7 @@ export const actions = {
         const { data } = await this.$http.post('/index.php', {
             action: 'getAuftrag'
         })
-        commit('getAuftrag ', data.data)
+        commit('setAuftraege', data.data)
     }
 }
 

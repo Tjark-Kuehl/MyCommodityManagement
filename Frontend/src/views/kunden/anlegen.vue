@@ -80,8 +80,8 @@ export default {
                 plz: obj.Plz,
                 ort: obj.Ort,
                 telefon: obj.Telefon,
-                email: obj.Email,
-                inaktiv: 0
+                email: obj.Email
+                // inaktiv: 0
             })
 
             /**

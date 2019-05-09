@@ -7,7 +7,7 @@
       header
       @updateOrder="updateOrder"
     ></ListRow>
-    <TheAuftragList :items="auftragListe"></TheAuftragList>
+    <TheAuftragList v-if="auftragListe" :items="auftragListe"></TheAuftragList>
   </main>
 </template>
 
@@ -27,7 +27,7 @@ export default {
         ...mapGetters(['auftragListe', 'auftragHeaders']),
         orderBy: {
             get: function() {
-                return this.$store.state.lager.orderBy
+                return this.$store.state.auftrag.orderBy
             },
             set: function(val) {
                 this.$store.commit('setAuftragOrderBy', val)
@@ -46,7 +46,7 @@ export default {
         const { data } = await http.post('/index.php', {
             action: 'getAuftrag'
         })
-        store.commit('setAuftrag', data.data)
+        store.commit('setAuftraege', data.data)
     },
     metaInfo() {
         return {
@@ -54,5 +54,4 @@ export default {
         }
     }
 }
-</script>
 </script>

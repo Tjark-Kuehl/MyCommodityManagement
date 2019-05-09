@@ -7,7 +7,7 @@
       header
       @updateOrder="updateOrder"
     ></ListRow>
-    <TheKundenList :items="artikelListe"></TheKundenList>
+    <TheKundenList v-if="kundenListe" :items="kundenListe"></TheKundenList>
   </main>
 </template>
 

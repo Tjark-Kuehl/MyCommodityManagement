@@ -1,14 +1,14 @@
 <template>
-    <main>
-        <ListRow
-            :items="artikelHeaders"
-            :order-by="orderBy"
-            :order-direction="orderDirection"
-            header
-            @updateOrder="updateOrder"
-        ></ListRow>
-        <TheArticleList :items="artikelListe"></TheArticleList>
-    </main>
+  <main>
+    <ListRow
+      :items="artikelHeaders"
+      :order-by="orderBy"
+      :order-direction="orderDirection"
+      header
+      @updateOrder="updateOrder"
+    ></ListRow>
+    <TheArticleList v-if="artikelListe" :items="artikelListe"></TheArticleList>
+  </main>
 </template>
 
 <script>
