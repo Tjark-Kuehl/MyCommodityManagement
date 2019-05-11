@@ -7,7 +7,8 @@ div.modal-view-input {
         width: 100%;
     }
     input,
-    select {
+    select,
+    .flatpickr-input {
         display: block;
         border: 1px solid $border-color;
         padding: 6px;

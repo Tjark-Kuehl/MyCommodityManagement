@@ -1,21 +1,14 @@
 <template>
-  <div class="modal-view-input">
-    <title>{{ name }}</title>
-    <select
-      v-validate="validation"
-      :name="name"
-      v-bind="$attrs"
-      @input="$emit('input', $event.target.value)"
-    >
-      <option value="-1">Kein Eintrag</option>
-      <option v-for="(i, idx) of items" :key="'items-option' + idx" :value="i.id">
-        {{
-        i.id + '. ' + i.bezeichnung
-        }}
-      </option>
-    </select>
-    <span class="error">{{ errors.first(name) }}</span>
-  </div>
+    <div class="modal-view-input">
+        <title>{{ name }}</title>
+        <select v-validate="validation" :name="name" v-bind="$attrs">
+            <option value="-1">Kein Eintrag</option>
+            <option v-for="(i, idx) of items" :key="'items-option' + idx" :value="i.id">{{
+                i.id + '. ' + i.bezeichnung
+            }}</option>
+        </select>
+        <span class="error">{{ errors.first(name) }}</span>
+    </div>
 </template>
 
 <script>

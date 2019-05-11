@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * query aus
              */
             try {
-                $stmt->execute(formatQueryInput((array) $data));
+                $stmt->execute(formatQueryInput((array)$data));
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * query aus
              */
             try {
-                $stmt->execute(formatQueryInput((array) $data));
+                $stmt->execute(formatQueryInput((array)$data));
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              * query aus
              */
             try {
-                $stmt->execute(formatQueryInput((array) $data));
+                $stmt->execute(formatQueryInput((array)$data));
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                  * Formatiert die POST Daten um im query verwendet zu werden und führt den
                  * query aus
                  */
-                $stmt->execute(formatQueryInput((array) $data));
+                $stmt->execute(formatQueryInput((array)$data));
                 $auftragsId = $db->lastInsertId();
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
@@ -223,19 +223,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             generatePDF($auftragsData);
 
             break;
-        case 'getKunden': 
+        case 'getKunden':
             $SQL = "SELECT * FROM kunden";
             $response->data = getData($db, $SQL);
             break;
-        case 'getArtikel': 
+        case 'getArtikel':
             $SQL = "SELECT * FROM artikel";
             $response->data = getData($db, $SQL);
             break;
-        case 'getLager': 
+        case 'getLager':
             $SQL = "SELECT * FROM lager";
             $response->data = getData($db, $SQL);
             break;
-        case 'getAuftraege': 
+        case 'getAuftraege':
             $SQL = "SELECT * FROM auftrag";
             $response->data = getData($db, $SQL);
             break;
@@ -246,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     /**
      * Fängt aufgetretene Fehler ab oder gibt ein success = true zurück
-     * wenn keine Fehler augetreten ist
+     * wenn keine Fehler augetreten sind
      */
     if (is_null($error)) {
         $response->success = true;

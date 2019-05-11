@@ -1,13 +1,13 @@
 <template>
-  <main>
-    <ModalView
-      :inputs="inputs"
-      :buttons="buttons"
-      :header="header"
-      @save="save()"
-      @discard="discard()"
-    />
-  </main>
+    <main>
+        <ModalView
+            :inputs="inputs"
+            :buttons="buttons"
+            :header="header"
+            @save="save()"
+            @discard="discard()"
+        />
+    </main>
 </template>
 
 <script>
@@ -15,7 +15,9 @@ import ModalView from '@/components/ModalView.vue'
 //
 export default {
     metaInfo() {
-        return {}
+        return {
+            title: 'Aufträge anlegen'
+        }
     },
     components: {
         ModalView

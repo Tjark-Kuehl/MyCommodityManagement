@@ -12,9 +12,8 @@ export const state = () => ({
     headers: [
         { key: 'id', width: '10', mobileWidth: '10', classes: '' },
         { key: 'name', width: '20', mobileWidth: '90', classes: '' },
-        { key: 'strasse', width: '3 0', classes: 'mobile-hidden' },
-        { key: 'hausnummer', width: '10', classes: 'mobile-hidden' },
-        { key: 'plz', width: '10', classes: 'mobile-hidden' },
+        { key: 'strasse', width: '30', classes: 'mobile-hidden' },
+        { key: 'hausnummer', width: '20', classes: 'mobile-hidden' },
         { key: 'ort', width: '20', classes: 'mobile-hidden' }
     ],
     orderBy: 'id',
@@ -29,13 +28,14 @@ export const getters = {
         /**
          * Baut die Artikel Liste anhand des Headers als Vorlage
          */
-        for (let a of state.kunden) {
-            const templateCopy = JSON.parse(JSON.stringify(state.headers))
-            for (let itm of templateCopy) {
-                itm.key = a[itm.key]
+        if (state.kunden && state.kunden.length)
+            for (let a of state.kunden) {
+                const templateCopy = JSON.parse(JSON.stringify(state.headers))
+                for (let itm of templateCopy) {
+                    itm.key = a[itm.key]
+                }
+                newKunde.push(templateCopy)
             }
-            newKunde.push(templateCopy)
-        }
 
         /**
          * Holt sich den Index des sortier keys aus dem Header

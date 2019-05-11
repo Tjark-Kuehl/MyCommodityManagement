@@ -24,13 +24,14 @@ export const getters = {
         /**
          * Baut die Artikel Liste anhand des Headers als Vorlage
          */
-        for (let a of state.artikel) {
-            const templateCopy = JSON.parse(JSON.stringify(state.headers))
-            for (let itm of templateCopy) {
-                itm.key = a[itm.key]
+        if (state.artikel && state.artikel.length)
+            for (let a of state.artikel) {
+                const templateCopy = JSON.parse(JSON.stringify(state.headers))
+                for (let itm of templateCopy) {
+                    itm.key = a[itm.key]
+                }
+                newArtikel.push(templateCopy)
             }
-            newArtikel.push(templateCopy)
-        }
 
         /**
          * Holt sich den Index des sortier keys aus dem Header

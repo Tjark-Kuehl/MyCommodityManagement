@@ -2,13 +2,12 @@ export const state = () => ({
     inputs: [
         { name: 'Bezeichung', value: '' },
         { name: 'Kunde', value: '' },
-        { name: 'Lieferdatum', value: '' }
+        { name: 'Lieferdatum', datepicker: true, value: '' }
     ],
     headers: [
         { key: 'id', width: '10', mobileWidth: '10', classes: '' },
         { key: 'bezeichnung', width: '50', mobileWidth: '90', classes: '' },
-        { key: 'kunde', width: '20', classes: 'mobile-hidden' },
-        { key: 'lieferdatum', width: '20', classes: 'mobile-hidden' }
+        { key: 'kunde', width: '20', classes: 'mobile-hidden' }
         // {
         //     key: 'artikel',
         //     width: '20',
@@ -28,13 +27,14 @@ export const getters = {
         /**
          * Baut die Artikel Liste anhand des Headers als Vorlage
          */
-        for (let a of state.auftraege) {
-            const templateCopy = JSON.parse(JSON.stringify(state.headers))
-            for (let itm of templateCopy) {
-                itm.key = a[itm.key]
+        if (state.auftraege && state.auftraege.length)
+            for (let a of state.auftraege) {
+                const templateCopy = JSON.parse(JSON.stringify(state.headers))
+                for (let itm of templateCopy) {
+                    itm.key = a[itm.key]
+                }
+                newAuftrag.push(templateCopy)
             }
-            newAuftrag.push(templateCopy)
-        }
 
         /**
          * Holt sich den Index des sortier keys aus dem Header

@@ -1,26 +1,33 @@
 <template>
-  <main>
-    <ListRow
-      :items="artikelHeaders"
-      :order-by="orderBy"
-      :order-direction="orderDirection"
-      header
-      @updateOrder="updateOrder"
-    ></ListRow>
-    <TheArticleList v-if="artikelListe" :items="artikelListe"></TheArticleList>
-  </main>
+    <main>
+        <ListRow
+            v-if="artikelHeaders"
+            :items="artikelHeaders"
+            :order-by="orderBy"
+            :order-direction="orderDirection"
+            header
+            @updateOrder="updateOrder"
+        ></ListRow>
+        <TheArticleList
+            v-if="artikelListe && artikelListe.length"
+            :items="artikelListe"
+        ></TheArticleList>
+        <NoItemFound v-else :item-definition="'Artikel'" :goto="'artikel-anlegen'"></NoItemFound>
+    </main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import ListRow from '@/components/ListRow.vue'
 import TheArticleList from '@/views/artikel/components/TheArticleList.vue'
+import NoItemFound from '@/components/NoItemFound.vue'
 import orderMixin from '@/mixins/order'
 
 export default {
     components: {
         ListRow,
-        TheArticleList
+        TheArticleList,
+        NoItemFound
     },
     mixins: [orderMixin],
     computed: {

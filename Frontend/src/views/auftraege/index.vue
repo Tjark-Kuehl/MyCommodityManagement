@@ -1,26 +1,33 @@
 <template>
-  <main>
-    <ListRow
-      :items="auftragHeaders"
-      :order-by="orderBy"
-      :order-direction="orderDirection"
-      header
-      @updateOrder="updateOrder"
-    ></ListRow>
-    <TheAuftragList v-if="auftragListe" :items="auftragListe"></TheAuftragList>
-  </main>
+    <main>
+        <ListRow
+            v-if="auftragHeaders"
+            :items="auftragHeaders"
+            :order-by="orderBy"
+            :order-direction="orderDirection"
+            header
+            @updateOrder="updateOrder"
+        ></ListRow>
+        <TheAuftragList
+            v-if="auftragListe && auftragListe.length"
+            :items="auftragListe"
+        ></TheAuftragList>
+        <NoItemFound v-else :item-definition="'Auftrag'" :goto="'auftraege-anlegen'"></NoItemFound>
+    </main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import ListRow from '@/components/ListRow.vue'
 import TheAuftragList from '@/views/auftraege/components/TheAuftragList.vue'
+import NoItemFound from '@/components/NoItemFound.vue'
 import orderMixin from '@/mixins/order'
 
 export default {
     components: {
         ListRow,
-        TheAuftragList
+        TheAuftragList,
+        NoItemFound
     },
     mixins: [orderMixin],
     computed: {
@@ -50,7 +57,7 @@ export default {
     },
     metaInfo() {
         return {
-            title: 'Auftrag'
+            title: 'Aufträge'
         }
     }
 }

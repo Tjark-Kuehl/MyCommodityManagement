@@ -36,6 +36,7 @@
         "serve-static": "^1.13.2",
         "vee-validate": "^2.2.5",
         "vue": "^2.6.10",
+        "vue-flatpickr-component": "^8.1.2",
         "vue-meta": "^1.6.0",
         "vue-router": "^3.0.1",
         "vue-svg-loader": "^0.12.0",
