@@ -3,7 +3,7 @@
         <div>
             <h2>Es wurde noch kein {{ itemDefinition }} angelegt</h2>
             <RouterLink :to="{ name: goto }" tag="a">
-                <span>Klicken Sie hier um einen neuen Eintrag anzulegen.</span>
+                <span>Klicken Sie hier um ein/-en {{ itemDefinition }} anzulegen</span>
             </RouterLink>
         </div>
     </div>

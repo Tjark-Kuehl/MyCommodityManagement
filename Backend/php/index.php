@@ -239,6 +239,130 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $SQL = "SELECT * FROM auftrag";
             $response->data = getData($db, $SQL);
             break;
+        case 'deleteKunden':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["id"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("UPDATE kunden SET inaktiv = 1, geloescht_zeit = now() WHERE id = :id");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array)$data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+            break;
+        case 'deleteArtikel':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["id"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("UPDATE artikel SET inaktiv = 1, geloescht_zeit = now() WHERE id = :id");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array)$data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+            break;
+        case 'deleteLager':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["id"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("UPDATE lager SET inaktiv = 1, geloescht_zeit = now() WHERE id = :id");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array)$data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+            break;
+        case 'deleteAuftraege':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["id"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("DELETE FROM auftrag WHERE id = :id");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array)$data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+            break;
         default:
             $error = "POST Aktion wurde nicht gesetzt.";
             break;
