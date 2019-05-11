@@ -224,15 +224,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             break;
         case 'getKunden':
-            $SQL = "SELECT * FROM kunden";
+            $SQL = "SELECT * FROM kunden WHERE inaktiv = 0";
             $response->data = getData($db, $SQL);
             break;
         case 'getArtikel':
-            $SQL = "SELECT * FROM artikel";
+            $SQL = "SELECT * FROM artikel WHERE inaktiv = 0";
             $response->data = getData($db, $SQL);
             break;
         case 'getLager':
-            $SQL = "SELECT * FROM lager";
+            $SQL = "SELECT * FROM lager WHERE inaktiv = 0";
             $response->data = getData($db, $SQL);
             break;
         case 'getAuftraege':
