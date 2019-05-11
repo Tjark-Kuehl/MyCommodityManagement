@@ -30,6 +30,11 @@ export default {
                 { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
             ]
         }
+    },
+    watch: {
+        $route() {
+            this.$store.commit('setNavShown', false)
+        }
     }
 }
 </script>
