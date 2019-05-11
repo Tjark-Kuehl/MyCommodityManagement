@@ -75,7 +75,7 @@ export default {
                 ean: obj.EAN,
                 bezeichnung: obj.Bezeichung,
                 kurztext: obj.Kurztext,
-                preis: obj.Preis,
+                preis: obj.Preis.replace(',', '.'),
                 bild: '',
                 inaktiv: 0
             })

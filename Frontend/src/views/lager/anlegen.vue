@@ -1,13 +1,13 @@
 <template>
-  <main>
-    <ModalView
-      :inputs="inputs"
-      :buttons="buttons"
-      :header="header"
-      @save="save()"
-      @discard="discard()"
-    />
-  </main>
+    <main>
+        <ModalView
+            :inputs="inputs"
+            :buttons="buttons"
+            :header="header"
+            @save="save()"
+            @discard="discard()"
+        />
+    </main>
 </template>
 
 <script>
@@ -72,7 +72,8 @@ export default {
              */
             const res = await this.$http.post('/index.php', {
                 action: 'addLager',
-                bezeichnung: obj.Bezeichung,
+                bezeichnung: obj.Bezeichnung,
+                inhouse: 0,
                 strasse: obj.Strasse,
                 hausnummer: obj.Hausnummer,
                 plz: obj.Plz,

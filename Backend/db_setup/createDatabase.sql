@@ -8,7 +8,7 @@ CREATE TABLE artikel
      ean             VARCHAR(128) NOT NULL, 
      bezeichnung     VARCHAR(256) NOT NULL, 
      kurztext        TEXT NULL, 
-     preis           DECIMAL NOT NULL, 
+     preis           DECIMAL(10,2) NOT NULL, 
      bild            VARCHAR(512) NULL, 
      inaktiv         TINYINT(1) DEFAULT 0 NOT NULL, 
      erstellt_zeit   TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL, 

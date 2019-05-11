@@ -1,13 +1,13 @@
 <template>
-  <main>
-    <ModalView
-      :inputs="inputs"
-      :buttons="buttons"
-      :header="header"
-      @save="save()"
-      @discard="discard()"
-    />
-  </main>
+    <main>
+        <ModalView
+            :inputs="inputs"
+            :buttons="buttons"
+            :header="header"
+            @save="save()"
+            @discard="discard()"
+        />
+    </main>
 </template>
 
 <script>
@@ -97,7 +97,7 @@ export default {
                  */
                 if (value) {
                     this.discard()
-                    this.$router.push({ name: 'kunde-anzeigen' })
+                    this.$router.push({ name: 'kunden-anzeigen' })
                 }
             } else {
                 console.error(res)
