@@ -5,8 +5,8 @@ export const state = () => ({
         { name: 'Lieferdatum', datepicker: true, value: '' }
     ],
     headers: [
-        { key: 'id', width: '10', mobileWidth: '10', classes: '' },
-        { key: 'bezeichnung', width: '50', mobileWidth: '90', classes: '' },
+        { key: 'id', width: '10', mobileWidth: '25', classes: '' },
+        { key: 'bezeichnung', width: '50', mobileWidth: '75', classes: '' },
         { key: 'kunde', width: '20', classes: 'mobile-hidden' }
         // {
         //     key: 'artikel',

@@ -3,18 +3,18 @@
         <div
             v-for="(entry, idx) of items"
             :key="'list-item' + idx"
-            :style="{ width: entry.width + '%' }"
+            :style="{ width: getWidth(entry) + '%' }"
             class="list-item"
             :class="entry.classes"
         >
             <template v-if="header">
-                <span>{{ entry.key | capitalize }}</span>
                 <OrderButton
                     :order-key="entry.key"
                     :order-direction="orderDirection"
                     :order-by="orderBy"
                     @clicked="updateOrder"
-                ></OrderButton>
+                    ><span>{{ entry.key | capitalize }}</span></OrderButton
+                >
             </template>
             <span v-else>{{ entry.key }}</span>
         </div>
@@ -58,6 +58,13 @@ export default {
     methods: {
         updateOrder: function(orderKey) {
             this.$emit('updateOrder', orderKey)
+        },
+        getWidth: function(element) {
+            const breakPoint = 600
+            if (window.innerWidth <= breakPoint) {
+                return element.mobileWidth
+            }
+            return element.width
         }
     }
 }

@@ -1,11 +1,17 @@
 <template>
-    <DropdownIcon
-        class="dropdown"
-        :class="[
-            orderKey === orderBy ? (orderDirection === 'asc' ? 'active ascending' : 'active') : ''
-        ]"
-        @click="$emit('clicked', orderKey)"
-    ></DropdownIcon>
+    <div @click="$emit('clicked', orderKey)">
+        <slot></slot>
+        <DropdownIcon
+            class="dropdown"
+            :class="[
+                orderKey === orderBy
+                    ? orderDirection === 'asc'
+                        ? 'active ascending'
+                        : 'active'
+                    : ''
+            ]"
+        ></DropdownIcon>
+    </div>
 </template>
 
 <script>

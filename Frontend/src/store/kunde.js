@@ -10,9 +10,10 @@ export const state = () => ({
         { name: 'Email', value: '' }
     ],
     headers: [
-        { key: 'id', width: '10', mobileWidth: '10', classes: '' },
-        { key: 'name', width: '20', mobileWidth: '90', classes: '' },
-        { key: 'strasse', width: '30', classes: 'mobile-hidden' },
+        { key: 'id', width: '10', mobileWidth: '20', classes: '' },
+        { key: 'name', width: '15', mobileWidth: '40', classes: '' },
+        { key: 'vorname', width: '15', mobileWidth: '40', classes: '' },
+        { key: 'strasse', width: '20', classes: 'mobile-hidden' },
         { key: 'hausnummer', width: '20', classes: 'mobile-hidden' },
         { key: 'ort', width: '20', classes: 'mobile-hidden' }
     ],

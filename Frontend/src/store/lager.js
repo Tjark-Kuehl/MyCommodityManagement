@@ -7,8 +7,8 @@ export const state = () => ({
         { name: 'Ort', value: '' }
     ],
     headers: [
-        { key: 'id', width: '10', mobileWidth: '10', classes: '' },
-        { key: 'bezeichnung', width: '20', mobileWidth: '90', classes: '' },
+        { key: 'id', width: '10', mobileWidth: '25', classes: '' },
+        { key: 'bezeichnung', width: '20', mobileWidth: '75', classes: '' },
         { key: 'strasse', width: '30', classes: 'mobile-hidden' },
         { key: 'hausnummer', width: '20', classes: 'mobile-hidden' },
         { key: 'ort', width: '20', classes: 'mobile-hidden' }

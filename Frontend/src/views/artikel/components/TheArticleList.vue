@@ -1,20 +1,64 @@
 <template>
     <div class="list">
-        <ListRow v-for="(itm, idx) of items" :key="'list-article' + idx" :items="itm"></ListRow>
+        <ListRow v-for="(itm, idx) of items" :key="'list-article' + idx" :items="itm">
+            <button v-if="deleteButtonShown" class="delete" @click="del(itm)">
+                <TrashIcon></TrashIcon>
+            </button>
+        </ListRow>
     </div>
 </template>
 
 <script>
 import ListRow from '@/components/ListRow.vue'
+import TrashIcon from '@/assets/icons/trash.svg'
 
 export default {
     components: {
-        ListRow
+        ListRow,
+        TrashIcon
     },
     props: {
         items: {
             type: Array,
             required: true
+        },
+        deleteButtonShown: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        async del(itm) {
+            /**
+             * Sicherheitsabfrage 'wirklich löschen?'
+             */
+            const { value } = await this.$swal({
+                text: `Möchten Sie den Artikel '${itm[1].key}' wirklich löschen?`,
+                showCancelButton: true
+            })
+
+            if (value) {
+                /**
+                 * Artikel löschen
+                 */
+                const res = await this.$http.post('/index.php', {
+                    action: 'deleteArtikel',
+                    id: itm[0].key
+                })
+
+                /**
+                 * Wenn anlegen erfolgreich
+                 */
+                const { data } = res
+                if (data && data.success) {
+                    /**
+                     * Lädt bei Erfolg die Liste neu
+                     */
+                    this.$store.dispatch('loadArtikel')
+                } else {
+                    console.error(res)
+                }
+            }
         }
     }
 }
