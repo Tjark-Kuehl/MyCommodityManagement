@@ -60,7 +60,10 @@ export const getters = {
 }
 
 export const actions = {
-    async onHttpRequest({ commit }) {
+    async onHttpRequest({ dispatch }) {
+        dispatch('loadArtikel')
+    },
+    async loadArtikel({ commit }) {
         const { data } = await this.$http.post('/index.php', {
             action: 'getArtikel'
         })

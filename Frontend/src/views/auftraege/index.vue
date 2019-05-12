@@ -49,11 +49,8 @@ export default {
             }
         }
     },
-    async fetch({ store, http }) {
-        const { data } = await http.post('/index.php', {
-            action: 'getAuftrag'
-        })
-        store.commit('setAuftraege', data.data)
+    async fetch({ store }) {
+        store.dispatch('loadAuftraege')
     },
     metaInfo() {
         return {

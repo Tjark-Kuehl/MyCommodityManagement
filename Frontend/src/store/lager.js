@@ -61,7 +61,10 @@ export const getters = {
 }
 
 export const actions = {
-    async onHttpRequest({ commit }) {
+    async onHttpRequest({ dispatch }) {
+        dispatch('loadLager')
+    },
+    async loadLager({ commit }) {
         const { data } = await this.$http.post('/index.php', {
             action: 'getLager'
         })

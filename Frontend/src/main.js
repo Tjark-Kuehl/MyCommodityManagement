@@ -11,8 +11,9 @@ import 'normalize.css'
 //
 Vue.use(VueMeta)
 Vue.use(VueSweetalert2, {
-    confirmButtonColor: '#39a2ff'
-    // cancelButtonColor: '#ff7674'
+    confirmButtonColor: '#39a2ff',
+    cancelButtonColor: '#ff7674',
+    cancelButtonText: 'Abbrechen'
 })
 
 Validator.localize({ de })

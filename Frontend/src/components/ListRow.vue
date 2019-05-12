@@ -7,16 +7,18 @@
             class="list-item"
             :class="entry.classes"
         >
-            <span v-if="header">{{ entry.key | capitalize }}</span>
+            <template v-if="header">
+                <span>{{ entry.key | capitalize }}</span>
+                <OrderButton
+                    :order-key="entry.key"
+                    :order-direction="orderDirection"
+                    :order-by="orderBy"
+                    @clicked="updateOrder"
+                ></OrderButton>
+            </template>
             <span v-else>{{ entry.key }}</span>
-            <OrderButton
-                v-if="header"
-                :order-key="entry.key"
-                :order-direction="orderDirection"
-                :order-by="orderBy"
-                @clicked="updateOrder"
-            ></OrderButton>
         </div>
+        <slot></slot>
     </div>
 </template>
 
@@ -46,6 +48,11 @@ export default {
             type: String,
             required: false,
             default: 'desc'
+        }
+    },
+    computed: {
+        hasDefaultSlot() {
+            return !!this.$slots.default
         }
     },
     methods: {

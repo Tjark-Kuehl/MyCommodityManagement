@@ -49,11 +49,8 @@ export default {
             }
         }
     },
-    async fetch({ store, http }) {
-        const { data } = await http.post('/index.php', {
-            action: 'getArtikel'
-        })
-        store.commit('setArtikel', data.data)
+    async fetch({ store }) {
+        store.dispatch('loadArtikel')
     },
     metaInfo() {
         return {

@@ -64,7 +64,10 @@ export const getters = {
 }
 
 export const actions = {
-    async onHttpRequest({ commit }) {
+    async onHttpRequest({ dispatch }) {
+        dispatch('loadKunden')
+    },
+    async loadKunden({ commit }) {
         const { data } = await this.$http.post('/index.php', {
             action: 'getKunden'
         })

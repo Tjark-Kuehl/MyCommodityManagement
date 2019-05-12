@@ -68,7 +68,7 @@ export default {
             }
 
             /**
-             * Artikel anlegen
+             * Lager anlegen
              */
             const res = await this.$http.post('/index.php', {
                 action: 'addLager',

@@ -49,11 +49,8 @@ export default {
             }
         }
     },
-    async fetch({ store, http }) {
-        const { data } = await http.post('/index.php', {
-            action: 'getKunden'
-        })
-        store.commit('setKunden', data.data)
+    async fetch({ store }) {
+        store.dispatch('loadKunden')
     },
     metaInfo() {
         return {

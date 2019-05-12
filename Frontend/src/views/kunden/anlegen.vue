@@ -68,7 +68,7 @@ export default {
             }
 
             /**
-             * Artikel anlegen
+             * Kunde anlegen
              */
             const res = await this.$http.post('/index.php', {
                 action: 'addKunde',

@@ -46,11 +46,8 @@ export default {
             }
         }
     },
-    async fetch({ store, http }) {
-        const { data } = await http.post('/index.php', {
-            action: 'getLager'
-        })
-        store.commit('setLager', data.data)
+    async fetch({ store }) {
+        store.dispatch('loadLager')
     },
     metaInfo() {
         return {

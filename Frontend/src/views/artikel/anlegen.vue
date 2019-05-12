@@ -85,7 +85,9 @@ export default {
              */
             const { data } = res
             if (data && data.success) {
-                const { value } = await this.$swal({ text: 'Artikel erfolgreich angelegt' })
+                const { value } = await this.$swal({
+                    text: 'Artikel erfolgreich angelegt'
+                })
 
                 /**
                  * Wenn box bestätigt wurde, dann alle Daten zurücksetzen und
