@@ -1,13 +1,13 @@
 export const state = () => ({
     inputs: [
-        { name: 'Name', value: '' },
-        { name: 'Vorname', value: '' },
-        { name: 'Strasse', value: '' },
-        { name: 'Hausnummer', value: '' },
-        { name: 'Plz', value: '' },
-        { name: 'Ort', value: '' },
-        { name: 'Telefon', value: '' },
-        { name: 'Email', value: '' }
+        { name: 'Name', validation: 'required', value: '' },
+        { name: 'Vorname', validation: 'required', value: '' },
+        { name: 'Strasse', validation: 'required', value: '' },
+        { name: 'Hausnummer', validation: 'required', value: '' },
+        { name: 'Plz', validation: 'required', value: '' },
+        { name: 'Ort', validation: 'required', value: '' },
+        { name: 'Telefon', validation: 'required', value: '' },
+        { name: 'Email', validation: 'required', value: '' }
     ],
     headers: [
         { key: 'id', width: '10', mobileWidth: '20', classes: '' },

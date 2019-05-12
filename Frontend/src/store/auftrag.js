@@ -9,7 +9,7 @@ function getCurrentDate() {
 
 export const state = () => ({
     inputs: [
-        { name: 'Bezeichung', value: '' },
+        { name: 'Bezeichung', validation: 'required', value: '' },
         {
             name: 'Kunde',
             validation: 'required',
@@ -20,6 +20,7 @@ export const state = () => ({
         },
         {
             name: 'Lieferdatum',
+            validation: 'required',
             datepicker: true,
             value: getCurrentDate(),
             default: getCurrentDate()

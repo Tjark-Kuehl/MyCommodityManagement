@@ -1,10 +1,10 @@
 export const state = () => ({
     inputs: [
-        { name: 'Bezeichnung', value: '' },
-        { name: 'Strasse', value: '' },
-        { name: 'Hausnummer', value: '' },
-        { name: 'Plz', value: '' },
-        { name: 'Ort', value: '' }
+        { name: 'Bezeichnung', validation: 'required', value: '' },
+        { name: 'Strasse', validation: 'required', value: '' },
+        { name: 'Hausnummer', validation: 'required', value: '' },
+        { name: 'Plz', validation: 'required', value: '' },
+        { name: 'Ort', validation: 'required', value: '' }
     ],
     headers: [
         { key: 'id', width: '10', mobileWidth: '25', classes: '' },
