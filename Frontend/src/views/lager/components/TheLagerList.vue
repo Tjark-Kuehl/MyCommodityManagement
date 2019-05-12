@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <ListRow v-for="(itm, idx) of items" :key="'list-lager' + idx" :items="itm">
-            <button class="delete" @click="del(itm)">
+            <button v-if="deleteButtonShown" class="delete" @click="del(itm)">
                 <TrashIcon></TrashIcon>
             </button>
         </ListRow>
@@ -22,7 +22,7 @@ export default {
             type: Array,
             required: true
         },
-        delete: {
+        deleteButtonShown: {
             type: Boolean,
             default: false
         }

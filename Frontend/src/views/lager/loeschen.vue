@@ -11,7 +11,7 @@
         <TheLagerList
             v-if="lagerListe && lagerListe.length"
             :items="lagerListe"
-            delete
+            delete-button-shown
         ></TheLagerList>
     </main>
 </template>
