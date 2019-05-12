@@ -1,7 +1,12 @@
 <template>
     <div class="modal-view-input">
         <title>{{ name }}</title>
-        <flat-pickr v-validate="validation" :config="dateConfig"></flat-pickr>
+        <flat-pickr
+            v-model="val"
+            v-validate="validation"
+            :name="name"
+            :config="dateConfig"
+        ></flat-pickr>
         <span class="error">{{ errors.first(name) }}</span>
     </div>
 </template>
@@ -18,16 +23,29 @@ export default {
         validation: {
             type: String,
             default: ''
+        },
+        value: {
+            type: String,
+            default: ''
         }
     },
     data() {
         return {
+            val: '',
             dateConfig: {
                 locale: German,
                 altInput: false,
                 dateFormat: 'd.m.Y'
             }
         }
+    },
+    watch: {
+        val: function() {
+            this.$emit('change', this.val)
+        }
+    },
+    mounted() {
+        this.val = this.value
     }
 }
 </script>

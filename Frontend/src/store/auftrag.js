@@ -1,3 +1,12 @@
+function getCurrentDate() {
+    const date = new Date()
+    return date.toLocaleDateString('de-DE', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    })
+}
+
 export const state = () => ({
     inputs: [
         { name: 'Bezeichung', value: '' },
@@ -9,18 +18,17 @@ export const state = () => ({
             default: '-1',
             value: '-1'
         },
-        { name: 'Lieferdatum', datepicker: true, value: '' }
+        {
+            name: 'Lieferdatum',
+            datepicker: true,
+            value: getCurrentDate(),
+            default: getCurrentDate()
+        }
     ],
     headers: [
         { key: 'id', width: '10', mobileWidth: '25', classes: '' },
         { key: 'bezeichnung', width: '50', mobileWidth: '75', classes: '' },
         { key: 'kunde', width: '20', classes: 'mobile-hidden' }
-        // {
-        //     key: 'artikel',
-        //     width: '20',
-        //     dropdown: 'artikelListe',
-        //     classes: 'mobile-hidden'
-        // }
     ],
     orderBy: 'id',
     orderDirection: 'desc',

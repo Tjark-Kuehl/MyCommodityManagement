@@ -29,6 +29,8 @@
                             :key="'ModalViewItem' + i"
                             :name="input.name"
                             :validation="input.validation"
+                            :value="input.value"
+                            @change="input.value = $event"
                         ></ModalViewDatepicker>
                     </template>
                 </div>
