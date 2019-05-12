@@ -23,6 +23,7 @@ export const state = () => ({
 })
 
 export const getters = {
+    getKunden: state => state.kunden,
     kundenHeaders: state => state.headers,
     kundenListe: state => {
         let newKunde = []

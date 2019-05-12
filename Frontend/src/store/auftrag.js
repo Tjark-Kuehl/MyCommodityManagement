@@ -1,7 +1,14 @@
 export const state = () => ({
     inputs: [
         { name: 'Bezeichung', value: '' },
-        { name: 'Kunde', value: '' },
+        {
+            name: 'Kunde',
+            validation: 'required',
+            dropdown: 'getKunden',
+            dropdownProps: 'vorname,name',
+            default: '-1',
+            value: '-1'
+        },
         { name: 'Lieferdatum', datepicker: true, value: '' }
     ],
     headers: [
