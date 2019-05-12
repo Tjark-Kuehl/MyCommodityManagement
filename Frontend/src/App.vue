@@ -14,7 +14,7 @@ export default {
         return {
             titleTemplate: 'Wawi - %s',
             htmlAttrs: {
-                lang: 'en'
+                lang: 'de'
             },
             noscript: [{ innerHTML: 'Please enable JavaScript' }],
             meta: [
@@ -27,41 +27,13 @@ export default {
                     'http-equiv': 'Content-Type',
                     content: 'text/html; charset=utf-8'
                 },
-                { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
-                {
-                    name: 'description',
-                    content:
-                        'A simple commodity management system powered by modern web technologies like vue.js and websockets for easy handling.'
-                },
-                { name: 'keywords', content: '' },
-                { name: 'author', content: 'exomia.com' },
-                { name: 'copyright', content: 'exomia.com' },
-                // PWA
-                {
-                    name: 'apple-mobile-web-app-capable',
-                    content: 'yes'
-                },
-                {
-                    name: 'apple-mobile-web-app-title',
-                    content: 'Exomia Cloud'
-                },
-                {
-                    name: 'apple-mobile-web-app-status-bar-style',
-                    content: 'black'
-                },
-                {
-                    name: 'application-name',
-                    content: 'Exomia Cloud'
-                },
-                {
-                    name: 'msapplication-TileColor',
-                    content: '#ffffff'
-                },
-                {
-                    name: 'theme-color',
-                    content: '#ffffff'
-                }
+                { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
             ]
+        }
+    },
+    watch: {
+        $route() {
+            this.$store.commit('setNavShown', false)
         }
     }
 }

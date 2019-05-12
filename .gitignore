@@ -87,8 +87,10 @@ Temporary Items
 .apdisk
 
 # SQL
-/Backend/db
-/Backend/data
+db/
 
 # Composer
 vendor
+
+# PDF
+pdf/

@@ -12,11 +12,7 @@ html * {
 body {
     font-weight: 400;
     font-size: 100%;
-    // background-image: url('~@/assets/layout.png');
-}
-
-#app {
-    // opacity: 0.75;
+    overflow-x: hidden;
 }
 
 html,
@@ -29,6 +25,16 @@ section.middle {
 section.middle {
     display: flex;
     height: calc(100% - #{$header-height});
+}
+
+main {
+    width: calc(100% - #{$sidebar-width});
+    @media screen and (max-width: $break-large) {
+        width: calc(100% - #{$sidebar-width-2});
+    }
+    @media screen and (max-width: $break-medium) {
+        width: 100%;
+    }
 }
 
 /* Fonts */

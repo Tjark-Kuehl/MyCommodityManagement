@@ -1,5 +1,10 @@
 <template>
-    <div class="sidebar-item" :class="[showdropdown ? 'toggled' : '', 'level-' + level]">
+    <RouterLink
+        :to="{ name: route }"
+        tag="div"
+        class="sidebar-item"
+        :class="[showdropdown || highlighted ? 'toggled' : '', 'level-' + level]"
+    >
         <div class="wrapper">
             <div>
                 <!-- Choose icon -->
@@ -20,7 +25,7 @@
         <div v-if="showdropdown" class="dropdown">
             <slot></slot>
         </div>
-    </div>
+    </RouterLink>
 </template>
 
 <script>
@@ -52,6 +57,11 @@ export default {
             type: String,
             required: true
         },
+        route: {
+            type: String,
+            required: false,
+            default: 'home'
+        },
         icon: {
             type: String,
             required: true
@@ -67,9 +77,13 @@ export default {
         showdropdown: {
             type: Boolean,
             default: false
+        },
+        highlighted: {
+            type: Boolean,
+            default: false
         }
     }
 }
 </script>
 
-<style lang="scss" src="@/components/TheSidebarItem.scss" scoped></style>
+<style lang="scss" src="@/components/SidebarItem.scss" scoped></style>

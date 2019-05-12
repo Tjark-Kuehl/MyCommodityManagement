@@ -1,0 +1,32 @@
+@import '~@/assets/scss/_variables.scss';
+
+div.list-row {
+    display: flex;
+    position: relative;
+    padding: 0 1rem;
+    &:not(.header) {
+        border-bottom: 1px solid $border-color;
+    }
+    &.header {
+        background-color: black;
+        div.list-item {
+            span {
+                color: white;
+            }
+        }
+    }
+    div.list-item {
+        cursor: pointer;
+        padding: 0 0.5rem;
+        display: flex;
+        align-items: center;
+        height: $row-height;
+        user-select: none;
+        white-space: nowrap;
+        @media screen and (max-width: $break-medium) {
+            &.mobile-hidden {
+                display: none;
+            }
+        }
+    }
+}

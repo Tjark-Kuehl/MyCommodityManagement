@@ -1,0 +1,44 @@
+@import '~@/assets/scss/_variables.scss';
+
+div.list {
+    justify-content: center;
+    align-items: center;
+    div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 1rem;
+        h2,
+        a > span {
+            text-align: center;
+        }
+        a {
+            display: flex;
+            justify-content: center;
+            text-decoration: none;
+            color: black;
+            border-radius: 10px;
+            margin-bottom: 4rem;
+            background-color: #0000000f;
+            transition: 0.5s;
+            &:hover {
+                background-color: #0000001c;
+            }
+            span {
+                font-weight: 300;
+                padding: 1rem;
+            }
+        }
+        h2 {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 300;
+            @media screen and (max-width: $break-large) {
+                font-size: 30px;
+            }
+            @media screen and (max-width: $break-medium) {
+                font-size: 28px;
+            }
+        }
+    }
+}

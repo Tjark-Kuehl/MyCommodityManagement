@@ -8,7 +8,7 @@ div.sidebar-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 52px;
+        height: $row-height;
         padding: 0 2rem;
         cursor: pointer;
         border-bottom: 1px solid $border-color;
@@ -46,6 +46,10 @@ div.sidebar-item[class*='level-'] {
 
 div.sidebar-item.level-1.toggled {
     background-color: $background-color-2;
+}
+
+div.sidebar-item.level-2.toggled {
+    background-color: $background-hover-color-2;
 }
 
 div.sidebar-item:not(.level-1):not(:last-of-type) {

@@ -1,0 +1,15 @@
+@import '~@/assets/scss/_variables.scss';
+
+div.modal-view-header {
+    background-color: #000000;
+    color: #ffffff;
+    height: 52px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal-view-text {
+    color: #ffffff;
+}

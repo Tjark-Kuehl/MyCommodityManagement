@@ -4,15 +4,37 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    @media screen and (max-width: $break-medium) {
+        justify-content: space-between;
+    }
     height: $header-height;
     width: 100%;
     background-color: $main-color;
     a {
-        padding: 1rem;
-        cursor: pointer;
-        svg {
-            width: 95px;
-            height: 40px;
+        padding: 2rem;
+
+        &.menu {
+            display: none;
+            @media screen and (max-width: $break-medium) {
+                display: block;
+            }
+            svg {
+                width: 20px;
+                height: 20px;
+                filter: invert(1);
+                cursor: pointer;
+            }
+        }
+        &.menu.hidden {
+            svg {
+                visibility: hidden;
+            }
+        }
+        &:not(.menu) {
+            svg {
+                width: 95px;
+                height: 40px;
+            }
         }
     }
 }
