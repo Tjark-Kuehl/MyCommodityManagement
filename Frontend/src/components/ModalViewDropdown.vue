@@ -1,8 +1,8 @@
 <template>
     <div class="modal-view-input">
         <title>{{ name }}</title>
-        <select v-validate="validation" :name="name" @change="$emit('change', $event.target.value)">
-            <option value="-1"></option>
+        <select v-model="val" v-validate="validation" :name="name">
+            <!-- <option value="-1"></option> -->
             <option v-for="(i, idx) of items" :key="'items-option' + idx" :value="i.id">{{
                 i.id + '. ' + getPropsAsString(i)
             }}</option>
@@ -29,12 +29,29 @@ export default {
         dropdownProps: {
             type: String,
             required: true
+        },
+        value: {
+            type: Number,
+            default: 1
+        }
+    },
+    data() {
+        return {
+            val: ''
         }
     },
     computed: {
         items: function() {
             return this.$store.getters[this.getter]
         }
+    },
+    watch: {
+        val: function() {
+            this.$emit('change', this.val)
+        }
+    },
+    mounted() {
+        this.val = this.value
     },
     methods: {
         getPropsAsString: function(itm) {

@@ -82,7 +82,17 @@ export default {
              */
             const { data } = res
             if (data && data.success) {
-                await this.$swal({ text: 'Artikel hinzugefügt' })
+                const { value } = await this.$swal({
+                    text: `Artikel hinzugefügt`,
+                    showCancelButton: true,
+                    cancelButtonColor: '#bdbdbd',
+                    confirmButtonText: 'Zur Übersicht',
+                    cancelButtonText: 'Weitere Artikel hinzufügen'
+                })
+                if (value) {
+                    this.discard()
+                    // router push
+                }
             } else {
                 console.error(res)
             }

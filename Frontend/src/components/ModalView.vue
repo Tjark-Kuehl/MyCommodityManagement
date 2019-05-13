@@ -23,6 +23,7 @@
                             :validation="input.validation"
                             :getter="input.dropdown"
                             :dropdown-props="input.dropdownProps"
+                            :value="input.value"
                             @change="input.value = $event"
                         ></ModalViewDropdown>
                         <ModalViewDatepicker
