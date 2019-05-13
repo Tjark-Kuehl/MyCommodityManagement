@@ -63,6 +63,7 @@ export default {
                     route: 'lager',
                     dropdown: [
                         { name: 'Anzeigen', icon: 'eye', route: 'anzeigen' },
+                        { name: 'Wareneingang', icon: 'in', route: 'wareneingang' },
                         { name: 'Anlegen', icon: 'plus', route: 'anlegen' },
                         { name: 'Löschen', icon: 'trash', route: 'loeschen' }
                     ]

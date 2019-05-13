@@ -6,6 +6,31 @@ export const state = () => ({
         { name: 'Plz', validation: 'required', value: '' },
         { name: 'Ort', validation: 'required', value: '' }
     ],
+    wareneingang_inputs: [
+        {
+            name: 'Lager',
+            validation: 'required|numeric',
+            dropdown: 'getLager',
+            dropdownProps: 'bezeichnung',
+            default: 1,
+            value: 1
+        },
+        {
+            name: 'Artikel',
+            validation: 'required|numeric',
+            dropdown: 'getArtikel',
+            dropdownProps: 'bezeichnung',
+            default: 1,
+            value: 1
+        },
+        {
+            name: 'Menge',
+            validation: 'required|numeric',
+            type: 'number',
+            value: 1,
+            default: 1
+        }
+    ],
     headers: [
         { key: 'id', width: '10', mobileWidth: '25', classes: '' },
         { key: 'bezeichnung', width: '20', mobileWidth: '75', classes: '' },
@@ -19,6 +44,7 @@ export const state = () => ({
 })
 
 export const getters = {
+    getLager: state => state.lager,
     lagerHeaders: state => state.headers,
     lagerListe: state => {
         let newLager = []

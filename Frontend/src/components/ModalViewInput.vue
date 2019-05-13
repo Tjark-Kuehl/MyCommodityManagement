@@ -4,7 +4,7 @@
         <input
             v-validate="validation"
             :name="name"
-            type="text"
+            :type="type"
             v-bind="$attrs"
             @input="$emit('input', $event.target.value)"
         />
@@ -22,6 +22,10 @@ export default {
         validation: {
             type: String,
             default: ''
+        },
+        type: {
+            type: String,
+            default: 'text'
         }
     }
 }

@@ -17,6 +17,7 @@ export const state = () => ({
 })
 
 export const getters = {
+    getArtikel: state => state.artikel,
     artikelHeaders: state => state.headers,
     artikelListe: state => {
         let newArtikel = []

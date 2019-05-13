@@ -177,6 +177,15 @@ export default () => {
                     header: TheHeader,
                     sidebar: TheSidebar
                 }
+            },
+            {
+                path: '/lager/wareneingang',
+                name: 'lager-wareneingang',
+                components: {
+                    default: () => import(/* webpackChunkName: "lager" */ '@/views/lager/wareneingang'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
             }
             /* #endregion */
         ]

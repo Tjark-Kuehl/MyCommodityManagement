@@ -14,6 +14,7 @@
                             v-model="input.value"
                             :name="input.name"
                             :validation="input.validation"
+                            :type="input.type"
                         ></ModalViewInput>
                         <ModalViewDropdown
                             v-else-if="input.dropdown"

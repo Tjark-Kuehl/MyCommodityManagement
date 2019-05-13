@@ -133,6 +133,38 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
 
             break;
+        case 'addLagerArtikel':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["artikel_id", "lager_id", "menge"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $stmt = $db->prepare("INSERT INTO lager_artikel (artikel_id, lager_id, menge) VALUES (:artikel_id, :lager_id, :menge) ON DUPLICATE KEY UPDATE menge = menge + VALUES(menge)");
+
+            /**
+             * Formatiert die POST Daten um im query verwendet zu werden und führt den
+             * query aus
+             */
+            try {
+                $stmt->execute(formatQueryInput((array)$data));
+            } catch (Exception $e) {
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
+
+            break;
         case 'addAuftrag':
             /**
              * Gibt die field data wieder in der entweder ein Fehler oder ein true
