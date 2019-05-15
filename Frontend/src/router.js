@@ -100,6 +100,16 @@ export default () => {
                     sidebar: TheSidebar
                 }
             },
+            {
+                path: '/auftraege/positionen/:id',
+                name: 'auftraege-positionen',
+                components: {
+                    default: () =>
+                        import(/* webpackChunkName: "auftraege" */ '@/views/auftraege/positionen'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
+            },
             /* #endregion */
             /* #region Kunden */
             {

@@ -85,13 +85,12 @@ export default {
                 const { value } = await this.$swal({
                     text: `Artikel hinzugefügt`,
                     showCancelButton: true,
-                    cancelButtonColor: '#bdbdbd',
                     confirmButtonText: 'Zur Übersicht',
                     cancelButtonText: 'Weitere Artikel hinzufügen'
                 })
                 if (value) {
-                    this.$router.push({ name: 'lager-inventar', params: { id: obj.Lager } })
                     this.discard()
+                    this.$router.push({ name: 'lager-inventar', params: { id: obj.Lager } })
                 }
             } else {
                 await this.$swal({

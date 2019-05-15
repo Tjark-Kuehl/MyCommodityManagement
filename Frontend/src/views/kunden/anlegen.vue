@@ -81,7 +81,6 @@ export default {
                 ort: obj.Ort,
                 telefon: obj.Telefon,
                 email: obj.Email
-                // inaktiv: 0
             })
 
             /**

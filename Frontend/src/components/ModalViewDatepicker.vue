@@ -34,7 +34,9 @@ export default {
             val: '',
             dateConfig: {
                 locale: German,
-                altInput: false,
+                mode: 'single',
+                allowInput: false,
+                // altInput: false,
                 dateFormat: 'd.m.Y'
             }
         }

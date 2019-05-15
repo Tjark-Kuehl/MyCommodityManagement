@@ -79,7 +79,13 @@ export default {
                     dropdown: [
                         { name: 'Anzeigen', icon: 'eye', route: 'anzeigen' },
                         { name: 'Anlegen', icon: 'plus', route: 'anlegen' },
-                        { name: 'Löschen', icon: 'trash', route: 'loeschen' }
+                        { name: 'Löschen', icon: 'trash', route: 'loeschen' },
+                        {
+                            name: 'Positionen',
+                            icon: 'item',
+                            route: 'positionen',
+                            params: { id: -1 }
+                        }
                     ]
                 }
             ]

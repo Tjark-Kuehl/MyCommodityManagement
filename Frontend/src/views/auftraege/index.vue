@@ -52,6 +52,10 @@ export default {
     async fetch({ store }) {
         await store.dispatch('loadAuftraege')
     },
+    mounted() {
+        this.orderBy = 'id'
+        this.orderDirection = 'desc'
+    },
     metaInfo() {
         return {
             title: 'Aufträge'

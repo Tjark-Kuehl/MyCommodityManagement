@@ -1,12 +1,5 @@
 function getCurrentDate() {
     const date = new Date()
-    console.log(
-        date.toLocaleDateString('de-DE', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        })
-    )
     return date.toLocaleDateString('de-DE', {
         year: 'numeric',
         month: '2-digit',
@@ -22,8 +15,8 @@ export const state = () => ({
             validation: 'required',
             dropdown: 'getKunden',
             dropdownProps: 'vorname,name',
-            default: '-1',
-            value: '-1'
+            default: 1,
+            value: 1
         },
         {
             name: 'Lieferdatum',
@@ -38,12 +31,21 @@ export const state = () => ({
         { key: 'bezeichnung', width: '50', mobileWidth: '75', classes: '' },
         { key: 'kunde', width: '20', classes: 'mobile-hidden' }
     ],
+    positionen_headers: [
+        { key: 'lager', width: '37.5', mobileWidth: '37.5', classes: '' },
+        { key: 'bezeichnung', width: '37.5', mobileWidth: '37.5', classes: '' },
+        { key: 'menge', width: '25', mobileWidth: '25', classes: '' }
+    ],
     orderBy: 'id',
     orderDirection: 'desc',
-    auftraege: []
+    auftraege: [],
+    positionen: []
 })
 
 export const getters = {
+    /* TODO: Filter abgeschlossen */
+    getAuftraegeNichtAbgeschlossen: state => state.auftraege,
+    auftraegePositionenHeaders: state => state.positionen_headers,
     auftragHeaders: state => state.headers,
     auftragListe: state => {
         let newAuftrag = []
@@ -73,15 +75,57 @@ export const getters = {
         /**
          * Filter
          */
-        newAuftrag.sort((a, b) => {
-            const sort = new Intl.Collator(undefined, {
-                numeric: true,
-                sensitivity: 'base'
-            }).compare(a[idx].key, b[idx].key)
-            return state.orderDirection === 'asc' ? sort * -1 : sort
-        })
+        if (newAuftrag && newAuftrag.length) {
+            // newAuftrag.sort((a, b) => {
+            //     const sort = new Intl.Collator(undefined, {
+            //         numeric: true,
+            //         sensitivity: 'base'
+            //     }).compare(a[idx].key, b[idx].key)
+            //     return state.orderDirection === 'asc' ? sort * -1 : sort
+            // })
+        }
 
         return newAuftrag
+    },
+    auftragPositionenListe: state => {
+        let newArtikel = []
+        /**
+         * Baut die Artikel Liste anhand des Headers als Vorlage
+         */
+        if (state.positionen && state.positionen.length)
+            for (let a of state.positionen) {
+                const templateCopy = JSON.parse(JSON.stringify(state.positionen_headers))
+                for (let itm of templateCopy) {
+                    itm.key = a[itm.key]
+                }
+                newArtikel.push(templateCopy)
+            }
+
+        /**
+         * Holt sich den Index des sortier keys aus dem Header
+         */
+        let idx = 0
+        for (let entry of state.positionen_headers) {
+            if (entry.key === state.orderBy) {
+                break
+            }
+            idx++
+        }
+
+        /**
+         * Filter
+         */
+        if (newArtikel && newArtikel.length) {
+            // newArtikel.sort((a, b) => {
+            //     const sort = new Intl.Collator(undefined, {
+            //         numeric: true,
+            //         sensitivity: 'base'
+            //     }).compare(a[idx].key, b[idx].key)
+            //     return state.orderDirection === 'asc' ? sort * -1 : sort
+            // })
+        }
+
+        return newArtikel
     }
 }
 
@@ -91,14 +135,21 @@ export const actions = {
     },
     async loadAuftraege({ commit }) {
         const { data } = await this.$http.post('/index.php', {
-            action: 'getAuftrag'
+            action: 'getAuftraege'
         })
         commit('setAuftraege', data.data)
+    },
+    async loadAuftraegePositionen({ commit }) {
+        const { data } = await this.$http.post('/index.php', {
+            action: 'getAlleLagerArtikel'
+        })
+        commit('setAuftraegePositionen', data.data)
     }
 }
 
 export const mutations = {
     setAuftraege: (state, payload) => (state.auftraege = payload),
+    setAuftraegePositionen: (state, payload) => (state.positionen = payload),
     setAuftragInputs: (state, payload) => (state.items = payload),
     setAuftragOrderBy: (state, payload) => (state.orderBy = payload),
     setAuftragOrderDirection: (state, payload) => (state.orderDirection = payload)

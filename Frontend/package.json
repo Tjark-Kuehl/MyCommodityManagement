@@ -2,15 +2,12 @@
     "name": "wawi",
     "version": "0.1.0",
     "scripts": {
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service ssr:build",
         "lint": "vue-cli-service lint",
-        "dev": "vue-cli-service serve",
-        "ssr:build": "vue-cli-service ssr:build",
-        "ssr:serve": "vue-cli-service ssr:serve",
-        "ssr:start": "vue-cli-service ssr:start",
-        "ssr:static": "vue-cli-service ssr:static",
-        "update": "npm prune && npm-check -u",
-        "install:prod": "npm i --only=prod --no-optional"
+        "dev": "vue-cli-service ssr:serve",
+        "start": "vue-cli-service ssr:start",
+        "static": "vue-cli-service ssr:static",
+        "update": "npm prune && npm-check -u"
     },
     "dependencies": {
         "@uvue/core": "^0.1.0-alpha",
@@ -48,6 +45,7 @@
     "devDependencies": {
         "@vue/eslint-config-prettier": "^4.0.1",
         "babel-eslint": "^10.0.1",
+        "core-js": "^2.6.5",
         "eslint": "^5.16.0",
         "eslint-plugin-css-modules": "^2.11.0",
         "eslint-plugin-vue": "^5.0.0"

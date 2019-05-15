@@ -83,7 +83,7 @@ export default {
     },
     metaInfo() {
         return {
-            title: 'Lager'
+            title: 'Lager Inventar'
         }
     }
 }

@@ -74,8 +74,7 @@ export default {
                 action: 'addAuftrag',
                 bezeichnung: obj.Bezeichung,
                 lieferdatum: obj.Lieferdatum,
-                kunde_id: obj.Kunde,
-                inaktiv: 0
+                kunde_id: obj.Kunde
             })
 
             /**
