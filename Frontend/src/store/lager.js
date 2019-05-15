@@ -133,7 +133,7 @@ export const getters = {
 
 export const actions = {
     async onHttpRequest({ dispatch }) {
-        dispatch('loadLager')
+        await dispatch('loadLager')
     },
     async loadLager({ commit }) {
         const { data } = await this.$http.post('/index.php', {

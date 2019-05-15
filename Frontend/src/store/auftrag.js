@@ -1,5 +1,12 @@
 function getCurrentDate() {
     const date = new Date()
+    console.log(
+        date.toLocaleDateString('de-DE', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        })
+    )
     return date.toLocaleDateString('de-DE', {
         year: 'numeric',
         month: '2-digit',
@@ -80,7 +87,7 @@ export const getters = {
 
 export const actions = {
     async onHttpRequest({ dispatch }) {
-        dispatch('loadAuftraege')
+        await dispatch('loadAuftraege')
     },
     async loadAuftraege({ commit }) {
         const { data } = await this.$http.post('/index.php', {
