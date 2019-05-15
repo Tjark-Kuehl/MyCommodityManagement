@@ -271,6 +271,30 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $SQL = "SELECT * FROM auftrag";
             $response->data = getData($db, $SQL);
             break;
+        case 'getLagerArtikel':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["lager_id"]);
+
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
+
+            /**
+             * Bereitet den SQL query vor
+             */
+            $SQL = "SELECT la.lager_id, la.menge, a.* FROM lager_artikel la
+            JOIN artikel a on la.artikel_id = a.id
+            WHERE a.inaktiv = 0 AND la.lager_id = :lager_id";
+
+            $response->data = getData($db, $SQL, (array)$data);
+            break;
         case 'deleteKunden':
             /**
              * Gibt die field data wieder in der entweder ein Fehler oder ein true

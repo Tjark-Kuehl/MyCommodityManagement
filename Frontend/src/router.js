@@ -182,7 +182,17 @@ export default () => {
                 path: '/lager/wareneingang',
                 name: 'lager-wareneingang',
                 components: {
-                    default: () => import(/* webpackChunkName: "lager" */ '@/views/lager/wareneingang'),
+                    default: () =>
+                        import(/* webpackChunkName: "lager" */ '@/views/lager/wareneingang'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
+            },
+            {
+                path: '/lager/inventar',
+                name: 'lager-inventar',
+                components: {
+                    default: () => import(/* webpackChunkName: "lager" */ '@/views/lager/inventar'),
                     header: TheHeader,
                     sidebar: TheSidebar
                 }

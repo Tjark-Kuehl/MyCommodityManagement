@@ -53,6 +53,10 @@ export default {
         return {
             title: 'Lager'
         }
+    },
+    mounted() {
+        this.orderBy = 'id'
+        this.orderDirection = 'desc'
     }
 }
 </script>
