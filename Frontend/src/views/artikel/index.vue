@@ -50,7 +50,7 @@ export default {
         }
     },
     async fetch({ store }) {
-        store.dispatch('loadArtikel')
+        await store.dispatch('loadArtikel')
     },
     metaInfo() {
         return {
