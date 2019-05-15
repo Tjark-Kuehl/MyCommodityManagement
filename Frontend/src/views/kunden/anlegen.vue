@@ -100,7 +100,10 @@ export default {
                     this.$router.push({ name: 'kunden-anzeigen' })
                 }
             } else {
-                console.error(res)
+                await this.$swal({
+                    text: res.data.msg,
+                    type: 'error'
+                })
             }
         }
     }

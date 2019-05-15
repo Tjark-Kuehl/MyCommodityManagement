@@ -56,7 +56,10 @@ export default {
                      */
                     this.$store.dispatch('loadLager')
                 } else {
-                    console.error(res)
+                    await this.$swal({
+                        text: res.data.msg,
+                        type: 'error'
+                    })
                 }
             }
         }

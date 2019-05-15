@@ -94,7 +94,10 @@ export default {
                     this.$router.push({ name: 'auftrag-anzeigen' })
                 }
             } else {
-                console.error(res)
+                await this.$swal({
+                    text: res.data.msg,
+                    type: 'error'
+                })
             }
         }
     }
