@@ -27,6 +27,10 @@ div.list-row {
         height: $row-height;
         user-select: none;
         white-space: nowrap;
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         @media screen and (max-width: $break-medium) {
             &.mobile-hidden {
                 display: none;

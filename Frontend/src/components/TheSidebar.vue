@@ -8,6 +8,7 @@
             :dropdown="item.dropdown"
             :route="item.route"
             :showdropdown.sync="item.showDropdown"
+            :params="item.params"
             @click.native="toggleDropdown(i)"
         >
             <SidebarItem
@@ -17,6 +18,7 @@
                 :icon="item2.icon"
                 :route="item.route + '-' + item2.route"
                 :highlighted="item2.highlighted"
+                :params="item2.params"
                 :level="2"
             ></SidebarItem>
         </SidebarItem>
@@ -65,7 +67,7 @@ export default {
                         { name: 'Anzeigen', icon: 'eye', route: 'anzeigen' },
                         { name: 'Anlegen', icon: 'plus', route: 'anlegen' },
                         { name: 'Löschen', icon: 'trash', route: 'loeschen' },
-                        { name: 'Inventar', icon: 'item', route: 'inventar' },
+                        { name: 'Inventar', icon: 'item', route: 'inventar', params: { id: -1 } },
                         { name: 'Wareneingang', icon: 'in', route: 'wareneingang' }
                     ]
                 },

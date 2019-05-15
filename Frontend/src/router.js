@@ -189,7 +189,7 @@ export default () => {
                 }
             },
             {
-                path: '/lager/inventar',
+                path: '/lager/inventar/:id',
                 name: 'lager-inventar',
                 components: {
                     default: () => import(/* webpackChunkName: "lager" */ '@/views/lager/inventar'),

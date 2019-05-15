@@ -1,6 +1,6 @@
 <template>
     <RouterLink
-        :to="{ name: route }"
+        :to="{ name: route, params: params }"
         tag="div"
         class="sidebar-item"
         :class="[showdropdown || highlighted ? 'toggled' : '', 'level-' + level]"
@@ -84,6 +84,10 @@ export default {
         highlighted: {
             type: Boolean,
             default: false
+        },
+        params: {
+            type: Object,
+            default: () => {}
         }
     }
 }

@@ -90,8 +90,8 @@ export default {
                     cancelButtonText: 'Weitere Artikel hinzufügen'
                 })
                 if (value) {
+                    this.$router.push({ name: 'lager-inventar', params: { id: obj.Lager } })
                     this.discard()
-                    // router push
                 }
             } else {
                 console.error(res)

@@ -5,7 +5,7 @@
                 <span>Lager:</span>
             </div>
             <div class="list-item">
-                <select v-model="lagerSelected">
+                <select :value="$route.params.id" @change="changeLager">
                     <option value="-1">Bitte wählen..</option>
                     <option
                         v-for="entry of getLager"
@@ -16,7 +16,7 @@
                 </select>
             </div>
         </div>
-        <template v-if="lagerSelected != '-1'">
+        <template v-if="$route.params && $route.params.id && $route.params.id != '-1'">
             <ListRow
                 v-if="lagerInventarHeaders"
                 :items="lagerInventarHeaders"
@@ -42,15 +42,13 @@ export default {
         TheLagerList
     },
     mixins: [orderMixin],
-    data() {
-        return {
-            lagerSelected: '-1'
-        }
-    },
-    watch: {
-        lagerSelected: function() {
-            if (this.lagerSelected != '-1') {
-                this.$store.dispatch('loadLagerInventar', this.lagerSelected)
+    methods: {
+        changeLager: function(e) {
+            this.$router.push({ name: 'lager-inventar', params: { id: e.target.value } })
+        },
+        updateLagerInventar: function() {
+            if (this.$route.params && this.$route.params.id && this.$route.params.id != '-1') {
+                this.$store.dispatch('loadLagerInventar', this.$route.params.id)
             }
         }
     },
@@ -73,9 +71,15 @@ export default {
             }
         }
     },
+    watch: {
+        $route() {
+            this.updateLagerInventar()
+        }
+    },
     mounted() {
         this.orderBy = 'id'
         this.orderDirection = 'desc'
+        this.updateLagerInventar()
     },
     metaInfo() {
         return {
