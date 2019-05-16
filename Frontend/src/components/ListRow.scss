@@ -4,6 +4,15 @@ div.list-row {
     display: flex;
     position: relative;
     padding: 0 1rem;
+    align-items: center;
+    select.count {
+        position: absolute;
+        right: 0;
+        margin: 0 1rem;
+        width: 75px;
+        border: none;
+        background-color: transparent;
+    }
     &:not(.header) {
         border-bottom: 1px solid $border-color;
     }
@@ -14,6 +23,10 @@ div.list-row {
                 color: white;
             }
         }
+        select {
+            color: white;
+            background-color: transparent;
+        }
     }
     div.list-item {
         cursor: pointer;
@@ -23,6 +36,10 @@ div.list-row {
         height: $row-height;
         user-select: none;
         white-space: nowrap;
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         @media screen and (max-width: $break-medium) {
             &.mobile-hidden {
                 display: none;

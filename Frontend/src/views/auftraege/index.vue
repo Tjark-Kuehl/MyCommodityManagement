@@ -11,6 +11,7 @@
         <TheAuftragList
             v-if="auftragListe && auftragListe.length"
             :items="auftragListe"
+            download-button-shown
         ></TheAuftragList>
         <NoItemFound v-else :item-definition="'Auftrag'" :goto="'auftraege-anlegen'"></NoItemFound>
     </main>
@@ -50,7 +51,11 @@ export default {
         }
     },
     async fetch({ store }) {
-        store.dispatch('loadAuftraege')
+        await store.dispatch('loadAuftraege')
+    },
+    mounted() {
+        this.orderBy = 'id'
+        this.orderDirection = 'desc'
     },
     metaInfo() {
         return {

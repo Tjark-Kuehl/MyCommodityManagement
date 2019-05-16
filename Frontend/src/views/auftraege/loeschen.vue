@@ -48,7 +48,7 @@ export default {
         }
     },
     async fetch({ store }) {
-        store.dispatch('loadAuftraege')
+        await store.dispatch('loadAuftraege')
     },
     metaInfo() {
         return {

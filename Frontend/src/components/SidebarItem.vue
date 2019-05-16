@@ -1,6 +1,6 @@
 <template>
     <RouterLink
-        :to="{ name: route }"
+        :to="{ name: route, params: params }"
         tag="div"
         class="sidebar-item"
         :class="[showdropdown || highlighted ? 'toggled' : '', 'level-' + level]"
@@ -16,6 +16,7 @@
                 <TrashIcon v-if="icon === 'trash'"></TrashIcon>
                 <HomeIcon v-if="icon === 'home'"></HomeIcon>
                 <CrossIcon v-if="icon === 'plus'" style="transform: rotate(45deg)"></CrossIcon>
+                <InIcon v-if="icon === 'in'"></InIcon>
                 <!-- Name -->
                 <span>{{ name }}</span>
             </div>
@@ -37,6 +38,7 @@ import UserIcon from '@/assets/icons/user.svg'
 import TrashIcon from '@/assets/icons/trash.svg'
 import HomeIcon from '@/assets/icons/home.svg'
 import CrossIcon from '@/assets/icons/cross.svg'
+import InIcon from '@/assets/icons/in.svg'
 //
 import DropdownIcon from '@/assets/icons/dropdown.svg'
 
@@ -50,7 +52,8 @@ export default {
         TrashIcon,
         HomeIcon,
         DropdownIcon,
-        CrossIcon
+        CrossIcon,
+        InIcon
     },
     props: {
         name: {
@@ -81,6 +84,10 @@ export default {
         highlighted: {
             type: Boolean,
             default: false
+        },
+        params: {
+            type: Object,
+            default: () => {}
         }
     }
 }

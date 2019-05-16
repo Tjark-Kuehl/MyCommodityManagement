@@ -81,7 +81,6 @@ export default {
                 ort: obj.Ort,
                 telefon: obj.Telefon,
                 email: obj.Email
-                // inaktiv: 0
             })
 
             /**
@@ -100,7 +99,10 @@ export default {
                     this.$router.push({ name: 'kunden-anzeigen' })
                 }
             } else {
-                console.error(res)
+                await this.$swal({
+                    text: res.data.msg,
+                    type: 'error'
+                })
             }
         }
     }

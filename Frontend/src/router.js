@@ -100,6 +100,16 @@ export default () => {
                     sidebar: TheSidebar
                 }
             },
+            {
+                path: '/auftraege/positionen/:id',
+                name: 'auftraege-positionen',
+                components: {
+                    default: () =>
+                        import(/* webpackChunkName: "auftraege" */ '@/views/auftraege/positionen'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
+            },
             /* #endregion */
             /* #region Kunden */
             {
@@ -174,6 +184,25 @@ export default () => {
                 name: 'lager-loeschen',
                 components: {
                     default: () => import(/* webpackChunkName: "lager" */ '@/views/lager/loeschen'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
+            },
+            {
+                path: '/lager/wareneingang',
+                name: 'lager-wareneingang',
+                components: {
+                    default: () =>
+                        import(/* webpackChunkName: "lager" */ '@/views/lager/wareneingang'),
+                    header: TheHeader,
+                    sidebar: TheSidebar
+                }
+            },
+            {
+                path: '/lager/inventar/:id',
+                name: 'lager-inventar',
+                components: {
+                    default: () => import(/* webpackChunkName: "lager" */ '@/views/lager/inventar'),
                     header: TheHeader,
                     sidebar: TheSidebar
                 }

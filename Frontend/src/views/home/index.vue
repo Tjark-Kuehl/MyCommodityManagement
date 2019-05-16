@@ -2,7 +2,7 @@
     <main>
         <section class="wrapper">
             <h2>
-                Wilkommen im
+                Willkommen im
                 <b>Wawi</b>
             </h2>
             <div class="buttonbar">

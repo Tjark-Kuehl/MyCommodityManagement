@@ -1,7 +1,10 @@
 <template>
     <div class="list">
         <ListRow v-for="(itm, idx) of items" :key="'list-auftrag' + idx" :items="itm">
-            <button v-if="deleteButtonShown" class="delete" @click="del(itm)">
+            <button v-if="downloadButtonShown" class="action" @click="download(itm)">
+                <DownloadIcon></DownloadIcon>
+            </button>
+            <button v-if="deleteButtonShown" class="action" @click="del(itm)">
                 <TrashIcon></TrashIcon>
             </button>
         </ListRow>
@@ -11,11 +14,13 @@
 <script>
 import ListRow from '@/components/ListRow.vue'
 import TrashIcon from '@/assets/icons/trash.svg'
+import DownloadIcon from '@/assets/icons/download.svg'
 
 export default {
     components: {
         ListRow,
-        TrashIcon
+        TrashIcon,
+        DownloadIcon
     },
     props: {
         items: {
@@ -25,9 +30,16 @@ export default {
         deleteButtonShown: {
             type: Boolean,
             default: false
+        },
+        downloadButtonShown: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
+        async download(itm) {
+            console.log(itm)
+        },
         async del(itm) {
             /**
              * Sicherheitsabfrage 'wirklich löschen?'
@@ -56,7 +68,10 @@ export default {
                      */
                     this.$store.dispatch('loadAuftraege')
                 } else {
-                    console.error(res)
+                    await this.$swal({
+                        text: res.data.msg,
+                        type: 'error'
+                    })
                 }
             }
         }

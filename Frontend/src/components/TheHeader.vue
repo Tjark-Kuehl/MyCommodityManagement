@@ -3,7 +3,7 @@
         <a class="menu" @click="navShown = !navShown">
             <MenuIcon></MenuIcon>
         </a>
-        <RouterLink :to="{ name: 'home' }" tag="a">
+        <RouterLink :to="{ name: 'home' }" tag="a" aria-label="Startseite">
             <Logo></Logo>
         </RouterLink>
         <a class="menu hidden">

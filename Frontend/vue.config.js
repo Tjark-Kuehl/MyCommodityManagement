@@ -9,6 +9,8 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const svgoConfig = require('./config/svgo.json')
 
 module.exports = {
+    transpileDependencies: ['vue-sweetalert2'],
+
     /* Disabled linting in production to prevent devDeps. error */
     lintOnSave: process.env.NODE_ENV !== 'production',
 

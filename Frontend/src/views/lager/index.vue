@@ -47,12 +47,16 @@ export default {
         }
     },
     async fetch({ store }) {
-        store.dispatch('loadLager')
+        await store.dispatch('loadLager')
     },
     metaInfo() {
         return {
             title: 'Lager'
         }
+    },
+    mounted() {
+        this.orderBy = 'id'
+        this.orderDirection = 'desc'
     }
 }
 </script>

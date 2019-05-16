@@ -1,7 +1,7 @@
 <template>
     <main>
         <ModalView
-            :inputs="inputs"
+            :inputs="wareneingang_inputs"
             :buttons="buttons"
             :header="header"
             @save="save()"
@@ -16,7 +16,7 @@ import ModalView from '@/components/ModalView.vue'
 export default {
     metaInfo() {
         return {
-            title: 'Aufträge anlegen'
+            title: 'Lager Wareneingang'
         }
     },
     components: {
@@ -32,16 +32,16 @@ export default {
                     action: 'discard'
                 }
             ],
-            header: { section: 'Auftrag', action: 'Anlegen' }
+            header: { section: 'Lager', action: 'Wareneingang' }
         }
     },
     computed: {
-        inputs: {
+        wareneingang_inputs: {
             get() {
-                return this.$store.state.auftrag.inputs
+                return this.$store.state.lager.wareneingang_inputs
             },
             set(value) {
-                this.setAuftrag(value)
+                this.setLagerWareneingang(value)
             }
         }
     },
@@ -50,7 +50,7 @@ export default {
             /**
              * Setzt alle Werte der Input felder zurück
              */
-            this.inputs.forEach(el => {
+            this.wareneingang_inputs.forEach(el => {
                 if (el.default) {
                     el.value = el.default
                 } else {
@@ -63,18 +63,18 @@ export default {
              * Daten neu Mappen für einen einfachen zugriff
              */
             let obj = {}
-            for (let ip of this.inputs) {
+            for (let ip of this.wareneingang_inputs) {
                 obj[ip.name] = ip.value
             }
 
             /**
-             * Auftrag anlegen
+             * Lager anlegen
              */
             const res = await this.$http.post('/index.php', {
-                action: 'addAuftrag',
-                bezeichnung: obj.Bezeichung,
-                lieferdatum: obj.Lieferdatum,
-                kunde_id: obj.Kunde
+                action: 'addLagerArtikel',
+                artikel_id: obj.Artikel,
+                lager_id: obj.Lager,
+                menge: obj.Menge
             })
 
             /**
@@ -82,15 +82,15 @@ export default {
              */
             const { data } = res
             if (data && data.success) {
-                const { value } = await this.$swal({ text: 'Auftrag erfolgreich angelegt' })
-
-                /**
-                 * Wenn box bestätigt wurde, dann alle Daten zurücksetzen und
-                 * auf die Übersicht weiterleiten
-                 */
+                const { value } = await this.$swal({
+                    text: `Artikel hinzugefügt`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Zur Übersicht',
+                    cancelButtonText: 'Weitere Artikel hinzufügen'
+                })
                 if (value) {
                     this.discard()
-                    this.$router.push({ name: 'auftraege-anzeigen' })
+                    this.$router.push({ name: 'lager-inventar', params: { id: obj.Lager } })
                 }
             } else {
                 await this.$swal({

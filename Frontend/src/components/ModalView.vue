@@ -14,20 +14,25 @@
                             v-model="input.value"
                             :name="input.name"
                             :validation="input.validation"
+                            :type="input.type"
                         ></ModalViewInput>
                         <ModalViewDropdown
                             v-else-if="input.dropdown"
                             :key="'ModalViewItem' + i"
-                            v-model="input.value"
                             :name="input.name"
                             :validation="input.validation"
                             :getter="input.dropdown"
+                            :dropdown-props="input.dropdownProps"
+                            :value="input.value"
+                            @change="input.value = $event"
                         ></ModalViewDropdown>
                         <ModalViewDatepicker
                             v-else-if="input.datepicker"
                             :key="'ModalViewItem' + i"
                             :name="input.name"
                             :validation="input.validation"
+                            :value="input.value"
+                            @change="input.value = $event"
                         ></ModalViewDatepicker>
                     </template>
                 </div>

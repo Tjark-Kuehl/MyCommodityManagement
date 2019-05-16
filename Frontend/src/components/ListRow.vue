@@ -61,7 +61,7 @@ export default {
         },
         getWidth: function(element) {
             const breakPoint = 600
-            if (window.innerWidth <= breakPoint) {
+            if (typeof window != 'undefined' && window.innerWidth <= breakPoint) {
                 return element.mobileWidth
             }
             return element.width

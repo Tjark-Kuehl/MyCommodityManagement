@@ -24,6 +24,11 @@ export default {
                     content: 'width=device-width, initial-scale=1'
                 },
                 {
+                    name: 'description',
+                    content:
+                        'A simple commodity management system powered by modern web technologies like vue.js for easy handling.'
+                },
+                {
                     'http-equiv': 'Content-Type',
                     content: 'text/html; charset=utf-8'
                 },

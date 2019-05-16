@@ -98,7 +98,10 @@ export default {
                     this.$router.push({ name: 'artikel-anzeigen' })
                 }
             } else {
-                console.error(res)
+                await this.$swal({
+                    text: res.data.msg,
+                    type: 'error'
+                })
             }
         }
     }

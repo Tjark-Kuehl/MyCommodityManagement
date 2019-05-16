@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <ListRow v-for="(itm, idx) of items" :key="'list-lager' + idx" :items="itm">
-            <button v-if="deleteButtonShown" class="delete" @click="del(itm)">
+            <button v-if="deleteButtonShown" class="action" @click="del(itm)">
                 <TrashIcon></TrashIcon>
             </button>
         </ListRow>
@@ -56,7 +56,10 @@ export default {
                      */
                     this.$store.dispatch('loadLager')
                 } else {
-                    console.error(res)
+                    await this.$swal({
+                        text: res.data.msg,
+                        type: 'error'
+                    })
                 }
             }
         }
