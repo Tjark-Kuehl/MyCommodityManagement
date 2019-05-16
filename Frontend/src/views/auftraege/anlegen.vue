@@ -90,7 +90,7 @@ export default {
                  */
                 if (value) {
                     this.discard()
-                    this.$router.push({ name: 'auftrag-anzeigen' })
+                    this.$router.push({ name: 'auftraege-anzeigen' })
                 }
             } else {
                 await this.$swal({

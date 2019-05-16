@@ -69,6 +69,7 @@ CREATE TABLE auftrag
      kunde_id      INT NOT NULL, 
      bezeichnung   VARCHAR(128) NULL, 
      lieferdatum   TIMESTAMP NULL, 
+     rechnung      VARCHAR(512) NULL,
      abgeschlossen TINYINT(1) DEFAULT 0 NOT NULL, 
      abgeschlossen_zeit TIMESTAMP NULL,
      erstellt_zeit TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL, 

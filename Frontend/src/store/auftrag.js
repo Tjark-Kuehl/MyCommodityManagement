@@ -44,7 +44,7 @@ export const state = () => ({
 
 export const getters = {
     /* TODO: Filter abgeschlossen */
-    getAuftraegeNichtAbgeschlossen: state => state.auftraege,
+    getAuftraegeNichtAbgeschlossen: state => state.auftraege.filter(el => el.abgeschlossen == 0),
     auftraegePositionenHeaders: state => state.positionen_headers,
     auftragHeaders: state => state.headers,
     auftragListe: state => {
@@ -97,6 +97,8 @@ export const getters = {
                 const templateCopy = JSON.parse(JSON.stringify(state.positionen_headers))
                 for (let itm of templateCopy) {
                     itm.key = a[itm.key]
+                    itm.id = a.id
+                    itm.lager_id = a.lager_id
                 }
                 newArtikel.push(templateCopy)
             }

@@ -42,16 +42,7 @@ export default {
         TheLagerList
     },
     mixins: [orderMixin],
-    methods: {
-        changeLager: function(e) {
-            this.$router.push({ name: 'lager-inventar', params: { id: e.target.value } })
-        },
-        updateLagerInventar: function() {
-            if (this.$route.params && this.$route.params.id && this.$route.params.id != '-1') {
-                this.$store.dispatch('loadLagerInventar', this.$route.params.id)
-            }
-        }
-    },
+
     computed: {
         ...mapGetters(['lagerInventarListe', 'lagerInventarHeaders', 'getLager']),
         orderBy: {
@@ -71,6 +62,7 @@ export default {
             }
         }
     },
+
     watch: {
         $route() {
             this.updateLagerInventar()
@@ -80,6 +72,16 @@ export default {
         this.orderBy = 'id'
         this.orderDirection = 'desc'
         this.updateLagerInventar()
+    },
+    methods: {
+        changeLager: function(e) {
+            this.$router.push({ name: 'lager-inventar', params: { id: e.target.value } })
+        },
+        updateLagerInventar: function() {
+            if (this.$route.params && this.$route.params.id && this.$route.params.id != '-1') {
+                this.$store.dispatch('loadLagerInventar', this.$route.params.id)
+            }
+        }
     },
     metaInfo() {
         return {

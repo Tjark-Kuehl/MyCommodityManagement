@@ -180,12 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 break;
             }
 
-            // /**
-            //  * Zieht die Artikel aus dem payload
-            //  */
-            // $artikel = $data->artikel;
-            // unset($data->artikel);
-
             /**
              * Formatiert das lieferdatum zu einem von SQL erkennbarem Datum
              */
@@ -193,15 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $data->lieferdatum = toSQLDate($data->lieferdatum);
             }
 
-            /**
-             * Überprüft ob die Artikel korrekt vorliegen
-             */
-            // if (checkIfArticlesAreValid($artikel) !== true) {
-            //     $error = "Fehler in {$action} die gesendeten Artikel sind nicht korrekt!";
-            //     break;
-            // }
-
-            $auftragsId = null;
             try {
                 /**
                  * Bereitet den SQL query vor
@@ -213,46 +198,95 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                  * query aus
                  */
                 $stmt->execute(formatQueryInput((array)$data));
-                // $auftragsId = $db->lastInsertId();
             } catch (Exception $e) {
                 $error = "Fehler bei der Ausführung des querys in {$action}!";
                 break;
             }
 
-            // try {
-            //     /**
-            //      * Wenn die auftragsId nicht gesetzt wurde dann abbrechen
-            //      */
-            //     if (is_null($auftragsId)) {
-            //         throw new Exception();
-            //     }
+            break;
+        case 'finishAuftrag':
+            /**
+             * Gibt die field data wieder in der entweder ein Fehler oder ein true
+             * enthalten ist
+             */
+            $fd = checkFieldData($data, ["artikel", "auftrags_id"]);
 
-            //     /**
-            //      * Bereitet den SQL query vor
-            //      */
-            //     $stmt = $db->prepare("INSERT INTO auftrag_artikel (auftrag_id, artikel_id, auftragsposition, menge) VALUES (:auftrag_id, :artikel_id, :auftragsposition, :menge)");
+            /**
+             * Wenn die field data nicht true ist dann abbrechen und error ausgeben
+             */
+            if ($fd !== true) {
+                $error = $fd;
+                break;
+            }
 
-            //     /**
-            //      * Wenn die erste Anfrage erfolgreich war die auftrags Artikel einfügen
-            //      */
-            //     foreach ($artikel as $a) {
-            //         $stmt->execute(formatQueryInput(["auftrag_id" => $auftragsId, "artikel_id" => $a->id, "auftragsposition" => $a->auftragsposition, "menge" => $a->menge]));
-            //     }
-            // } catch (Exception $e) {
-            //     removeAuftrag($auftragsId);
-            //     $error = "Fehler bei der Ausführung des querys in {$action}!";
-            //     break;
-            // }
+            /**
+             * Überprüft ob die Artikel korrekt vorliegen
+             */
+            if (checkIfArticlesAreValid($data->artikel) !== true) {
+                $error = "Fehler in {$action} die gesendeten Artikel sind nicht korrekt!";
+                break;
+            }
+
+            $pdfName = "auftrag_" . time() . "_{$data->auftrags_id}.pdf";
+            try {
+                /**
+                 * Bereitet den SQL query vor
+                 */
+                $stmt1 = $db->prepare("INSERT INTO auftrag_artikel (auftrag_id, artikel_id, lager_id, auftragsposition, menge) VALUES (:auftrag_id, :artikel_id, :lager_id, :auftragsposition, :menge)");
+
+                /**
+                 * Wenn die erste Anfrage erfolgreich war die auftrags Artikel einfügen
+                 */
+                foreach ($data->artikel as $a) {
+                    /**
+                     * Speichert die Auftrags Artikel
+                     */
+                    $stmt1->execute(formatQueryInput([
+                        "auftrag_id" => $data->auftrags_id,
+                        "artikel_id" => $a->id,
+                        "lager_id" => $a->lager_id,
+                        "auftragsposition" => $a->auftragsposition,
+                        "menge" => $a->selectedCount
+                    ]));
+
+                    /**
+                     * Nimmt die Artikel aus dem Lager
+                     */
+                    $stmt2 = $db->prepare("UPDATE lager_artikel
+                    SET menge = menge - :menge
+                    WHERE artikel_id = :artikel_id AND lager_id = :lager_id");
+                    $stmt2->execute(formatQueryInput([
+                        "artikel_id" => $a->id,
+                        "lager_id" => $a->lager_id,
+                        "menge" => $a->selectedCount
+                    ]));
+                }
+
+                /**
+                 * Schließt den Auftrag ab
+                 */
+                $stmt3 = $db->prepare("UPDATE auftrag
+                SET abgeschlossen_zeit = now(), abgeschlossen = 1, rechnung = :rechnung
+                WHERE id = :id");
+                $stmt3->execute(formatQueryInput([
+                    "id" => $data->auftrags_id,
+                    "rechnung" => $pdfName
+                ]));
+            } catch (Exception $e) {
+                // removeAuftrag($data->auftrags_id);
+                $error = "Fehler bei der Ausführung des querys in {$action}!";
+                break;
+            }
 
             /**
              * Holt die für das PDF benötigten Daten aus der Datenbank
              */
-            // $auftragsData = prepareAuftragData($auftragsId);
+            $auftragsData = prepareAuftragData($data->auftrags_id);
 
             /**
              * Erstellt die PDF Datei für die auftrag
              */
-            // generatePDF($auftragsData);
+            // generatePDF($auftragsData, $pdfName);
 
             break;
         case 'getKunden':
@@ -290,9 +324,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             /**
              * Bereitet den SQL query vor
              */
-            $SQL = "SELECT la.lager_id, la.menge, a.* FROM lager_artikel la
+            $SQL = "SELECT la.lager_id, la.menge, a.* 
+            FROM lager_artikel la
             JOIN artikel a on la.artikel_id = a.id
-            WHERE a.inaktiv = 0 AND la.lager_id = :lager_id";
+            WHERE a.inaktiv = 0 AND la.lager_id = :lager_id AND la.menge > 0";
 
             $response->data = getData($db, $SQL, (array)$data);
             break;
@@ -300,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $SQL = "SELECT la.lager_id, la.menge, l.bezeichnung as lager, a.* FROM lager_artikel la
             JOIN artikel a on la.artikel_id = a.id
             JOIN lager l on l.id = la.lager_id
-            WHERE a.inaktiv = 0";
+            WHERE a.inaktiv = 0 AND la.menge > 0";
             $response->data = getData($db, $SQL);
             break;
         case 'deleteKunden':
