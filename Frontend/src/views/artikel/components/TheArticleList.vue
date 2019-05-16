@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <ListRow v-for="(itm, idx) of items" :key="'list-article' + idx" :items="itm">
-            <button v-if="deleteButtonShown" class="delete" @click="del(itm)">
+            <button v-if="deleteButtonShown" class="action" @click="del(itm)">
                 <TrashIcon></TrashIcon>
             </button>
         </ListRow>

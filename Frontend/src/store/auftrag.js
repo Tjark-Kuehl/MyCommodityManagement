@@ -43,7 +43,6 @@ export const state = () => ({
 })
 
 export const getters = {
-    /* TODO: Filter abgeschlossen */
     getAuftraegeNichtAbgeschlossen: state => state.auftraege.filter(el => el.abgeschlossen == 0),
     auftraegePositionenHeaders: state => state.positionen_headers,
     auftragHeaders: state => state.headers,
