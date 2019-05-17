@@ -90,7 +90,8 @@ Temporary Items
 db/
 
 # Composer
-vendor
+# vendor
+example*
 
 # PDF
 pdf/
