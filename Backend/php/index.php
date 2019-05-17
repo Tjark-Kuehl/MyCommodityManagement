@@ -29,6 +29,27 @@ require_once "./index.functions.php";
 $db = $GLOBALS["db"];
 
 /**
+ * Download der Rechnung
+ */
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    if (isset($_GET['rechnung'])) {
+        $file = '/php/pdf/' . $_GET['rechnung'] . '.pdf';
+        if (!file_exists($file)) {
+            die("Wrong file");
+        }
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        readfile($file);
+    }
+    exit;
+}
+
+/**
  * Fängt alle POST requests ab und geht die möglichen Aktionen durch
  */
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -286,7 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             /**
              * Erstellt die PDF Datei für die auftrag
              */
-            // generatePDF($auftragsData, $pdfName);
+            generatePDF($auftragsData, $pdfName);
 
             break;
         case 'getKunden':
