@@ -56,6 +56,7 @@ export const getters = {
                 const templateCopy = JSON.parse(JSON.stringify(state.headers))
                 for (let itm of templateCopy) {
                     itm.key = a[itm.key]
+                    itm.rechnung = a.rechnung
                 }
                 newAuftrag.push(templateCopy)
             }

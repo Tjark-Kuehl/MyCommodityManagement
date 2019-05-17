@@ -38,7 +38,13 @@ export default {
     },
     methods: {
         async download(itm) {
-            console.log(itm)
+            const link = document.createElement('a')
+            link.href = `${process.env.VUE_APP_API_URL}/?task=download_invoice&id=${
+                itm[0].rechnung.split('.')[0]
+            }`
+            link.setAttribute('download', 'file.pdf')
+            document.body.appendChild(link)
+            link.click()
         },
         async del(itm) {
             /**
