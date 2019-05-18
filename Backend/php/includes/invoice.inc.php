@@ -167,5 +167,5 @@ function generatePDF(array $rows, string $rechnungsname)
         );
     }
 
-    $pdf->Output("/php/pdf/${$rechnungsname}", 'F');
+    $pdf->Output("/php/pdf/{$rechnungsname}", 'F');
 }
