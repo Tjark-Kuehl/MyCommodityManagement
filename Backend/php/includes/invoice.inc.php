@@ -53,7 +53,6 @@ function generatePDF(array $rows, string $rechnungsname)
             for ($i = 0; $i < sizeof($array); $i++) {
                 $widths[$i] = $pageWidth / sizeof($array);
             }
-
         }
 
         // Iterate values
@@ -72,7 +71,6 @@ function generatePDF(array $rows, string $rechnungsname)
                 if ($highestY > 200) {
                     $highestY = $pdf->GetY();
                 }
-
             } else {
                 $pdf->SetXY($x, $y);
             }
@@ -169,5 +167,5 @@ function generatePDF(array $rows, string $rechnungsname)
         );
     }
 
-    $pdf->Output("/php/pdf/auftrag_" . time() . "_{$firstEl->kundennr}.pdf", 'F');
+    $pdf->Output("/php/pdf/${$rechnungsname}", 'F');
 }

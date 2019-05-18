@@ -20,7 +20,7 @@ require_once './vendor/autoload.php';
 require_once "./includes/database.inc.php";
 require_once "./includes/functions.inc.php";
 require_once "./includes/invoice.inc.php";
-require_once "./classes/GermanDate.class.php";
+require_once "./classes/germanDate.class.php";
 require_once "./index.functions.php";
 
 /**
